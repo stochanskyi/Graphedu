@@ -9,6 +9,7 @@ import org.koin.android.ext.android.inject
 class MainActivity : BaseActivity<PresenterContract>(), ViewContract {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Theme_Graphedu)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initViews()
