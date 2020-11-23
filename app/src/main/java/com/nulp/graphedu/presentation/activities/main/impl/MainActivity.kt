@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.nulp.graphedu.R
 import com.nulp.graphedu.presentation.activities.main.MainContract.*
 import com.nulp.graphedu.presentation.common.mvp.BaseActivity
+import com.nulp.graphedu.presentation.fragments.menuFragment.impl.MenuFragment
 import org.koin.android.ext.android.inject
 
 class MainActivity : BaseActivity<PresenterContract>(), ViewContract {
@@ -12,7 +13,7 @@ class MainActivity : BaseActivity<PresenterContract>(), ViewContract {
         setTheme(R.style.Theme_Graphedu)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        initViews()
+        openMenuScreen()
     }
 
     override val presenter: PresenterContract by inject()
@@ -21,8 +22,10 @@ class MainActivity : BaseActivity<PresenterContract>(), ViewContract {
         presenter.view = this
     }
 
-    private fun initViews() {
-
+    fun openMenuScreen() {
+        supportFragmentManager.beginTransaction()
+            .add(R.id.fragmentContainer, MenuFragment.newInstance())
+            .commit()
     }
 
 }

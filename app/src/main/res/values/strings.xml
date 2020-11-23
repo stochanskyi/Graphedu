@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Graphedu</string>
+    <string name="app_name">Graph.edu</string>
+
+    <string name="start">Start</string>
 </resources>

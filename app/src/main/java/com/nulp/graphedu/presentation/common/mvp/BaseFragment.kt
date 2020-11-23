@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import com.nulp.graphedu.presentation.common.extensions.BackPressListener
 import com.nulp.graphedu.presentation.common.extensions.FragmentHolder
 
-abstract class BaseFragment<T: IBasePresenter<IBaseView>>: Fragment,
+abstract class BaseFragment<T : IBasePresenter<out IBaseView>> : Fragment,
     IBaseFragment,
     FragmentHolder,
     BackPressListener {
@@ -18,7 +18,7 @@ abstract class BaseFragment<T: IBasePresenter<IBaseView>>: Fragment,
 
     abstract fun onInitPresenter()
 
-    abstract fun initViews()
+    open fun initViews() {}
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         onInitPresenter()
