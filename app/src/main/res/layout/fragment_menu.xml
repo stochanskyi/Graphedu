@@ -65,6 +65,7 @@
             android:id="@+id/imageAboutUs"
             android:layout_width="35dp"
             android:layout_height="35dp"
+            android:background="@null"
             android:src="@drawable/ic_about_us" />
 
         <TextView
@@ -91,6 +92,7 @@
             android:id="@+id/imageInfo"
             android:layout_width="35dp"
             android:layout_height="35dp"
+            android:background="@null"
             android:src="@drawable/ic_info" />
 
         <TextView
