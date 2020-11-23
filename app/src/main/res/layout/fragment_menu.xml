@@ -3,8 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingStart="32dp"
-    android:paddingEnd="32dp"
     android:paddingBottom="32dp"
     android:background="?android:windowBackground">
 
@@ -27,7 +25,7 @@
         android:layout_marginBottom="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/imageLogo"/>
+        app:layout_constraintBottom_toTopOf="@id/imageLogo" />
 
     <ImageView
         android:id="@+id/imageLogo"
@@ -52,5 +50,57 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/layoutAboutUs"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/layoutInfo">
+
+        <ImageView
+            android:id="@+id/imageAboutUs"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_about_us" />
+
+        <TextView
+            style="@style/MenuButtonText"
+            android:id="@+id/textAboutUs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/about_us_title" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/layoutAboutUs">
+
+        <ImageView
+            android:id="@+id/imageInfo"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_info" />
+
+        <TextView
+            style="@style/MenuButtonText"
+            android:id="@+id/textInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/info_title" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,4 +2,7 @@
     <string name="app_name">Graph.edu</string>
 
     <string name="start">Start</string>
+    
+    <string name="about_us_title">About us</string>
+    <string name="info_title">Info</string>
 </resources>
