@@ -61,7 +61,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/layoutInfo">
 
-        <ImageView
+        <ImageButton
             android:id="@+id/imageAboutUs"
             android:layout_width="35dp"
             android:layout_height="35dp"
@@ -87,7 +87,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/layoutAboutUs">
 
-        <ImageView
+        <ImageButton
             android:id="@+id/imageInfo"
             android:layout_width="35dp"
             android:layout_height="35dp"
