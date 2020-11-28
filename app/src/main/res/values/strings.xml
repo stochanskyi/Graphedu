@@ -5,4 +5,8 @@
     
     <string name="about_us_title">About us</string>
     <string name="info_title">Info</string>
+
+    <string name="tab_title_fractals">Fractals</string>
+    <string name="tab_title_colors">Colors</string>
+    <string name="tab_title_rotation">Rotation</string>
 </resources>

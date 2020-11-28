@@ -13,19 +13,12 @@ class MainActivity : BaseActivity<PresenterContract>(), ViewContract {
         setTheme(R.style.Theme_Graphedu)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        openMenuScreen()
     }
 
     override val presenter: PresenterContract by inject()
 
     override fun onInitPresenter() {
         presenter.view = this
-    }
-
-    fun openMenuScreen() {
-        supportFragmentManager.beginTransaction()
-            .add(R.id.fragmentContainer, MenuFragment.newInstance())
-            .commit()
     }
 
 }
