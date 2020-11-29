@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.use
 import com.nulp.graphedu.R
+import com.nulp.graphedu.presentation.ViewUtils
 import kotlinx.android.synthetic.main.view_color_selector.view.*
 
 
@@ -39,7 +40,8 @@ class ColorSelectorView @JvmOverloads constructor(
         set(value) {
             field = value
             this.background.setTint(value)
-            textColor.text = String.format("#%06X", (0xFFFFFF and value))
+            invalidateColorHex()
+            invalidateTextColors()
             invalidate()
         }
 
@@ -48,7 +50,7 @@ class ColorSelectorView @JvmOverloads constructor(
     init {
         initViews()
         initAttributes(attrs, defStyleAttr, defStyleRes)
-        validateMinWidth()
+        invalidateMinWidth()
     }
 
     private fun initViews() {
@@ -84,12 +86,22 @@ class ColorSelectorView @JvmOverloads constructor(
         }
     }
 
-    private fun validateMinWidth() {
+    fun setColorId(colorId: Int) {
+        this.colorValue = ContextCompat.getColor(context, colorId)
+    }
+
+    private fun invalidateMinWidth() {
         colorValueTextPaint.textSize = textColor.textSize
         textColor.minWidth = colorValueTextPaint.measureText(SAMPLE_TEXT_COLOR).toInt()
     }
 
-    fun setColorId(colorId: Int) {
-        this.colorValue = ContextCompat.getColor(context, colorId)
+    private fun invalidateColorHex() {
+        textColor.text = String.format("#%06X", (0xFFFFFF and colorValue))
+    }
+
+    private fun invalidateTextColors() {
+        val preferableColor = ViewUtils.resolveContrastColor(colorValue)
+        textColorTitle.setTextColor(preferableColor)
+        textColor.setTextColor(preferableColor)
     }
 }
