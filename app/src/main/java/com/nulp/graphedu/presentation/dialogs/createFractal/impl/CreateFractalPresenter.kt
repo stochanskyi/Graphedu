@@ -2,9 +2,8 @@ package com.nulp.graphedu.presentation.dialogs.createFractal.impl
 
 import android.graphics.Color
 import com.nulp.graphedu.presentation.common.mvp.BasePresenter
-import com.nulp.graphedu.presentation.dialogs.createFractal.CreateFractalContract
 import com.nulp.graphedu.presentation.dialogs.createFractal.CreateFractalContract.*
-import com.nulp.graphedu.presentation.dialogs.createFractal.models.FractalCreationResultParams
+import com.nulp.graphedu.presentation.dialogs.createFractal.models.FractalCreationParams
 
 class CreateFractalPresenter : BasePresenter<ViewContract>(), PresenterContract {
 
@@ -96,10 +95,11 @@ class CreateFractalPresenter : BasePresenter<ViewContract>(), PresenterContract 
     }
 
     override fun onCreateClicked() {
-        val colors = mutableListOf(firstColor, secondColor, thirdColor)
-        if (coefficient > 3) colors += fourthColor
+        val colors = mutableListOf(firstColor, secondColor, thirdColor, fourthColor)
+            .take(coefficient)
+
         listener.onCreateConfirmed(
-            FractalCreationResultParams(
+            FractalCreationParams(
                 coefficient,
                 colors.toList()
             )

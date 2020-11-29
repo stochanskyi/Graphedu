@@ -6,7 +6,7 @@ import com.nulp.graphedu.presentation.fragments.fractalsStart.FractalsStartContr
 class FractalsStartPresenter : BasePresenter<ViewContract>(), PresenterContract {
 
     override fun onHandbookClicked() {
-        //TODO
+        //TODO open handbook - fractals
     }
 
     override fun onCreateClicked() {
