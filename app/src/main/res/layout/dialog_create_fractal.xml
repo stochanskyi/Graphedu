@@ -1,39 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="16dp"
-    android:gravity="center"
+    android:orientation="vertical"
     android:background="@drawable/bg_dialog"
-    android:orientation="vertical">
+    android:padding="16dp"
+    android:gravity="center">
 
     <TextView
         android:id="@+id/textTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:textSize="22sp"
+        android:text="@string/dialog_fractal_creation_title"
         android:textColor="@color/black"
-        android:text="@string/dialog_fractal_creation_title" />
+        android:textSize="22sp" />
 
     <TextView
         android:id="@+id/textSubtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:textColor="@color/black"
         android:layout_marginTop="12dp"
-        android:text="@string/dialog_fractal_creation_subtitle" />
+        android:textStyle="bold"
+        android:text="@string/dialog_fractal_creation_subtitle"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
 
     <include layout="@layout/dialog_create_fractal_coefficient_layout" />
 
-    <LinearLayout
+    <com.nulp.graphedu.presentation.views.betterLinearLayout.BetterLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:gravity="center">
+        android:gravity="center"
+        app:bll_children_spacing="12dp">
 
         <com.nulp.graphedu.presentation.views.colorSelector.ColorSelectorView
             android:id="@+id/viewColorSelectorFirst"
@@ -53,7 +54,6 @@
             android:paddingBottom="4dp"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:layout_marginStart="12dp"
             app:color_title="@string/title_second_color"/>
 
         <com.nulp.graphedu.presentation.views.colorSelector.ColorSelectorView
@@ -64,7 +64,6 @@
             android:paddingBottom="4dp"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:layout_marginStart="12dp"
             app:color_title="@string/title_third_color" />
 
         <com.nulp.graphedu.presentation.views.colorSelector.ColorSelectorView
@@ -75,36 +74,33 @@
             android:paddingBottom="4dp"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:layout_marginStart="12dp"
             app:color_title="@string/title_fourth_color" />
 
-    </LinearLayout>
+    </com.nulp.graphedu.presentation.views.betterLinearLayout.BetterLinearLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.nulp.graphedu.presentation.views.betterLinearLayout.BetterLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp">
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        app:bll_children_spacing="32dp">
 
         <Button
             style="@style/ActionButton.ActionButtonNegative"
             android:id="@+id/buttonCancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/action_cancel"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            android:layout_weight="1"
+            android:text="@string/action_cancel" />
 
         <Button
             style="@style/ActionButton.ActionButtonPositive"
             android:id="@+id/buttonCreate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_weight="1"
             android:text="@string/action_create" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.nulp.graphedu.presentation.views.betterLinearLayout.BetterLinearLayout>
 
 </LinearLayout>
