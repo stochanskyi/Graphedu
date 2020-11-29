@@ -9,4 +9,20 @@ abstract class BasePresenter<T : IBaseView> : IBasePresenter<T> {
     override fun release() {
         view = null
     }
+
+    @CallSuper
+    override fun onStart() {
+    }
+
+    @CallSuper
+    override fun onCreate() {
+    }
+
+    @CallSuper
+    override fun onResume() {
+    }
+
+    @CallSuper
+    override fun onPause() {
+    }
 }

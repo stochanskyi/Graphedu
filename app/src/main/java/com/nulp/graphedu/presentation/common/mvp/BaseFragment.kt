@@ -14,14 +14,14 @@ abstract class BaseFragment<T : IBasePresenter<out IBaseView>> : Fragment,
     constructor()
     constructor(layoutId: Int) : super(layoutId)
 
-    abstract val presenter: T
+    protected abstract val presenter: T
 
-    abstract fun onInitPresenter()
+    protected abstract fun initPresenter()
 
-    open fun initViews() {}
+    protected open fun initViews() {}
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        onInitPresenter()
+        initPresenter()
         super.onViewCreated(view, savedInstanceState)
         initViews()
         presenter.onStart()

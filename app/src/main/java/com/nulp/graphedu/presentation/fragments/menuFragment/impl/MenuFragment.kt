@@ -17,7 +17,7 @@ class MenuFragment : BaseFragment<PresenterContract>(R.layout.fragment_menu), Vi
 
     override val presenter: PresenterContract by inject()
 
-    override fun onInitPresenter() {
+    override fun initPresenter() {
         presenter.view = this
     }
 

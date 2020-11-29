@@ -2,6 +2,7 @@ package com.nulp.graphedu.presentation.fragments.fractalsStart.impl
 
 import com.nulp.graphedu.R
 import com.nulp.graphedu.presentation.common.mvp.BaseFragment
+import com.nulp.graphedu.presentation.dialogs.createFractal.impl.CreateFractalDialog
 import com.nulp.graphedu.presentation.fragments.fractalsStart.FractalsStartContract.*
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ClickableMenuItem
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ToolbarConfigurator
@@ -19,7 +20,7 @@ class FractalsStartFragment : BaseFragment<PresenterContract>(R.layout.fragment_
 
     override val presenter: PresenterContract by inject()
 
-    override fun onInitPresenter() {
+    override fun initPresenter() {
         presenter.view = this
     }
 
@@ -35,6 +36,6 @@ class FractalsStartFragment : BaseFragment<PresenterContract>(R.layout.fragment_
     }
 
     override fun showFragmentCreationDialog() {
-        //TODO Show dialog
+        CreateFractalDialog.newInstance().show(childFragmentManager, "as")
     }
 }

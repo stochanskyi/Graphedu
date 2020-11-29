@@ -9,4 +9,11 @@
     <string name="fractals_screen_toolbar_title">Fractals</string>
 
     <string name="create_new_fractal">Click here to create new fractal</string>
+
+    <string name="dialog_fractal_creation_title">Fractal Creation</string>
+    <string name="dialog_fractal_creation_subtitle">f(z) = z^k + c</string>
+
+    <string name="dialog_fractal_first_coefficient_label">k = 3</string>
+    <string name="dialog_fractal_second_coefficient_label">k = 4</string>
+
 </resources>
