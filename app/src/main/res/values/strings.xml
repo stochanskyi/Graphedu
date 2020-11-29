@@ -7,4 +7,6 @@
     <string name="info_title">Info</string>
 
     <string name="fractals_screen_toolbar_title">Fractals</string>
+
+    <string name="create_new_fractal">Click here to create new fractal</string>
 </resources>
