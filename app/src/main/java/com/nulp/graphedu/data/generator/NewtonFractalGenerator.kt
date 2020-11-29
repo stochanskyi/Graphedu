@@ -8,7 +8,7 @@ import com.nulp.graphedu.data.models.complex.Complex
 import com.nulp.graphedu.data.models.polynomial.Polynomial
 
 class NewtonFractalGenerator(
-    private val displayMetrics: DisplayMetrics,
+    private val displayMetrics: DisplayMetrics?,
     private val width: Int,
     private val height: Int,
     private val polynomial: Polynomial,

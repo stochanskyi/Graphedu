@@ -7,17 +7,24 @@ import com.nulp.graphedu.data.models.polynomial.Polynomial
 class NewtonFractalBuilder(
     private val polynomial: Polynomial,
     private val width: Int,
-    private val height: Int,
-    private val metrics: DisplayMetrics
+    private val height: Int
 ) {
+    private var metrics: DisplayMetrics? = null
+
     private var colors: IntArray = intArrayOf(Color.BLACK)
+
     private var scale: Float = 100f
     private var center: Boolean = true
     private var translateX: Float = 0f
     private var translateY: Float = 0f
+
     private var tolerance: Double = 0.000001
     private var maxIterations: Int = 128
     private var brightness: Float = 0.5f
+
+    fun setDisplayMetrics(metrics: DisplayMetrics) = applyParams {
+        this.metrics = metrics
+    }
 
     fun setColors(colors: IntArray): NewtonFractalBuilder = applyParams {
         this.colors = colors
