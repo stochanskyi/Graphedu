@@ -47,8 +47,8 @@ abstract class BaseActivity<out T: IBasePresenter<out IBaseActivity>>: AppCompat
         super.onBackPressed()
     }
 
-    protected open fun onBackPressedInternal(): Boolean = true
-    protected open fun onBackPressedUnhandled(): Boolean = true
+    protected open fun onBackPressedInternal(): Boolean = false
+    protected open fun onBackPressedUnhandled(): Boolean = false
 
     private fun onBackPressedChildHandled(): Boolean {
         for (fragment in supportFragmentManager.fragments.reversed()) {

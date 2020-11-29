@@ -5,4 +5,6 @@
     
     <string name="about_us_title">About us</string>
     <string name="info_title">Info</string>
+
+    <string name="fractals_screen_toolbar_title">Fractals</string>
 </resources>

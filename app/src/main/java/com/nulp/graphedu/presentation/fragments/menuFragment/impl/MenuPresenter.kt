@@ -5,6 +5,10 @@ import com.nulp.graphedu.presentation.fragments.menuFragment.MenuContract.*
 
 class MenuPresenter : BasePresenter<ViewContract>(), PresenterContract {
 
+    override fun onStartClicked() {
+        view?.openFractalsScreen()
+    }
+
     override fun onInfoClicked() {
         //TODO
     }

@@ -6,11 +6,13 @@ import com.nulp.graphedu.presentation.common.mvp.IBasePresenter
 interface MenuContract {
 
     interface ViewContract : IBaseFragment {
-
+        fun openFractalsScreen()
     }
 
     interface PresenterContract : IBasePresenter<ViewContract> {
-         fun onInfoClicked()
-         fun onAboutUsClicked()
+        fun onStartClicked()
+
+        fun onInfoClicked()
+        fun onAboutUsClicked()
     }
 }
