@@ -11,10 +11,10 @@ class CreateFractalPresenter : BasePresenter<ViewContract>(), PresenterContract 
         private const val FIRST_COEFFICIENT_VALUE = 3
         private const val SECOND_COEFFICIENT_VALUE = 4
 
-        private const val DEFAULT_COLOR_1 = "#d90d0d"
-        private const val DEFAULT_COLOR_2 = "#6674EC"
-        private const val DEFAULT_COLOR_3 = "#C6D954"
-        private const val DEFAULT_COLOR_4 = "#e600e6"
+        private const val DEFAULT_COLOR_1 = "#e03d3d"
+        private const val DEFAULT_COLOR_2 = "#31abc4"
+        private const val DEFAULT_COLOR_3 = "#fcba03"
+        private const val DEFAULT_COLOR_4 = "#8149e3"
     }
 
     private lateinit var listener: CreateFractalParent
