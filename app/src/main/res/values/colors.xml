@@ -6,15 +6,19 @@
     <color name="color_secondary">#8bc34a</color>
     <color name="color_secondary_dark">#5a9216</color>
     <color name="color_secondary_light">#bef67a</color>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00000000</color>
 
     <color name="text_color">#000000</color>
     <color name="text_hint_color">#6B6B6B</color>
+
     <color name="window_background_light">#FCFCFC</color>
 
     <color name="rippleDark">#40000000</color>
     <color name="rippleLight">#80ffffff</color>
 
     <color name="zoomButtonColor">#AFB0AF</color>
+
 </resources>

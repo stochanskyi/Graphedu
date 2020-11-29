@@ -10,10 +10,10 @@ class MenuPresenter : BasePresenter<ViewContract>(), PresenterContract {
     }
 
     override fun onInfoClicked() {
-        //TODO
+        //TODO info screen
     }
 
     override fun onAboutUsClicked() {
-        //TODO
+        //TODO about us screen
     }
 }

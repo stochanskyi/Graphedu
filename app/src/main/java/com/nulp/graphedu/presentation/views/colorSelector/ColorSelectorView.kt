@@ -58,7 +58,7 @@ class ColorSelectorView @JvmOverloads constructor(
 
         View.inflate(context, R.layout.view_color_selector, this)
 
-        background = ContextCompat.getDrawable(context, R.drawable.bg_color_selector_rounded)
+        background = ContextCompat.getDrawable(context, R.drawable.bg_color_selector)
 
         textColorTitle.text = title
 

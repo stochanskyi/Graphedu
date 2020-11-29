@@ -22,7 +22,7 @@ class MainActivity : BaseActivity<PresenterContract>(), ViewContract {
         presenter.view = this
     }
 
-    fun openMenuScreen() {
+    private fun openMenuScreen() {
         supportFragmentManager.beginTransaction()
             .add(R.id.fragmentContainer, MenuFragment.newInstance())
             .commit()

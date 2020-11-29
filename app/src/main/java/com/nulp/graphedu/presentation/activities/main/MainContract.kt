@@ -5,12 +5,8 @@ import com.nulp.graphedu.presentation.common.mvp.IBasePresenter
 
 interface MainContract {
 
-    interface ViewContract: IBaseActivity {
+    interface ViewContract: IBaseActivity
 
-    }
-
-    interface PresenterContract : IBasePresenter<ViewContract> {
-
-    }
+    interface PresenterContract : IBasePresenter<ViewContract>
 
 }
