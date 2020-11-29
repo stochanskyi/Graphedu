@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="?attr/colorControlHighlight">
-    <item android:id="@android:id/mask">
-        <shape android:shape="rectangle">
-            <corners android:radius="4dp" />
-            <solid android:color="@android:color/black" />
-        </shape>
-    </item>
-    <item android:id="@android:id/background"
-        android:drawable="@drawable/bg_fractal_k_active_solid" />
-</ripple>
+<shape android:shape="rectangle"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="4dp" />
+    <solid android:color="@color/color_secondary" />
+</shape>
