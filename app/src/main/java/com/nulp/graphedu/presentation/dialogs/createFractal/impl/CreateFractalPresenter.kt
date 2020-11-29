@@ -10,16 +10,21 @@ class CreateFractalPresenter : BasePresenter<ViewContract>(), PresenterContract 
     companion object {
         private const val FIRST_COEFFICIENT_VALUE = 3
         private const val SECOND_COEFFICIENT_VALUE = 4
+
+        private const val DEFAULT_COLOR_1 = "#d90d0d"
+        private const val DEFAULT_COLOR_2 = "#6674EC"
+        private const val DEFAULT_COLOR_3 = "#C6D954"
+        private const val DEFAULT_COLOR_4 = "#e600e6"
     }
 
     private lateinit var listener: CreateFractalParent
 
     private var coefficient = FIRST_COEFFICIENT_VALUE
 
-    private var firstColor: Int = Color.RED
-    private var secondColor: Int = Color.BLUE
-    private var thirdColor: Int = Color.GREEN
-    private var fourthColor: Int = Color.YELLOW
+    private var firstColor: Int = Color.parseColor(DEFAULT_COLOR_1)
+    private var secondColor: Int = Color.parseColor(DEFAULT_COLOR_2)
+    private var thirdColor: Int = Color.parseColor(DEFAULT_COLOR_3)
+    private var fourthColor: Int = Color.parseColor(DEFAULT_COLOR_4)
 
     private var pendingChangeColorAction: ((Int) -> Unit?)? = null
 
