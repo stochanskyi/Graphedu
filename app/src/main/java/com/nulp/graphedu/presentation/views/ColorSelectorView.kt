@@ -28,14 +28,14 @@ class ColorSelectorView @JvmOverloads constructor(
         private const val SAMPLE_TEXT_COLOR = "#FFFFFF"
     }
 
-    private var title: String = DEFAULT_TITLE
+    var title: String = DEFAULT_TITLE
         set(value) {
             field = value
             textColorTitle.text = value
             invalidate()
         }
 
-    private var colorValue: Int = DEFAULT_COLOR
+    var colorValue: Int = DEFAULT_COLOR
         set(value) {
             field = value
             this.background.setTint(value)

@@ -2,6 +2,7 @@ package com.nulp.graphedu.presentation.fragments.fractalsStart.impl
 
 import com.nulp.graphedu.R
 import com.nulp.graphedu.presentation.common.mvp.BaseFragment
+import com.nulp.graphedu.presentation.dialogs.createFractal.CreateFractalContract
 import com.nulp.graphedu.presentation.dialogs.createFractal.impl.CreateFractalDialog
 import com.nulp.graphedu.presentation.fragments.fractalsStart.FractalsStartContract.*
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ClickableMenuItem
@@ -10,7 +11,7 @@ import kotlinx.android.synthetic.main.fragment_fractal_start.*
 import org.koin.android.ext.android.inject
 
 class FractalsStartFragment : BaseFragment<PresenterContract>(R.layout.fragment_fractal_start),
-    ViewContract {
+    ViewContract, CreateFractalContract.CreateFractalParent{
 
     companion object {
         fun newInstance(): FractalsStartFragment {
@@ -37,5 +38,9 @@ class FractalsStartFragment : BaseFragment<PresenterContract>(R.layout.fragment_
 
     override fun showFragmentCreationDialog() {
         CreateFractalDialog.newInstance().show(childFragmentManager, "as")
+    }
+
+    override fun onCreateConfirmed(creationParams: CreateFractalContract.IFractalCreationResultParams) {
+
     }
 }
