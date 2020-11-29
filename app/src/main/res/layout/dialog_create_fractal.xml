@@ -43,7 +43,7 @@
             android:paddingBottom="4dp"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            app:color_value="@color/color_secondary" />
+            app:color_title="@string/title_first_color" />
 
         <com.nulp.graphedu.presentation.views.ColorSelectorView
             android:id="@+id/viewColorSelectorSecond"
@@ -53,8 +53,8 @@
             android:paddingBottom="4dp"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            app:color_value="@color/color_secondary"
-            android:layout_marginStart="12dp" />
+            android:layout_marginStart="12dp"
+            app:color_title="@string/title_second_color"/>
 
         <com.nulp.graphedu.presentation.views.ColorSelectorView
             android:id="@+id/viewColorSelectorThird"
@@ -64,8 +64,8 @@
             android:paddingBottom="4dp"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            app:color_value="@color/color_secondary"
-            android:layout_marginStart="12dp" />
+            android:layout_marginStart="12dp"
+            app:color_title="@string/title_third_color" />
 
         <com.nulp.graphedu.presentation.views.ColorSelectorView
             android:id="@+id/viewColorSelectorFourth"
@@ -75,8 +75,8 @@
             android:paddingBottom="4dp"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            app:color_value="@color/color_secondary"
-            android:layout_marginStart="12dp" />
+            android:layout_marginStart="12dp"
+            app:color_title="@string/title_fourth_color" />
 
     </LinearLayout>
 
