@@ -1,5 +1,6 @@
 package com.nulp.graphedu.presentation.views.toolbarConfigurator
 
+import android.view.View
 import androidx.appcompat.widget.Toolbar
 import com.nulp.graphedu.R
 
@@ -15,8 +16,15 @@ class ToolbarConfigurator {
 
     private val clickableMenuItems: MutableList<ClickableMenuItem> = mutableListOf()
 
+    private var navigationClickListener: View.OnClickListener? = null
+
     fun withNavigationButton(withNavigation: Boolean): ToolbarConfigurator {
         useNavigationButton = withNavigation
+        return this
+    }
+
+    fun setNavigationClickListener(listener: View.OnClickListener): ToolbarConfigurator {
+        this.navigationClickListener = listener
         return this
     }
 
@@ -50,6 +58,7 @@ class ToolbarConfigurator {
 
         if (useNavigationButton) {
             toolbar.setNavigationIcon(navigationButtonDrawableId)
+            toolbar.setNavigationOnClickListener(navigationClickListener)
         }
 
         if (title.isNotBlank()) {

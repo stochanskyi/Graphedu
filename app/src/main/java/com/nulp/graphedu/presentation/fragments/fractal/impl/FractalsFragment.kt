@@ -52,6 +52,7 @@ class FractalsFragment : BaseFragment<PresenterContract>(R.layout.fragment_fract
     override fun initViews() {
         ToolbarConfigurator()
             .withNavigationButton(true)
+            .setNavigationClickListener { close() }
             .setTitle(getString(R.string.fractals_screen_toolbar_title))
             .setMenuId(R.menu.menu_with_handbook)
             .addClickableItem(ClickableMenuItem(R.id.buttonHandbook) { presenter.onHandbookClicked() })
