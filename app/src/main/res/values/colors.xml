@@ -9,5 +9,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="text_color">#000000</color>
+    <color name="text_hint_color">#6B6B6B</color>
     <color name="window_background_light">#FCFCFC</color>
 </resources>

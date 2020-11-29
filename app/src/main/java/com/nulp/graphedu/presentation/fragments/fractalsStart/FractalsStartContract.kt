@@ -6,10 +6,12 @@ import com.nulp.graphedu.presentation.common.mvp.IBasePresenter
 interface FractalsStartContract {
 
     interface ViewContract: IBaseFragment {
-
+        fun showFragmentCreationDialog()
     }
 
     interface PresenterContract: IBasePresenter<ViewContract> {
         fun onHandbookClicked()
+
+        fun onCreateClicked()
     }
 }

@@ -30,5 +30,11 @@ class FractalsStartFragment : BaseFragment<PresenterContract>(R.layout.fragment_
             .setMenuId(R.menu.menu_with_handbook)
             .addClickableItem(ClickableMenuItem(R.id.buttonHandbook) { presenter.onHandbookClicked() })
             .applyToToolbar(toolbar)
+
+        layoutContent.setOnClickListener { presenter.onCreateClicked() }
+    }
+
+    override fun showFragmentCreationDialog() {
+        //TODO Show dialog
     }
 }
