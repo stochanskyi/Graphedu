@@ -6,12 +6,16 @@ import android.view.ViewTreeObserver
 
 object ViewUtils {
     fun resolveContrastColor(color: Int): Int {
-        val luminance: Double = (
-                0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(color)
-                ) / 255
+        return if (isColorDark(color)) Color.WHITE
+        else Color.BLACK
+    }
 
-        return if (luminance > 0.5) Color.BLACK
-        else Color.WHITE
+    fun isColorDark(color: Int): Boolean {
+        val luminance = (0.299 * Color.red(color) +
+                0.587 * Color.green(color) +
+                0.114 * Color.blue(color)
+                ) / 255
+        return luminance < 0.5
     }
 }
 

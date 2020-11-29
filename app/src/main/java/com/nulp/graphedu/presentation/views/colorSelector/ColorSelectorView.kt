@@ -1,4 +1,4 @@
-package com.nulp.graphedu.presentation.views
+package com.nulp.graphedu.presentation.views.colorSelector
 
 import android.content.Context
 import android.graphics.Color
@@ -39,9 +39,9 @@ class ColorSelectorView @JvmOverloads constructor(
     var colorValue: Int = DEFAULT_COLOR
         set(value) {
             field = value
-            this.background.setTint(value)
+            background.setTint(value)
             invalidateColorHex()
-            invalidateTextColors()
+            invalidateColorLuminance()
             invalidate()
         }
 
@@ -58,13 +58,13 @@ class ColorSelectorView @JvmOverloads constructor(
 
         View.inflate(context, R.layout.view_color_selector, this)
 
-        this.background = ContextCompat.getDrawable(context, R.drawable.bg_color_selector_rounded)
+        background = ContextCompat.getDrawable(context, R.drawable.bg_color_selector_rounded)
 
         textColorTitle.text = title
 
         textColor.text = Integer.toHexString(colorValue)
 
-        background.setTint(Color.BLACK)
+        colorValue = Color.BLACK
     }
 
     private fun initAttributes(
@@ -99,9 +99,14 @@ class ColorSelectorView @JvmOverloads constructor(
         textColor.text = String.format("#%06X", (0xFFFFFF and colorValue))
     }
 
-    private fun invalidateTextColors() {
-        val preferableColor = ViewUtils.resolveContrastColor(colorValue)
-        textColorTitle.setTextColor(preferableColor)
-        textColor.setTextColor(preferableColor)
+    private fun invalidateColorLuminance() {
+        val isColorDark = ViewUtils.isColorDark(colorValue)
+        val luminance =
+            if (isColorDark) ColorSelectorDark
+            else ColorSelectorLight
+
+        textColorTitle.setTextColor(luminance.textColor)
+        textColor.setTextColor(luminance.textColor)
+        foreground = ContextCompat.getDrawable(context, luminance.rippleRes)
     }
 }
