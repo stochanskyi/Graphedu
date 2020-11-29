@@ -16,4 +16,7 @@
     <string name="dialog_fractal_first_coefficient_label">k = 3</string>
     <string name="dialog_fractal_second_coefficient_label">k = 4</string>
 
+    <string name="action_cancel">Cancel</string>
+    <string name="action_create">Create</string>
+
 </resources>

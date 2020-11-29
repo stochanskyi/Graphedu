@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ColorSelectorView">
+        <attr name="color_value" format="color" />
+        <attr name="color_title" format="string" />
+    </declare-styleable>
+</resources>
