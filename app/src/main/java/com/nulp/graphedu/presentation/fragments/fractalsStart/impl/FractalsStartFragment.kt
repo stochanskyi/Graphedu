@@ -4,14 +4,16 @@ import com.nulp.graphedu.R
 import com.nulp.graphedu.presentation.common.mvp.BaseFragment
 import com.nulp.graphedu.presentation.dialogs.createFractal.CreateFractalContract
 import com.nulp.graphedu.presentation.dialogs.createFractal.impl.CreateFractalDialog
-import com.nulp.graphedu.presentation.fragments.fractalsStart.FractalsStartContract.*
+import com.nulp.graphedu.presentation.fragments.fractal.impl.FractalsFragment
+import com.nulp.graphedu.presentation.fragments.fractalsStart.FractalsStartContract.PresenterContract
+import com.nulp.graphedu.presentation.fragments.fractalsStart.FractalsStartContract.ViewContract
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ClickableMenuItem
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ToolbarConfigurator
 import kotlinx.android.synthetic.main.fragment_fractal_start.*
 import org.koin.android.ext.android.inject
 
 class FractalsStartFragment : BaseFragment<PresenterContract>(R.layout.fragment_fractal_start),
-    ViewContract, CreateFractalContract.CreateFractalParent{
+    ViewContract, CreateFractalContract.CreateFractalParent {
 
     companion object {
         fun newInstance(): FractalsStartFragment {
@@ -41,6 +43,14 @@ class FractalsStartFragment : BaseFragment<PresenterContract>(R.layout.fragment_
     }
 
     override fun onCreateConfirmed(creationParams: CreateFractalContract.IFractalCreationResultParams) {
-
+        childFragmentManager.beginTransaction()
+            .addToBackStack(null)
+            .add(
+                R.id.fragmentContainer, FractalsFragment.newInstance(
+                    creationParams.coefficient,
+                    creationParams.colors
+                )
+            )
+            .commit()
     }
 }

@@ -4,6 +4,8 @@ import com.nulp.graphedu.presentation.activities.main.MainContract
 import com.nulp.graphedu.presentation.activities.main.impl.MainPresenter
 import com.nulp.graphedu.presentation.dialogs.createFractal.CreateFractalContract
 import com.nulp.graphedu.presentation.dialogs.createFractal.impl.CreateFractalPresenter
+import com.nulp.graphedu.presentation.fragments.fractal.FractalContract
+import com.nulp.graphedu.presentation.fragments.fractal.impl.FractalsPresenter
 import com.nulp.graphedu.presentation.fragments.fractalsStart.FractalsStartContract
 import com.nulp.graphedu.presentation.fragments.fractalsStart.impl.FractalsStartPresenter
 import com.nulp.graphedu.presentation.fragments.menuFragment.MenuContract
@@ -18,6 +20,8 @@ object PresentationModule : KoinModule({
     factory { MenuPresenter() as MenuContract.PresenterContract }
 
     factory { FractalsStartPresenter() as FractalsStartContract.PresenterContract }
+
+    factory { FractalsPresenter() as FractalContract.PresenterContract }
 
     //Dialogs
     factory { CreateFractalPresenter() as CreateFractalContract.PresenterContract }

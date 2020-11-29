@@ -15,4 +15,6 @@
 
     <color name="rippleDark">#40000000</color>
     <color name="rippleLight">#80ffffff</color>
+
+    <color name="zoomButtonColor">#AFB0AF</color>
 </resources>
