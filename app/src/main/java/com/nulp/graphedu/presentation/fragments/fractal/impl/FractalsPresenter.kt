@@ -111,10 +111,12 @@ class FractalsPresenter : BasePresenter<FractalContract.ViewContract>(),
             width / DOWNSCALE, height / DOWNSCALE
         )
             .apply { params.builderApplier(this) }
+            .setColors(colors)
             .setScale(currentScale)
             .setTranslateX(currentTranslateX)
             .setTranslateY(currentTranslateY)
-            .setColors(colors)
+            .setTolerance(params.tolerance)
+            .setMaxIterations((params.iterations / params.scale * currentScale).toInt())
 
         view?.prepareGenerator(builder)
     }

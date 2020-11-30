@@ -19,7 +19,7 @@ class NewtonFractalGenerator(
     private val translateX: Float = 0f,
     private val translateY: Float = 0f,
     private val tolerance: Double = 0.000001,
-    private val iterationsLimit: Int = 128,
+    private var iterationsLimit: Int = 128,
     private val brightness: Float = 0.5f
 ) {
 
