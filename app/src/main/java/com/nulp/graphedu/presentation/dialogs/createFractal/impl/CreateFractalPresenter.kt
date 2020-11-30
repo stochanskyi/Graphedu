@@ -16,7 +16,7 @@ class CreateFractalPresenter : BasePresenter<ViewContract>(), PresenterContract 
         private const val DEFAULT_COLOR_3 = "#fcba03"
         private const val DEFAULT_COLOR_4 = "#8149e3"
 
-        private const val DEFAULT_C_VALUE = 0f
+        private const val DEFAULT_C_VALUE = -1f
     }
 
     private lateinit var listener: CreateFractalParent
