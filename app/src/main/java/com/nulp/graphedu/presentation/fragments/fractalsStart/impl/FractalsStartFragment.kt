@@ -48,6 +48,7 @@ class FractalsStartFragment : BaseFragment<PresenterContract>(R.layout.fragment_
             .add(
                 R.id.fragmentContainer, FractalsFragment.newInstance(
                     creationParams.coefficient,
+                    creationParams.c,
                     creationParams.colors
                 )
             )
