@@ -90,7 +90,7 @@ class NewtonFractalGenerator(
             ?: return Color.BLACK
 
         val color = colors[i % colors.size]
-        val d = brightness + root.iterations.toFloat() / iterationsLimit * brightness
+        val d = brightness + root.iterations.toFloat() / actualMaxIterations * brightness
         return Color.rgb(
             (Color.red(color) * d).toInt(),
             (Color.green(color) * d).toInt(),
