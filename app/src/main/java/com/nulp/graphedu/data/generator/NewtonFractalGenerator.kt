@@ -39,18 +39,22 @@ class NewtonFractalGenerator(
 
             onProgressUpdate(0f)
 
+            var counter = 0
             for (y in 0 until height) {
                 if (emitter.isDisposed) return@create
                 for (x in 0 until width) {
-                    roots[(y * width) + x] = processPixel(x, y)
+                    roots[counter] = processPixel(x, y)
+                    counter++
                 }
                 onProgressUpdate((y.toFloat() / height).map(0f, PROCESSING_PROGRESS))
             }
 
+            counter = 0
             for (y in 0 until height) {
                 if (emitter.isDisposed) return@create
                 for (x in 0 until width) {
-                    bitmap[x, y] = getColorFromRoot(roots[y * width + x]!!)
+                    bitmap[x, y] = getColorFromRoot(roots[counter]!!)
+                    counter++
                 }
                 onProgressUpdate((y.toFloat() / height).map(PROCESSING_PROGRESS, 1f))
             }
