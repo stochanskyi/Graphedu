@@ -4,8 +4,11 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.util.DisplayMetrics
 import androidx.core.graphics.set
+import com.nulp.graphedu.data.map
 import com.nulp.graphedu.data.models.complex.Complex
 import com.nulp.graphedu.data.models.polynomial.Polynomial
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Single
 
 class NewtonFractalGenerator(
     private val displayMetrics: DisplayMetrics?,
@@ -21,26 +24,39 @@ class NewtonFractalGenerator(
     private val brightness: Float = 0.5f
 ) {
 
+    companion object {
+        private const val PROCESSING_PROGRESS = 0.9f
+    }
+
     private val roots: Array<RootPoint?> = Array(width * height) { null }
     private val usedColors: MutableList<Complex> = mutableListOf()
 
     private var actualMaxIterations = 0
 
-    fun process(): Bitmap {
-        val bitmap = createEmptyBitmap()
+    fun process(onProgressUpdate: (Float) -> Unit): Single<FractalResult> {
+        return Single.create { emitter ->
+            val bitmap = createEmptyBitmap()
 
-        for (y in 0 until height) {
-            for (x in 0 until width) {
-                roots[(y * width) + x] = processPixel(x, y)
-            }
-        }
+            onProgressUpdate(0f)
 
-        for (y in 0 until height) {
-            for (x in 0 until width) {
-                bitmap[x, y] = getColorFromRoot(roots[y * width + x]!!)
+            for (y in 0 until height) {
+                if (emitter.isDisposed) return@create
+                for (x in 0 until width) {
+                    roots[(y * width) + x] = processPixel(x, y)
+                }
+                onProgressUpdate((y.toFloat() / height).map(0f, PROCESSING_PROGRESS))
             }
+
+            for (y in 0 until height) {
+                if (emitter.isDisposed) return@create
+                for (x in 0 until width) {
+                    bitmap[x, y] = getColorFromRoot(roots[y * width + x]!!)
+                }
+                onProgressUpdate((y.toFloat() / height).map(PROCESSING_PROGRESS, 1f))
+            }
+
+            emitter.onSuccess(FractalResult(bitmap))
         }
-        return bitmap
     }
 
     private fun processPixel(x: Int, y: Int): RootPoint {
@@ -87,7 +103,7 @@ class NewtonFractalGenerator(
     }
 
     private fun getYPos(y: Int): Double {
-        return y.toDouble() / zoom  - translateY
+        return y.toDouble() / zoom - translateY
     }
 
     private fun createEmptyBitmap(): Bitmap {

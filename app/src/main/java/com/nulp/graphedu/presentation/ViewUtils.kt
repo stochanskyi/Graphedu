@@ -1,6 +1,8 @@
 package com.nulp.graphedu.presentation
 
 import android.graphics.Color
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.view.ViewTreeObserver
 
@@ -26,4 +28,8 @@ inline fun View.waitForLayout(crossinline f: () -> Unit) {
             f()
         }
     })
+}
+
+fun runOnUI(action: () -> Unit) {
+    Handler(Looper.getMainLooper()).post(action)
 }

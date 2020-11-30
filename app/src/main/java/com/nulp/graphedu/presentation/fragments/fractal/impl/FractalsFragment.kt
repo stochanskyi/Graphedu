@@ -1,12 +1,14 @@
 package com.nulp.graphedu.presentation.fragments.fractal.impl
 
 import android.os.Bundle
-import android.view.View
+import android.view.animation.DecelerateInterpolator
+import androidx.core.view.isVisible
 import com.nulp.graphedu.R
-import com.nulp.graphedu.data.definition.FractalParams
+import com.nulp.graphedu.data.generator.FractalResult
 import com.nulp.graphedu.data.generator.NewtonFractalBuilder
 import com.nulp.graphedu.presentation.common.mvp.BaseFragment
-import com.nulp.graphedu.presentation.fragments.fractal.FractalContract.*
+import com.nulp.graphedu.presentation.fragments.fractal.FractalContract.PresenterContract
+import com.nulp.graphedu.presentation.fragments.fractal.FractalContract.ViewContract
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ClickableMenuItem
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ToolbarConfigurator
 import com.nulp.graphedu.presentation.waitForLayout
@@ -42,13 +44,6 @@ class FractalsFragment : BaseFragment<PresenterContract>(R.layout.fragment_fract
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        view.waitForLayout {
-            presenter.onReadyToDraw(imageFractal.width, imageFractal.height)
-        }
-    }
-
     override fun initViews() {
         ToolbarConfigurator()
             .withNavigationButton(true)
@@ -62,11 +57,46 @@ class FractalsFragment : BaseFragment<PresenterContract>(R.layout.fragment_fract
         buttonZoomDown.setOnClickListener { presenter.onZoomDownClicked() }
     }
 
-    override fun loadFractal(builder: NewtonFractalBuilder) {
+    override fun requestDrawFractalWhenReady() {
+        imageFractal.waitForLayout {
+            presenter.onReadyToDraw(imageFractal.width, imageFractal.height)
+        }
+    }
+
+    override fun prepareGenerator(builder: NewtonFractalBuilder) {
         val generator = builder
             .setDisplayMetrics(resources.displayMetrics)
             .build()
-        val fractalImage = generator.process()
-        imageFractal.setImageBitmap(fractalImage)
+
+        presenter.generateFractal(generator)
+    }
+
+    override fun setFractalLoadingVisible(isVisible: Boolean) {
+        layoutProgress.isClickable = isVisible
+        if (layoutProgress.isVisible == isVisible) return
+        layoutProgress.animate()
+            .setDuration(200)
+            .setInterpolator(DecelerateInterpolator())
+            .alpha(
+                if (isVisible) 1f
+                else 0f
+            )
+            .withStartAction {
+                if (isVisible && !layoutProgress.isVisible) layoutProgress.isVisible = true
+            }
+            .withEndAction { if (!isVisible) layoutProgress.isVisible = false }
+    }
+
+    override fun setFractalLoadingProgress(progress: Float) {
+        pieProgress.setProgress(progress)
+    }
+
+    override fun handleFractalResult(result: FractalResult) {
+        imageFractal.alpha = 0f
+        imageFractal.setImageBitmap(result.bitmap)
+        imageFractal.animate()
+            .setDuration(250L)
+            .setInterpolator(DecelerateInterpolator())
+            .alpha(1f)
     }
 }
