@@ -39,10 +39,10 @@ class FractalsPresenter : BasePresenter<FractalContract.ViewContract>(),
     private var generateFractalDisposable: Disposable? = null
     private var delayedProgressCloseDisposable: Disposable? = null
 
-    override fun init(coefficient: Int, colors: List<Int>) {
+    override fun init(coefficient: Int, c: Float, colors: List<Int>) {
         params = when (coefficient) {
-            3 -> DefinedNewtonFractalParams.K3
-            4 -> DefinedNewtonFractalParams.K4
+            3 -> DefinedNewtonFractalParams.K3(c)
+            4 -> DefinedNewtonFractalParams.K4(c)
             else -> throw IllegalStateException("Unsupported coefficient $coefficient")
         }
         this.colors = colors.toIntArray()

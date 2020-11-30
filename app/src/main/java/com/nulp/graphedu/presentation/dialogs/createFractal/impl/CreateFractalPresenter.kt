@@ -15,11 +15,15 @@ class CreateFractalPresenter : BasePresenter<ViewContract>(), PresenterContract 
         private const val DEFAULT_COLOR_2 = "#31abc4"
         private const val DEFAULT_COLOR_3 = "#fcba03"
         private const val DEFAULT_COLOR_4 = "#8149e3"
+
+        private const val DEFAULT_C_VALUE = 0f
     }
 
     private lateinit var listener: CreateFractalParent
 
     private var coefficient = FIRST_COEFFICIENT_VALUE
+
+    private var c = DEFAULT_C_VALUE
 
     private var firstColor: Int = Color.parseColor(DEFAULT_COLOR_1)
     private var secondColor: Int = Color.parseColor(DEFAULT_COLOR_2)
@@ -31,6 +35,8 @@ class CreateFractalPresenter : BasePresenter<ViewContract>(), PresenterContract 
     override fun onStart() {
         super.onStart()
         view?.setFirstCoefficientSelected()
+        view?.setCInputHint(c.toString())
+        view?.setCInput(c.toString())
         initColors()
         view?.setLastColorSelectorVisibility(false)
     }
@@ -106,6 +112,7 @@ class CreateFractalPresenter : BasePresenter<ViewContract>(), PresenterContract 
         listener.onCreateConfirmed(
             FractalCreationParams(
                 coefficient,
+                c,
                 colors.toList()
             )
         )
@@ -114,5 +121,13 @@ class CreateFractalPresenter : BasePresenter<ViewContract>(), PresenterContract 
 
     override fun onCancelClicked() {
         view?.close()
+    }
+
+    override fun onInputCTextChanged(text: String) {
+        if (text.isBlank() || text == "-" || text == ".") {
+            return
+        }
+
+        c = text.toFloat()
     }
 }

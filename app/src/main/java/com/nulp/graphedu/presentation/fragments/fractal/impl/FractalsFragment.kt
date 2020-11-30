@@ -11,6 +11,7 @@ import com.nulp.graphedu.data.generator.NewtonFractalBuilder
 import com.nulp.graphedu.presentation.common.mvp.BaseFragment
 import com.nulp.graphedu.presentation.fragments.fractal.FractalContract.PresenterContract
 import com.nulp.graphedu.presentation.fragments.fractal.FractalContract.ViewContract
+import com.nulp.graphedu.presentation.fragments.fractal.models.FractalParams
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ClickableMenuItem
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ToolbarConfigurator
 import com.nulp.graphedu.presentation.waitForLayout
@@ -23,12 +24,14 @@ class FractalsFragment : BaseFragment<PresenterContract>(R.layout.fragment_fract
     companion object {
         private const val COEFFICIENT_KEY = "coefficient_key"
         private const val COLORS_KEY = "colors_key"
+        private const val C_KEY = "c_key"
 
-        fun newInstance(coefficient: Int, colors: List<Int>): FractalsFragment {
+        fun newInstance(params: FractalParams): FractalsFragment {
             return FractalsFragment().apply {
                 arguments = Bundle().apply {
-                    putInt(COEFFICIENT_KEY, coefficient)
-                    putIntArray(COLORS_KEY, colors.toIntArray())
+                    putInt(COEFFICIENT_KEY, params.coefficient)
+                    putIntArray(COLORS_KEY, params.colors.toIntArray())
+                    putFloat(C_KEY, params.c)
                 }
             }
         }
@@ -43,6 +46,7 @@ class FractalsFragment : BaseFragment<PresenterContract>(R.layout.fragment_fract
         arguments?.let {
             presenter.init(
                 it.getInt(COEFFICIENT_KEY),
+                it.getFloat(C_KEY),
                 it.getIntArray(COLORS_KEY)!!.toList()
             )
         }

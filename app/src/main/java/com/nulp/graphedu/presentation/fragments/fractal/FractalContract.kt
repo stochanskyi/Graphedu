@@ -22,7 +22,7 @@ interface FractalContract {
     }
 
     interface PresenterContract : IBasePresenter<ViewContract> {
-        fun init(coefficient: Int, colors: List<Int>)
+        fun init(coefficient: Int, c: Float, colors: List<Int>)
 
         fun handleSizeChanged(width: Int, height: Int)
         fun generateFractal(generator: NewtonFractalGenerator)

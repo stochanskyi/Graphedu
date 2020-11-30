@@ -24,4 +24,6 @@
     <string name="title_third_color">Color 3</string>
     <string name="title_fourth_color">Color 4</string>
 
+    <string name="title_c_input">c = </string>
+
 </resources>
