@@ -4,8 +4,8 @@ import com.nulp.graphedu.data.models.polynomial.SimplePolynomial
 
 object DefinedNewtonFractalParams {
 
-    val K3 = FractalParams(
-        SimplePolynomial(-1, 0, 0, 1),
+    fun K3(c: Float) = FractalParams(
+        SimplePolynomial(doubleArrayOf(c.toDouble(), 0.0, 0.0, 1.0)),
         300f,
         0.0001,
         64
@@ -13,8 +13,8 @@ object DefinedNewtonFractalParams {
         setBrightness(0.7f)
     }
 
-    val K4 = FractalParams(
-        SimplePolynomial(-1, 0, 0, 0, 1),
+    fun K4(c: Float) = FractalParams(
+        SimplePolynomial(doubleArrayOf(c.toDouble(), 0.0, 0.0, 0.0, 1.0)),
         250f,
         0.00001,
         128

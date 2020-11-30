@@ -5,6 +5,7 @@ import com.nulp.graphedu.presentation.common.mvp.BaseFragment
 import com.nulp.graphedu.presentation.dialogs.createFractal.CreateFractalContract
 import com.nulp.graphedu.presentation.dialogs.createFractal.impl.CreateFractalDialog
 import com.nulp.graphedu.presentation.fragments.fractal.impl.FractalsFragment
+import com.nulp.graphedu.presentation.fragments.fractal.models.FractalParams
 import com.nulp.graphedu.presentation.fragments.fractalsStart.FractalsStartContract.PresenterContract
 import com.nulp.graphedu.presentation.fragments.fractalsStart.FractalsStartContract.ViewContract
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ClickableMenuItem
@@ -47,9 +48,11 @@ class FractalsStartFragment : BaseFragment<PresenterContract>(R.layout.fragment_
             .addToBackStack(null)
             .add(
                 R.id.fragmentContainer, FractalsFragment.newInstance(
-                    creationParams.coefficient,
-                    creationParams.c,
-                    creationParams.colors
+                    FractalParams(
+                        creationParams.coefficient,
+                        creationParams.c,
+                        creationParams.colors
+                    )
                 )
             )
             .commit()
