@@ -65,6 +65,11 @@ class FractalsFragment : BaseFragment<PresenterContract>(R.layout.fragment_fract
         buttonZoomDown.setOnClickListener { presenter.scaleFractalDown() }
     }
 
+    override fun onDestroyView() {
+        releaseScaleAnimation()
+        super.onDestroyView()
+    }
+
     override fun requestDrawFractalWhenReady() {
         imageFractal.waitForLayout {
             presenter.handleSizeChanged(imageFractal.width, imageFractal.height)
@@ -119,13 +124,7 @@ class FractalsFragment : BaseFragment<PresenterContract>(R.layout.fragment_fract
         }
     }
 
-    override fun scaleCurrentFractalImage(currentScale: Float) {
-        imageFractal.imageMatrix = Matrix(imageFractal.imageMatrix).apply {
-            postScale(
-                currentScale, currentScale,
-                imageFractal.width / 2f,
-                imageFractal.height / 2f
-            )
-        }
+    override fun scaleCurrentFractalImage(scale: Float) {
+        animateScale(scale)
     }
 }

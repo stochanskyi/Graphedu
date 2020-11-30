@@ -18,7 +18,7 @@ interface FractalContract {
 
         fun handleFractalResult(result: FractalResult)
 
-        fun scaleCurrentFractalImage(currentScale: Float)
+        fun scaleCurrentFractalImage(scale: Float)
     }
 
     interface PresenterContract : IBasePresenter<ViewContract> {
