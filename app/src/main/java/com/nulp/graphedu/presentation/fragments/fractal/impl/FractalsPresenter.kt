@@ -1,7 +1,9 @@
 package com.nulp.graphedu.presentation.fragments.fractal.impl
 
+import android.util.LruCache
 import com.nulp.graphedu.data.definition.DefinedNewtonFractalParams
 import com.nulp.graphedu.data.definition.FractalParams
+import com.nulp.graphedu.data.generator.FractalResult
 import com.nulp.graphedu.data.generator.NewtonFractalBuilder
 import com.nulp.graphedu.data.generator.NewtonFractalGenerator
 import com.nulp.graphedu.data.isRunning
@@ -20,7 +22,7 @@ class FractalsPresenter : BasePresenter<FractalContract.ViewContract>(),
     FractalContract.PresenterContract {
 
     companion object {
-        private const val DOWNSCALE = 2
+        private const val DOWNSCALE = 4
 
         private const val CLOSE_PROGRESSBAR_DELAY = 1000L
     }
@@ -35,6 +37,8 @@ class FractalsPresenter : BasePresenter<FractalContract.ViewContract>(),
     private var currentScale: Float = 100f
     private var currentTranslateX: Float = 0f
     private var currentTranslateY: Float = 0f
+
+    private val fractalsCache = LruCache<Float, FractalResult>(16)
 
     private var generateFractalDisposable: Disposable? = null
     private var delayedProgressCloseDisposable: Disposable? = null
@@ -55,13 +59,13 @@ class FractalsPresenter : BasePresenter<FractalContract.ViewContract>(),
     }
 
     override fun release() {
-        isReadyToDraw = false
         generateFractalDisposable?.dispose()
         delayedProgressCloseDisposable?.dispose()
         super.release()
     }
 
     override fun handleSizeChanged(width: Int, height: Int) {
+        if (this.width != width || this.height != height) fractalsCache.evictAll()
         isReadyToDraw = true
         this.width = width
         this.height = height
@@ -69,8 +73,8 @@ class FractalsPresenter : BasePresenter<FractalContract.ViewContract>(),
     }
 
     override fun generateFractal(generator: NewtonFractalGenerator) {
-        generateFractalDisposable?.dispose()
         delayedProgressCloseDisposable?.dispose()
+        generateFractalDisposable?.dispose()
         view?.setFractalLoadingVisible(true)
         generateFractalDisposable = generator.process {
             runOnUI { view?.setFractalLoadingProgress(it * 100) }
@@ -80,8 +84,9 @@ class FractalsPresenter : BasePresenter<FractalContract.ViewContract>(),
             .doFinally { delayedCloseProgress() }
             .subscribe(
                 {
+                    fractalsCache.put(currentScale, it)
                     view?.setFractalLoadingProgress(100f)
-                    view?.handleFractalResult(it)
+                    view?.showFractalResult(it)
                 },
                 { view?.handleError(it) }
             )
@@ -101,10 +106,19 @@ class FractalsPresenter : BasePresenter<FractalContract.ViewContract>(),
 
     private fun handleFractalScaleChange(applier: (Float) -> Float) {
         if (!isReadyToDraw || generateFractalDisposable.isRunning) return
+
         val lastScale = currentScale
         currentScale = applier(currentScale)
+        val scaleChange = currentScale / lastScale
+
+        val cachedResult = fractalsCache[currentScale]
+        if (cachedResult != null) {
+            view?.showCachedFractalResult(cachedResult, scaleChange)
+            return
+        }
+
+        view?.scaleCurrentFractalImage(scaleChange)
         prepareGenerateFractal()
-        view?.scaleCurrentFractalImage(currentScale / lastScale)
     }
 
     private fun prepareGenerateFractal() {
@@ -118,20 +132,28 @@ class FractalsPresenter : BasePresenter<FractalContract.ViewContract>(),
             .setTranslateX(currentTranslateX)
             .setTranslateY(currentTranslateY)
             .setTolerance(resolveTolerance())
-            .setMaxIterations((params.iterations / params.scale * currentScale).toInt())
+            .setMaxIterations(resolveIterations())
 
         view?.prepareGenerator(builder)
     }
 
     private fun resolveTolerance(): Double {
         val scaleDiff = (currentScale / params.scale).let {
-            if (it > 1) it * it
-            else it
+            if (it >= 1) it
+            else it * it
         }
         return min(
             0.1,
             max(params.tolerance * scaleDiff, 0.0000001)
         )
+    }
+
+    private fun resolveIterations(): Int {
+        val scaleDiff = (currentScale * params.scale).let {
+            if (it > 1) it
+            else 1f / it
+        }
+        return (params.iterations * scaleDiff).toInt()
     }
 
     private fun delayedCloseProgress() {

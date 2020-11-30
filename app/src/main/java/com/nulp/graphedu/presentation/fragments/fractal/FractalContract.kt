@@ -16,7 +16,8 @@ interface FractalContract {
         fun setFractalLoadingVisible(isVisible: Boolean)
         fun setFractalLoadingProgress(progress: Float)
 
-        fun handleFractalResult(result: FractalResult)
+        fun showFractalResult(result: FractalResult)
+        fun showCachedFractalResult(result: FractalResult, scaleChange: Float)
 
         fun scaleCurrentFractalImage(scale: Float)
     }

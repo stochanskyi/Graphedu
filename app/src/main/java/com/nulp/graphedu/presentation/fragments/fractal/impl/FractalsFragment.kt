@@ -1,9 +1,11 @@
 package com.nulp.graphedu.presentation.fragments.fractal.impl
 
+import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.graphics.RectF
 import android.os.Bundle
 import android.view.animation.DecelerateInterpolator
+import androidx.core.animation.doOnEnd
 import androidx.core.view.isVisible
 import com.nulp.graphedu.R
 import com.nulp.graphedu.data.generator.FractalResult
@@ -86,7 +88,7 @@ class FractalsFragment : BaseFragment<PresenterContract>(R.layout.fragment_fract
 
     override fun setFractalLoadingVisible(isVisible: Boolean) {
         layoutProgress.isClickable = isVisible
-        if (layoutProgress.isVisible == isVisible) return
+        layoutProgress.animate().cancel()
         layoutProgress.animate()
             .setDuration(200)
             .setInterpolator(DecelerateInterpolator())
@@ -94,9 +96,7 @@ class FractalsFragment : BaseFragment<PresenterContract>(R.layout.fragment_fract
                 if (isVisible) 1f
                 else 0f
             )
-            .withStartAction {
-                if (isVisible && !layoutProgress.isVisible) layoutProgress.isVisible = true
-            }
+            .withStartAction { if (isVisible) layoutProgress.isVisible = true }
             .withEndAction { if (!isVisible) layoutProgress.isVisible = false }
     }
 
@@ -105,15 +105,9 @@ class FractalsFragment : BaseFragment<PresenterContract>(R.layout.fragment_fract
         pieProgress.setProgress(progress)
     }
 
-    override fun handleFractalResult(result: FractalResult) {
-        imageFractal.setImageBitmap(result.bitmap)
-        imageFractal.imageMatrix = Matrix().apply {
-            setRectToRect(
-                RectF(0f, 0f, result.bitmap.width.toFloat(), result.bitmap.height.toFloat()),
-                RectF(0f, 0f, imageFractal.width.toFloat(), imageFractal.height.toFloat()),
-                Matrix.ScaleToFit.CENTER
-            )
-        }
+    override fun showFractalResult(result: FractalResult) {
+        setFractalImageAndScale(result.bitmap)
+
         if (!isFractalShown) {
             isFractalShown = true
             imageFractal.alpha = 0f
@@ -124,7 +118,36 @@ class FractalsFragment : BaseFragment<PresenterContract>(R.layout.fragment_fract
         }
     }
 
+    override fun showCachedFractalResult(result: FractalResult, scaleChange: Float) {
+        setScaleButtonsClickable(false)
+        val animator = if (scaleChange >= 1f) {
+            animateScale(1f, scaleChange).apply {
+                doOnEnd { setFractalImageAndScale(result.bitmap) }
+            }
+        } else {
+            setFractalImageAndScale(result.bitmap)
+            animateScale(1f / scaleChange, 1f)
+        }
+        animator.doOnEnd { setScaleButtonsClickable(true) }
+    }
+
     override fun scaleCurrentFractalImage(scale: Float) {
-        animateScale(scale)
+        animateScale(1f, scale)
+    }
+
+    private fun setFractalImageAndScale(image: Bitmap) {
+        imageFractal.setImageBitmap(image)
+        imageFractal.imageMatrix = Matrix().apply {
+            setRectToRect(
+                RectF(0f, 0f, image.width.toFloat(), image.height.toFloat()),
+                RectF(0f, 0f, imageFractal.width.toFloat(), imageFractal.height.toFloat()),
+                Matrix.ScaleToFit.CENTER
+            )
+        }
+    }
+
+    private fun setScaleButtonsClickable(isClickable: Boolean) {
+        buttonZoomUp.isClickable = isClickable
+        buttonZoomDown.isClickable = isClickable
     }
 }
