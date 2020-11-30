@@ -25,10 +25,11 @@ class NewtonFractalGenerator(
 
     companion object {
         private const val PROCESSING_PROGRESS = 0.9f
+
+        private val usedColors: MutableList<Complex> = mutableListOf()
     }
 
     private val roots: Array<RootPoint?> = Array(width * height) { null }
-    private val usedColors: MutableList<Complex> = mutableListOf()
 
     private var actualMaxIterations = 0
 
