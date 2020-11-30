@@ -80,17 +80,17 @@ class NewtonFractalGenerator(
     }
 
     private fun getColorFromRoot(root: RootPoint): Int {
-        for (i in 0 until usedColors.size)
-            if (usedColors[i].equalsTo(root.point, tolerance)) {
-                val color = colors[i % colors.size]
-                val d = brightness + root.iterations.toFloat() / iterationsLimit * brightness
-                return Color.rgb(
-                    (Color.red(color) * d).toInt(),
-                    (Color.green(color) * d).toInt(),
-                    (Color.blue(color) * d).toInt(),
-                )
-            }
-        return Color.BLACK
+        val i = usedColors.indexOfFirst { it.equalsTo(root.point, tolerance) }
+            .takeIf { it >= 0 }
+            ?: return Color.BLACK
+
+        val color = colors[i % colors.size]
+        val d = brightness + root.iterations.toFloat() / iterationsLimit * brightness
+        return Color.rgb(
+            (Color.red(color) * d).toInt(),
+            (Color.green(color) * d).toInt(),
+            (Color.blue(color) * d).toInt(),
+        )
     }
 
     private fun containsRoot(root: Complex): Boolean {
