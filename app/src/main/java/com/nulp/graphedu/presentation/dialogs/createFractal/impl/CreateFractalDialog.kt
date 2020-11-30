@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import com.jaredrummler.android.colorpicker.ColorPickerDialog
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener
 import com.nulp.graphedu.R
 import com.nulp.graphedu.presentation.common.mvp.BaseDialog
 import com.nulp.graphedu.presentation.dialogs.createFractal.CreateFractalContract.*
+import com.nulp.graphedu.presentation.views.input.DecimalDigitsInputFilter
 import kotlinx.android.synthetic.main.dialog_create_fractal.*
 import kotlinx.android.synthetic.main.dialog_create_fractal_coefficient_layout.*
 import org.koin.android.ext.android.inject
@@ -49,6 +51,9 @@ class CreateFractalDialog : BaseDialog<PresenterContract>(), ViewContract,
 
         buttonCancel.setOnClickListener { presenter.onCancelClicked() }
         buttonCreate.setOnClickListener { presenter.onCreateClicked() }
+
+        inputC.filters += DecimalDigitsInputFilter(2, 2)
+        inputC.addTextChangedListener { presenter.onInputCTextChanged(it.toString()) }
     }
 
     override fun setFirstCoefficientSelected() {
@@ -91,6 +96,14 @@ class CreateFractalDialog : BaseDialog<PresenterContract>(), ViewContract,
 
     override fun setFourthColor(color: Int) {
         viewColorSelectorFourth.colorValue = color
+    }
+
+    override fun setCInputHint(hint: String) {
+        inputC.hint = hint
+    }
+
+    override fun setCInput(value: String) {
+        inputC.setText(value)
     }
 
     private fun resetActiveCoefficient() {

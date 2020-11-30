@@ -17,6 +17,9 @@ interface CreateFractalContract {
         fun setSecondColor(color: Int)
         fun setThirdColor(color: Int)
         fun setFourthColor(color: Int)
+
+        fun setCInputHint(hint: String)
+        fun setCInput(value: String)
     }
 
     interface PresenterContract : IBasePresenter<ViewContract> {
@@ -35,6 +38,8 @@ interface CreateFractalContract {
 
         fun onCreateClicked()
         fun onCancelClicked()
+
+        fun onInputCTextChanged(text: String)
     }
 
     interface CreateFractalParent {
@@ -43,6 +48,7 @@ interface CreateFractalContract {
 
     interface IFractalCreationResultParams {
         val coefficient: Int
+        val c: Float
         val colors: List<Int>
     }
 
