@@ -1,5 +1,7 @@
 package com.nulp.graphedu.presentation.fragments.fractal.impl
 
+import android.graphics.Matrix
+import android.graphics.RectF
 import android.os.Bundle
 import android.view.animation.DecelerateInterpolator
 import androidx.core.view.isVisible
@@ -32,6 +34,8 @@ class FractalsFragment : BaseFragment<PresenterContract>(R.layout.fragment_fract
         }
     }
 
+    private var isFractalShown: Boolean = false
+
     override val presenter: PresenterContract by inject()
 
     override fun initPresenter() {
@@ -50,16 +54,16 @@ class FractalsFragment : BaseFragment<PresenterContract>(R.layout.fragment_fract
             .setNavigationClickListener { close() }
             .setTitle(getString(R.string.fractals_screen_toolbar_title))
             .setMenuId(R.menu.menu_with_handbook)
-            .addClickableItem(ClickableMenuItem(R.id.buttonHandbook) { presenter.onHandbookClicked() })
+            .addClickableItem(ClickableMenuItem(R.id.buttonHandbook) { presenter.openHandbook() })
             .applyToToolbar(toolbar)
 
-        buttonZoomUp.setOnClickListener { presenter.onZoomUpClicked() }
-        buttonZoomDown.setOnClickListener { presenter.onZoomDownClicked() }
+        buttonZoomUp.setOnClickListener { presenter.scaleFractalUp() }
+        buttonZoomDown.setOnClickListener { presenter.scaleFractalDown() }
     }
 
     override fun requestDrawFractalWhenReady() {
         imageFractal.waitForLayout {
-            presenter.onReadyToDraw(imageFractal.width, imageFractal.height)
+            presenter.handleSizeChanged(imageFractal.width, imageFractal.height)
         }
     }
 
@@ -88,15 +92,36 @@ class FractalsFragment : BaseFragment<PresenterContract>(R.layout.fragment_fract
     }
 
     override fun setFractalLoadingProgress(progress: Float) {
+        if (progress == 0f) pieProgress.isCompleted = false
         pieProgress.setProgress(progress)
     }
 
     override fun handleFractalResult(result: FractalResult) {
-        imageFractal.alpha = 0f
         imageFractal.setImageBitmap(result.bitmap)
-        imageFractal.animate()
-            .setDuration(250L)
-            .setInterpolator(DecelerateInterpolator())
-            .alpha(1f)
+        imageFractal.imageMatrix = Matrix().apply {
+            setRectToRect(
+                RectF(0f, 0f, result.bitmap.width.toFloat(), result.bitmap.height.toFloat()),
+                RectF(0f, 0f, imageFractal.width.toFloat(), imageFractal.height.toFloat()),
+                Matrix.ScaleToFit.CENTER
+            )
+        }
+        if (!isFractalShown) {
+            isFractalShown = true
+            imageFractal.alpha = 0f
+            imageFractal.animate()
+                .setDuration(250L)
+                .setInterpolator(DecelerateInterpolator())
+                .alpha(1f)
+        }
+    }
+
+    override fun scaleCurrentFractalImage(currentScale: Float) {
+        imageFractal.imageMatrix = Matrix(imageFractal.imageMatrix).apply {
+            postScale(
+                currentScale, currentScale,
+                imageFractal.width / 2f,
+                imageFractal.height / 2f
+            )
+        }
     }
 }

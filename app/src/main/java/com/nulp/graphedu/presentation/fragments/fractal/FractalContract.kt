@@ -17,17 +17,19 @@ interface FractalContract {
         fun setFractalLoadingProgress(progress: Float)
 
         fun handleFractalResult(result: FractalResult)
+
+        fun scaleCurrentFractalImage(currentScale: Float)
     }
 
     interface PresenterContract : IBasePresenter<ViewContract> {
         fun init(coefficient: Int, colors: List<Int>)
 
-        fun onReadyToDraw(width: Int, height: Int)
+        fun handleSizeChanged(width: Int, height: Int)
         fun generateFractal(generator: NewtonFractalGenerator)
 
-        fun onHandbookClicked()
+        fun openHandbook()
 
-        fun onZoomUpClicked()
-        fun onZoomDownClicked()
+        fun scaleFractalUp()
+        fun scaleFractalDown()
     }
 }

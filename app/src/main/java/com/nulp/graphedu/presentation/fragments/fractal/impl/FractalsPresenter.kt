@@ -4,6 +4,7 @@ import com.nulp.graphedu.data.definition.DefinedNewtonFractalParams
 import com.nulp.graphedu.data.definition.FractalParams
 import com.nulp.graphedu.data.generator.NewtonFractalBuilder
 import com.nulp.graphedu.data.generator.NewtonFractalGenerator
+import com.nulp.graphedu.data.isRunning
 import com.nulp.graphedu.presentation.common.mvp.BasePresenter
 import com.nulp.graphedu.presentation.fragments.fractal.FractalContract
 import com.nulp.graphedu.presentation.runOnUI
@@ -22,15 +23,28 @@ class FractalsPresenter : BasePresenter<FractalContract.ViewContract>(),
         private const val CLOSE_PROGRESSBAR_DELAY = 1000L
     }
 
-    private var coefficient: Int = 0
+    private lateinit var params: FractalParams
     private lateinit var colors: IntArray
+
+    private var width: Int = 0
+    private var height: Int = 0
+    private var isReadyToDraw: Boolean = false
+
+    private var currentScale: Float = 100f
+    private var currentTranslateX: Float = 0f
+    private var currentTranslateY: Float = 0f
 
     private var generateFractalDisposable: Disposable? = null
     private var delayedProgressCloseDisposable: Disposable? = null
 
     override fun init(coefficient: Int, colors: List<Int>) {
-        this.coefficient = coefficient
+        params = when (coefficient) {
+            3 -> DefinedNewtonFractalParams.K3
+            4 -> DefinedNewtonFractalParams.K4
+            else -> throw IllegalStateException("Unsupported coefficient $coefficient")
+        }
         this.colors = colors.toIntArray()
+        currentScale = params.scale
     }
 
     override fun onStart() {
@@ -39,29 +53,22 @@ class FractalsPresenter : BasePresenter<FractalContract.ViewContract>(),
     }
 
     override fun release() {
+        isReadyToDraw = false
         generateFractalDisposable?.dispose()
         delayedProgressCloseDisposable?.dispose()
         super.release()
     }
 
-    override fun onReadyToDraw(width: Int, height: Int) {
-        val params: FractalParams = when (coefficient) {
-            3 -> DefinedNewtonFractalParams.K3
-            4 -> DefinedNewtonFractalParams.K4
-            else -> throw IllegalStateException("Unsupported coefficient $coefficient")
-        }
-
-        val builder = NewtonFractalBuilder(
-            params.polynomial,
-            width / DOWNSCALE, height / DOWNSCALE
-        )
-            .apply { params.builderApplier(this) }
-            .setColors(colors)
-
-        view?.prepareGenerator(builder)
+    override fun handleSizeChanged(width: Int, height: Int) {
+        isReadyToDraw = true
+        this.width = width
+        this.height = height
+        prepareGenerateFractal()
     }
 
     override fun generateFractal(generator: NewtonFractalGenerator) {
+        generateFractalDisposable?.dispose()
+        delayedProgressCloseDisposable?.dispose()
         view?.setFractalLoadingVisible(true)
         generateFractalDisposable = generator.process {
             runOnUI { view?.setFractalLoadingProgress(it * 100) }
@@ -78,16 +85,38 @@ class FractalsPresenter : BasePresenter<FractalContract.ViewContract>(),
             )
     }
 
-    override fun onHandbookClicked() {
+    override fun openHandbook() {
         //TODO
     }
 
-    override fun onZoomUpClicked() {
-        //TODO
+    override fun scaleFractalUp() {
+        handleFractalScaleChange { it * 2 }
     }
 
-    override fun onZoomDownClicked() {
-        //TODO
+    override fun scaleFractalDown() {
+        handleFractalScaleChange { it / 2 }
+    }
+
+    private fun handleFractalScaleChange(applier: (Float) -> Float) {
+        if (!isReadyToDraw || generateFractalDisposable.isRunning) return
+        val lastScale = currentScale
+        currentScale = applier(currentScale)
+        prepareGenerateFractal()
+        view?.scaleCurrentFractalImage(currentScale / lastScale)
+    }
+
+    private fun prepareGenerateFractal() {
+        val builder = NewtonFractalBuilder(
+            params.polynomial,
+            width / DOWNSCALE, height / DOWNSCALE
+        )
+            .apply { params.builderApplier(this) }
+            .setScale(currentScale)
+            .setTranslateX(currentTranslateX)
+            .setTranslateY(currentTranslateY)
+            .setColors(colors)
+
+        view?.prepareGenerator(builder)
     }
 
     private fun delayedCloseProgress() {
