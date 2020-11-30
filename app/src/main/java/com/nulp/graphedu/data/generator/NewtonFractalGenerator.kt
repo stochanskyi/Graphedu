@@ -78,7 +78,7 @@ class NewtonFractalGenerator(
             actualMaxIterations = root.iterations
         }
 
-        if (!containsRoot(root.point)) {
+        if (!isColorUsed(root.point)) {
             usedColors.add(root.point)
         }
         return root
@@ -98,7 +98,7 @@ class NewtonFractalGenerator(
         )
     }
 
-    private fun containsRoot(root: Complex): Boolean {
+    private fun isColorUsed(root: Complex): Boolean {
         return usedColors.any { it.equalsTo(root, tolerance) }
     }
 
