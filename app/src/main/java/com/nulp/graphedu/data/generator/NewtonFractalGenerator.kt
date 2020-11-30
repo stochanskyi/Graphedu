@@ -7,7 +7,6 @@ import androidx.core.graphics.set
 import com.nulp.graphedu.data.map
 import com.nulp.graphedu.data.models.complex.Complex
 import com.nulp.graphedu.data.models.polynomial.Polynomial
-import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
 class NewtonFractalGenerator(
