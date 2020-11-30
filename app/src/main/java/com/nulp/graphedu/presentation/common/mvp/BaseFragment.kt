@@ -21,6 +21,7 @@ abstract class BaseFragment<T : IBasePresenter<out IBaseView>> : Fragment,
     protected open fun initViews() {}
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        view.setOnClickListener {}
         initPresenter()
         super.onViewCreated(view, savedInstanceState)
         initViews()
