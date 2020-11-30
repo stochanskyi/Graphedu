@@ -13,6 +13,8 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
+import kotlin.math.max
+import kotlin.math.min
 
 class FractalsPresenter : BasePresenter<FractalContract.ViewContract>(),
     FractalContract.PresenterContract {
@@ -115,10 +117,21 @@ class FractalsPresenter : BasePresenter<FractalContract.ViewContract>(),
             .setScale(currentScale)
             .setTranslateX(currentTranslateX)
             .setTranslateY(currentTranslateY)
-            .setTolerance(params.tolerance)
+            .setTolerance(resolveTolerance())
             .setMaxIterations((params.iterations / params.scale * currentScale).toInt())
 
         view?.prepareGenerator(builder)
+    }
+
+    private fun resolveTolerance(): Double {
+        val scaleDiff = (currentScale / params.scale).let {
+            if (it > 1) it * it
+            else it
+        }
+        return min(
+            0.1,
+            max(params.tolerance * scaleDiff, 0.0000001)
+        )
     }
 
     private fun delayedCloseProgress() {
