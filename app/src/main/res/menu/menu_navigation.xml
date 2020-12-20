@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/tabFractals"
+        android:icon="@drawable/ic_fractal"
+        android:title="@string/navigation_item_fractal" />
+
+    <item
+        android:id="@+id/tabColors"
+        android:icon="@drawable/ic_colors"
+        android:title="@string/navigation_item_colors" />
+
+    <item
+        android:id="@+id/tabRotation"
+        android:icon="@drawable/ic_rotation"
+        android:title="@string/navigation_item_rotation" />
+
+</menu>

@@ -1,6 +1,12 @@
 <resources>
-    <string name="app_name">Graph.edu</string>
 
+    <!--App-->
+    <string name="app_name">Graph.edu</string>
+    <string name="navigation_item_fractal">Fractals</string>
+    <string name="navigation_item_colors">Colors</string>
+    <string name="navigation_item_rotation">Rotation</string>
+
+    <!--Menu screen-->
     <string name="start">Start</string>
     
     <string name="about_us_title">About us</string>
