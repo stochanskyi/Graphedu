@@ -32,4 +32,7 @@
 
     <string name="title_c_input">c = </string>
 
+    <!--Colors Start Screen-->
+    <string name="pick_image_message">Click here to select an image to modify colors</string>
+    <string name="colors_screen_toolbar_title">Colors</string>
 </resources>

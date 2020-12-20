@@ -4,12 +4,13 @@ import com.nulp.graphedu.presentation.activities.main.MainContract
 import com.nulp.graphedu.presentation.activities.main.impl.MainPresenter
 import com.nulp.graphedu.presentation.dialogs.createFractal.CreateFractalContract
 import com.nulp.graphedu.presentation.dialogs.createFractal.impl.CreateFractalPresenter
+import com.nulp.graphedu.presentation.fragments.colors.colorsStart.ColorsStartContract
+import com.nulp.graphedu.presentation.fragments.colors.colorsStart.impl.ColorsStartPresenter
 import com.nulp.graphedu.presentation.fragments.fractals.fractal.FractalContract
 import com.nulp.graphedu.presentation.fragments.fractals.fractal.impl.FractalsPresenter
 import com.nulp.graphedu.presentation.fragments.fractals.fractalsStart.FractalsStartContract
 import com.nulp.graphedu.presentation.fragments.fractals.fractalsStart.impl.FractalsStartPresenter
 import com.nulp.graphedu.presentation.fragments.mainNavigation.MainNavigationContract
-import com.nulp.graphedu.presentation.fragments.mainNavigation.impl.MainNavigationFragment
 import com.nulp.graphedu.presentation.fragments.mainNavigation.impl.MainNavigationPresenter
 import com.nulp.graphedu.presentation.fragments.menu.MenuContract
 import com.nulp.graphedu.presentation.fragments.menu.impl.MenuPresenter
@@ -27,6 +28,8 @@ object PresentationModule : KoinModule({
     factory { FractalsPresenter() as FractalContract.PresenterContract }
 
     factory { MainNavigationPresenter() as MainNavigationContract.PresenterContract }
+
+    factory { ColorsStartPresenter() as ColorsStartContract.PresenterContract }
 
     //Dialogs
     factory { CreateFractalPresenter() as CreateFractalContract.PresenterContract }
