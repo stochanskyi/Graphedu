@@ -1,4 +1,4 @@
-package com.nulp.graphedu.presentation.fragments.fractal.impl
+package com.nulp.graphedu.presentation.fragments.fractals.fractal.impl
 
 import android.graphics.Bitmap
 import android.graphics.Matrix
@@ -11,9 +11,9 @@ import com.nulp.graphedu.R
 import com.nulp.graphedu.data.generator.FractalResult
 import com.nulp.graphedu.data.generator.NewtonFractalBuilder
 import com.nulp.graphedu.presentation.common.mvp.BaseFragment
-import com.nulp.graphedu.presentation.fragments.fractal.FractalContract.PresenterContract
-import com.nulp.graphedu.presentation.fragments.fractal.FractalContract.ViewContract
-import com.nulp.graphedu.presentation.fragments.fractal.models.FractalParams
+import com.nulp.graphedu.presentation.fragments.fractals.fractal.FractalContract.PresenterContract
+import com.nulp.graphedu.presentation.fragments.fractals.fractal.FractalContract.ViewContract
+import com.nulp.graphedu.presentation.fragments.fractals.fractal.models.FractalParams
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ClickableMenuItem
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ToolbarConfigurator
 import com.nulp.graphedu.presentation.waitForLayout

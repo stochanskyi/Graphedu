@@ -1,4 +1,4 @@
-package com.nulp.graphedu.presentation.fragments.fractalsStart
+package com.nulp.graphedu.presentation.fragments.fractals.fractalsStart
 
 import com.nulp.graphedu.presentation.common.mvp.IBaseFragment
 import com.nulp.graphedu.presentation.common.mvp.IBasePresenter

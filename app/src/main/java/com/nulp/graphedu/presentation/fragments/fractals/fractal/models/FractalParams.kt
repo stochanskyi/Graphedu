@@ -1,4 +1,4 @@
-package com.nulp.graphedu.presentation.fragments.fractal.models
+package com.nulp.graphedu.presentation.fragments.fractals.fractal.models
 
 data class FractalParams(
     val coefficient: Int,

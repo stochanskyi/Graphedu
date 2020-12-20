@@ -1,13 +1,13 @@
-package com.nulp.graphedu.presentation.fragments.fractalsStart.impl
+package com.nulp.graphedu.presentation.fragments.fractals.fractalsStart.impl
 
 import com.nulp.graphedu.R
 import com.nulp.graphedu.presentation.common.mvp.BaseFragment
 import com.nulp.graphedu.presentation.dialogs.createFractal.CreateFractalContract
 import com.nulp.graphedu.presentation.dialogs.createFractal.impl.CreateFractalDialog
-import com.nulp.graphedu.presentation.fragments.fractal.impl.FractalsFragment
-import com.nulp.graphedu.presentation.fragments.fractal.models.FractalParams
-import com.nulp.graphedu.presentation.fragments.fractalsStart.FractalsStartContract.PresenterContract
-import com.nulp.graphedu.presentation.fragments.fractalsStart.FractalsStartContract.ViewContract
+import com.nulp.graphedu.presentation.fragments.fractals.fractal.impl.FractalsFragment
+import com.nulp.graphedu.presentation.fragments.fractals.fractal.models.FractalParams
+import com.nulp.graphedu.presentation.fragments.fractals.fractalsStart.FractalsStartContract.PresenterContract
+import com.nulp.graphedu.presentation.fragments.fractals.fractalsStart.FractalsStartContract.ViewContract
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ClickableMenuItem
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ToolbarConfigurator
 import kotlinx.android.synthetic.main.fragment_fractal_start.*

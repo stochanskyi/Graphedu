@@ -1,4 +1,4 @@
-package com.nulp.graphedu.presentation.fragments.fractal.impl
+package com.nulp.graphedu.presentation.fragments.fractals.fractal.impl
 
 import android.animation.ValueAnimator
 import android.graphics.Matrix

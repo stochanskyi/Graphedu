@@ -1,4 +1,4 @@
-package com.nulp.graphedu.presentation.fragments.fractal
+package com.nulp.graphedu.presentation.fragments.fractals.fractal
 
 import com.nulp.graphedu.data.generator.FractalResult
 import com.nulp.graphedu.data.generator.NewtonFractalBuilder
