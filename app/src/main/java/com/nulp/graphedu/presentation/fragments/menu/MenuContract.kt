@@ -1,4 +1,4 @@
-package com.nulp.graphedu.presentation.fragments.menuFragment
+package com.nulp.graphedu.presentation.fragments.menu
 
 import com.nulp.graphedu.presentation.common.mvp.IBaseFragment
 import com.nulp.graphedu.presentation.common.mvp.IBasePresenter

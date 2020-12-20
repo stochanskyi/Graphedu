@@ -8,8 +8,8 @@ import com.nulp.graphedu.presentation.fragments.fractals.fractal.FractalContract
 import com.nulp.graphedu.presentation.fragments.fractals.fractal.impl.FractalsPresenter
 import com.nulp.graphedu.presentation.fragments.fractals.fractalsStart.FractalsStartContract
 import com.nulp.graphedu.presentation.fragments.fractals.fractalsStart.impl.FractalsStartPresenter
-import com.nulp.graphedu.presentation.fragments.menuFragment.MenuContract
-import com.nulp.graphedu.presentation.fragments.menuFragment.impl.MenuPresenter
+import com.nulp.graphedu.presentation.fragments.menu.MenuContract
+import com.nulp.graphedu.presentation.fragments.menu.impl.MenuPresenter
 
 object PresentationModule : KoinModule({
 

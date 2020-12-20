@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.nulp.graphedu.R
 import com.nulp.graphedu.presentation.activities.main.MainContract.*
 import com.nulp.graphedu.presentation.common.mvp.BaseActivity
-import com.nulp.graphedu.presentation.fragments.menuFragment.impl.MenuFragment
+import com.nulp.graphedu.presentation.fragments.menu.impl.MenuFragment
 import org.koin.android.ext.android.inject
 
 class MainActivity : BaseActivity<PresenterContract>(), ViewContract {

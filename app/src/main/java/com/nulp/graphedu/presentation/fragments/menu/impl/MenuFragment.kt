@@ -1,9 +1,9 @@
-package com.nulp.graphedu.presentation.fragments.menuFragment.impl
+package com.nulp.graphedu.presentation.fragments.menu.impl
 
 import com.nulp.graphedu.R
 import com.nulp.graphedu.presentation.common.mvp.BaseFragment
 import com.nulp.graphedu.presentation.fragments.fractals.fractalsStart.impl.FractalsStartFragment
-import com.nulp.graphedu.presentation.fragments.menuFragment.MenuContract.*
+import com.nulp.graphedu.presentation.fragments.menu.MenuContract.*
 import kotlinx.android.synthetic.main.fragment_menu.*
 import org.koin.android.ext.android.inject
 
