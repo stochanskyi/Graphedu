@@ -1,8 +1,8 @@
-package com.nulp.graphedu.data.generator
+package com.nulp.graphedu.data.fractals.generator
 
 import android.graphics.Color
 import android.util.DisplayMetrics
-import com.nulp.graphedu.data.models.polynomial.Polynomial
+import com.nulp.graphedu.data.fractals.models.polynomial.Polynomial
 
 class NewtonFractalBuilder(
     private val polynomial: Polynomial,

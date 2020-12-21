@@ -1,8 +1,8 @@
 package com.nulp.graphedu.presentation.fragments.fractals.fractal
 
-import com.nulp.graphedu.data.generator.FractalResult
-import com.nulp.graphedu.data.generator.NewtonFractalBuilder
-import com.nulp.graphedu.data.generator.NewtonFractalGenerator
+import com.nulp.graphedu.data.fractals.generator.FractalResult
+import com.nulp.graphedu.data.fractals.generator.NewtonFractalBuilder
+import com.nulp.graphedu.data.fractals.generator.NewtonFractalGenerator
 import com.nulp.graphedu.presentation.common.mvp.IBaseFragment
 import com.nulp.graphedu.presentation.common.mvp.IBasePresenter
 

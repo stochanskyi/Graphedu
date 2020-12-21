@@ -1,6 +1,6 @@
-package com.nulp.graphedu.data.definition
+package com.nulp.graphedu.data.fractals.definition
 
-import com.nulp.graphedu.data.models.polynomial.SimplePolynomial
+import com.nulp.graphedu.data.fractals.models.polynomial.SimplePolynomial
 
 object DefinedNewtonFractalParams {
 

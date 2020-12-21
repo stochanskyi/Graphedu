@@ -1,11 +1,11 @@
 package com.nulp.graphedu.presentation.fragments.fractals.fractal.impl
 
 import android.util.LruCache
-import com.nulp.graphedu.data.definition.DefinedNewtonFractalParams
-import com.nulp.graphedu.data.definition.FractalParams
-import com.nulp.graphedu.data.generator.FractalResult
-import com.nulp.graphedu.data.generator.NewtonFractalBuilder
-import com.nulp.graphedu.data.generator.NewtonFractalGenerator
+import com.nulp.graphedu.data.fractals.definition.DefinedNewtonFractalParams
+import com.nulp.graphedu.data.fractals.definition.FractalParams
+import com.nulp.graphedu.data.fractals.generator.FractalResult
+import com.nulp.graphedu.data.fractals.generator.NewtonFractalBuilder
+import com.nulp.graphedu.data.fractals.generator.NewtonFractalGenerator
 import com.nulp.graphedu.data.isRunning
 import com.nulp.graphedu.presentation.common.mvp.BasePresenter
 import com.nulp.graphedu.presentation.fragments.fractals.fractal.FractalContract

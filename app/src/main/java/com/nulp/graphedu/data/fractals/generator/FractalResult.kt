@@ -1,4 +1,4 @@
-package com.nulp.graphedu.data.generator
+package com.nulp.graphedu.data.fractals.generator
 
 import android.graphics.Bitmap
 

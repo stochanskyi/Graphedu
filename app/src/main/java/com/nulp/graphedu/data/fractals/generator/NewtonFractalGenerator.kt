@@ -1,12 +1,12 @@
-package com.nulp.graphedu.data.generator
+package com.nulp.graphedu.data.fractals.generator
 
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.util.DisplayMetrics
 import androidx.core.graphics.set
 import com.nulp.graphedu.data.map
-import com.nulp.graphedu.data.models.complex.Complex
-import com.nulp.graphedu.data.models.polynomial.Polynomial
+import com.nulp.graphedu.data.fractals.models.complex.Complex
+import com.nulp.graphedu.data.fractals.models.polynomial.Polynomial
 import io.reactivex.rxjava3.core.Single
 
 class NewtonFractalGenerator(

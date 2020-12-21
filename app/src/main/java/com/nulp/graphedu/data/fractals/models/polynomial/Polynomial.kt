@@ -1,6 +1,6 @@
-package com.nulp.graphedu.data.models.polynomial
+package com.nulp.graphedu.data.fractals.models.polynomial
 
-import com.nulp.graphedu.data.models.complex.Complex
+import com.nulp.graphedu.data.fractals.models.complex.Complex
 
 interface Polynomial {
 

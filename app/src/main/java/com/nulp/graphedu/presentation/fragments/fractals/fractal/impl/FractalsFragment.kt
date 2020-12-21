@@ -8,8 +8,8 @@ import android.view.animation.DecelerateInterpolator
 import androidx.core.animation.doOnEnd
 import androidx.core.view.isVisible
 import com.nulp.graphedu.R
-import com.nulp.graphedu.data.generator.FractalResult
-import com.nulp.graphedu.data.generator.NewtonFractalBuilder
+import com.nulp.graphedu.data.fractals.generator.FractalResult
+import com.nulp.graphedu.data.fractals.generator.NewtonFractalBuilder
 import com.nulp.graphedu.presentation.common.mvp.BaseFragment
 import com.nulp.graphedu.presentation.fragments.fractals.fractal.FractalContract.PresenterContract
 import com.nulp.graphedu.presentation.fragments.fractals.fractal.FractalContract.ViewContract

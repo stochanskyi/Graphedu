@@ -1,4 +1,4 @@
-package com.nulp.graphedu.data.models.complex
+package com.nulp.graphedu.data.fractals.models.complex
 
 import kotlin.math.*
 
