@@ -39,6 +39,13 @@ class ImageEditFragment : BaseFragment<PresenterContract>(R.layout.fragment_imag
             .setMenuId(R.menu.menu_with_handbook)
             .addClickableItem(ClickableMenuItem(R.id.buttonHandbook) { presenter.onHandbookClicked() })
             .applyToToolbar(toolbar)
+
+        layoutActions.setOnClickListener { presenter.onActionChangeColorClicked() }
+    }
+
+    override fun setActionsVisible(isVisible: Boolean, animate: Boolean) {
+        if (animate) animateActionsLayoutVisible()
+        setActionsLayoutVisible(isVisible)
     }
 
     override fun setImage(uri: Uri) {

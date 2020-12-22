@@ -12,9 +12,14 @@ class ImageEditPresenter : BasePresenter<ViewContract>(), PresenterContract {
         this.image = image
     }
 
+    override fun onActionChangeColorClicked() {
+        view?.setActionsVisible(false)
+    }
+
     override fun onStart() {
         super.onStart()
         view?.setImage(image)
+        view?.setActionsVisible(true)
     }
 
     override fun onHandbookClicked() {
