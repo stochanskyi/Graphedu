@@ -1,7 +1,7 @@
 package com.nulp.graphedu.data.colors.transformers
 
-import com.nulp.graphedu.data.colors.HslPixelColor
-import com.nulp.graphedu.data.colors.RgbPixelColor
+import com.nulp.graphedu.data.colors.entity.HslPixelColor
+import com.nulp.graphedu.data.colors.entity.RgbPixelColor
 import kotlin.math.roundToInt
 
 object HslToRgbTransformer : ColorSchemeTransformer<HslPixelColor, RgbPixelColor> {

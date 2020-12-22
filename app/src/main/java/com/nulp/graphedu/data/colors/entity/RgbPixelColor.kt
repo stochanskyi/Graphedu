@@ -1,4 +1,4 @@
-package com.nulp.graphedu.data.colors
+package com.nulp.graphedu.data.colors.entity
 
 import com.nulp.graphedu.data.colors.transformers.RgbToHslTransformer
 
@@ -14,5 +14,9 @@ data class RgbPixelColor(
 
     override fun toHsl(): HslPixelColor {
         return RgbToHslTransformer.transform(this)
+    }
+
+    override fun colorOfSameType(input: PixelColor): PixelColor {
+        return input.toRgb()
     }
 }
