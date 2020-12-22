@@ -1,7 +1,9 @@
 package com.nulp.graphedu.data.colors.entity
 
 import com.nulp.graphedu.data.colors.transformers.HslToRgbTransformer
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class HslPixelColor(
     val h: Int,
     val s: Int,
