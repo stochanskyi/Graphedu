@@ -23,6 +23,7 @@ interface ImageEditContract {
         fun init(image: Uri)
 
         fun onActionChangeColorClicked()
+        fun onActionChangeColorSpaceClicked()
 
         fun onSelectedColorClicked()
 

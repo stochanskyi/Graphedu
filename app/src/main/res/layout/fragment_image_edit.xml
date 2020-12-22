@@ -31,7 +31,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:src="@drawable/ic_logo_menu"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutActions"
@@ -39,23 +40,63 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_rounded_top"
             android:backgroundTint="@color/imageEditActionBackgroundColor"
-            android:foreground="@drawable/ripple_color_selector_dark"
-            android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="parent">
+            app:layout_constraintTop_toBottomOf="parent"
+            tools:layout_constraintTop_toBottomOf="@null"
+            tools:layout_constraintBottom_toBottomOf="parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:fontFamily="sans-serif-light"
-                android:textColor="@color/text_color"
-                android:text="@string/action_title_change_image_color"
+            <View
+                android:id="@+id/viewActionsSeparator"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="@color/actionsSeparatorColor"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
+            
+            <Button
+                android:id="@+id/buttonActionChangeColor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:background="@null"
+                android:foreground="@drawable/ripple_color_selector_dark"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:fontFamily="sans-serif-light"
+                android:textColor="@color/text_color"
+                android:textAllCaps="false"
+                android:text="@string/action_title_change_image_color"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/viewActionsSeparator"/>
+
+            <Button
+                android:id="@+id/buttonActionChangeColorSpace"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:background="@null"
+                android:foreground="@drawable/ripple_color_selector_dark"
+                android:fontFamily="sans-serif-light"
+                android:textColor="@color/text_color"
+                android:textAllCaps="false"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:text="@string/action_title_change_image_color_space"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/viewActionsSeparator"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

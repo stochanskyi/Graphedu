@@ -28,4 +28,6 @@
 
     <color name="imageEditBackgroundColor">#EAEAEA</color>
 
+    <color name="actionsSeparatorColor">#C4C4C4</color>
+
 </resources>

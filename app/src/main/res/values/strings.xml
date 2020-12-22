@@ -39,4 +39,6 @@
     <!--Image Edit Screen-->
     <string name="image_edit_screen_toolbar_title">Image</string>
     <string name="action_title_change_image_color">Change image color</string>
+    <string name="action_title_change_image_color_space">Change image color space</string>
+
 </resources>

@@ -5,15 +5,16 @@ import android.net.Uri
 import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.nulp.graphedu.R
-import com.nulp.graphedu.data.formatter.AppFormatter
 import com.nulp.graphedu.presentation.common.mvp.BaseFragment
-import com.nulp.graphedu.presentation.fragments.colors.imageEdit.ImageEditContract.*
+import com.nulp.graphedu.presentation.fragments.colors.imageEdit.ImageEditContract.PresenterContract
+import com.nulp.graphedu.presentation.fragments.colors.imageEdit.ImageEditContract.ViewContract
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ClickableMenuItem
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ToolbarConfigurator
 import kotlinx.android.synthetic.main.fragment_image_edit.*
 import org.koin.android.ext.android.inject
 
-class ImageEditFragment : BaseFragment<PresenterContract>(R.layout.fragment_image_edit), ViewContract {
+class ImageEditFragment : BaseFragment<PresenterContract>(R.layout.fragment_image_edit),
+    ViewContract {
 
     companion object {
         private const val IMAGE_KEY = "key_image"
@@ -42,7 +43,8 @@ class ImageEditFragment : BaseFragment<PresenterContract>(R.layout.fragment_imag
             .addClickableItem(ClickableMenuItem(R.id.buttonHandbook) { presenter.onHandbookClicked() })
             .applyToToolbar(toolbar)
 
-        layoutActions.setOnClickListener { presenter.onActionChangeColorClicked() }
+        buttonActionChangeColor.setOnClickListener { presenter.onActionChangeColorClicked() }
+        buttonActionChangeColorSpace.setOnClickListener { presenter.onActionChangeColorSpaceClicked() }
     }
 
     override fun setActionsVisible(isVisible: Boolean, animate: Boolean) {

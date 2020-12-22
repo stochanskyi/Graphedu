@@ -18,9 +18,14 @@ class ImageEditPresenter(
     }
 
     override fun onActionChangeColorClicked() {
+        //TODO Replace with some SMART logic
         view?.setActionsVisible(false, false)
         updateSelectedColor(-0x10000)
         view?.setSelectedColorVisible(true)
+    }
+
+    override fun onActionChangeColorSpaceClicked() {
+        //TODO
     }
 
     override fun onSelectedColorClicked() {
