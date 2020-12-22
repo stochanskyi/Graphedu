@@ -1,9 +1,11 @@
 package com.nulp.graphedu.presentation.fragments.colors.imageEdit.impl
 
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.nulp.graphedu.R
+import com.nulp.graphedu.data.formatter.AppFormatter
 import com.nulp.graphedu.presentation.common.mvp.BaseFragment
 import com.nulp.graphedu.presentation.fragments.colors.imageEdit.ImageEditContract.*
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ClickableMenuItem
@@ -46,6 +48,20 @@ class ImageEditFragment : BaseFragment<PresenterContract>(R.layout.fragment_imag
     override fun setActionsVisible(isVisible: Boolean, animate: Boolean) {
         if (animate) animateActionsLayoutVisible()
         setActionsLayoutVisible(isVisible)
+    }
+
+    override fun setSelectedColorVisible(isVisible: Boolean, animate: Boolean) {
+        if (animate) animateSelectedColorLayoutVisible()
+        setSelectedColorLayoutVisible(isVisible)
+    }
+
+    override fun setSelectedColor(color: Int) {
+        viewSelectedColor.background.setTint(color)
+        Color.RED
+    }
+
+    override fun setSelectedColorText(colorText: String) {
+        textSelectedColor.text = colorText
     }
 
     override fun setImage(uri: Uri) {

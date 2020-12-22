@@ -1,10 +1,15 @@
 package com.nulp.graphedu.presentation.fragments.colors.imageEdit.impl
 
+import android.graphics.Color
 import android.net.Uri
+import com.nulp.graphedu.data.formatter.AppFormatter
 import com.nulp.graphedu.presentation.common.mvp.BasePresenter
-import com.nulp.graphedu.presentation.fragments.colors.imageEdit.ImageEditContract.*
+import com.nulp.graphedu.presentation.fragments.colors.imageEdit.ImageEditContract.PresenterContract
+import com.nulp.graphedu.presentation.fragments.colors.imageEdit.ImageEditContract.ViewContract
 
-class ImageEditPresenter : BasePresenter<ViewContract>(), PresenterContract {
+class ImageEditPresenter(
+    private val formatter: AppFormatter
+): BasePresenter<ViewContract>(), PresenterContract {
 
     private lateinit var image: Uri
 
@@ -13,7 +18,13 @@ class ImageEditPresenter : BasePresenter<ViewContract>(), PresenterContract {
     }
 
     override fun onActionChangeColorClicked() {
-        view?.setActionsVisible(false)
+        view?.setActionsVisible(false, false)
+        updateSelectedColor(-0x10000)
+        view?.setSelectedColorVisible(true)
+    }
+
+    override fun onSelectedColorClicked() {
+        //TODO
     }
 
     override fun onStart() {
@@ -24,6 +35,11 @@ class ImageEditPresenter : BasePresenter<ViewContract>(), PresenterContract {
 
     override fun onHandbookClicked() {
         //TODO
+    }
+
+    private fun updateSelectedColor(color: Int) {
+        view?.setSelectedColor(color)
+        view?.setSelectedColorText(formatter.formatColorHex(color))
     }
 
 }

@@ -49,10 +49,6 @@ abstract class BaseDialog<T : IBasePresenter<out IBaseView>> : DialogFragment(),
         dialog?.window?.attributes = newAttributes
     }
 
-    override fun onPause() {
-        super.onPause()
-    }
-
     override fun close() {
         this.dismiss()
     }

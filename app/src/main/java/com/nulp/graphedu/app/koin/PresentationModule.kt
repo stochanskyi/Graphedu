@@ -33,7 +33,7 @@ object PresentationModule : KoinModule({
 
     factory { ColorsStartPresenter() as ColorsStartContract.PresenterContract }
 
-    factory { ImageEditPresenter() as ImageEditContract.PresenterContract }
+    factory { ImageEditPresenter(get()) as ImageEditContract.PresenterContract }
 
     //Dialogs
     factory { CreateFractalPresenter() as CreateFractalContract.PresenterContract }
