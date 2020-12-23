@@ -5,15 +5,19 @@ import com.nulp.graphedu.data.colors.container.ColorTransformation
 import com.nulp.graphedu.data.colors.container.ColorsContainer
 import com.nulp.graphedu.data.colors.container.ContainerGenerator
 import com.nulp.graphedu.data.colors.entity.PixelColor
+import com.nulp.graphedu.data.colors.image.ColorsBitmapProviderImpl
 import com.nulp.graphedu.data.colors.utils.toAndroidColor
+import com.nulp.graphedu.data.colors.utils.toRGBColor
 import com.nulp.graphedu.data.observeOnUI
 import com.nulp.graphedu.data.onApiThread
+import com.nulp.graphedu.data.palette.BitmapPaletteGenerator
 import com.nulp.graphedu.data.palette.ContainerPaletteGenerator
 import com.nulp.graphedu.data.uriConverter.UriConverter
 import com.nulp.graphedu.presentation.common.mvp.BasePresenter
 import com.nulp.graphedu.presentation.fragments.colors.imageEdit.ImageEditContract.PresenterContract
 import com.nulp.graphedu.presentation.fragments.colors.imageEdit.ImageEditContract.ViewContract
 import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.kotlin.subscribeBy
 
 class ImageEditPresenter(
     private val uriConverter: UriConverter
@@ -94,7 +98,18 @@ class ImageEditPresenter(
     }
 
     override fun onColorToChangeSelected(color: Int) {
-        // TODO
+        Single.fromCallable {
+            color.toRGBColor()
+        }
+            .onApiThread()
+            .doOnSuccess { container.changeColor(selectedColor!!, it) }
+            .map { ColorsBitmapProviderImpl(imageWidth, imageHeight, container.getColors()).generateBitmap() }
+            .observeOnUI()
+            .doOnSubscribe { view?.isLoading = true }
+            .doFinally { view?.isLoading = false }
+            .subscribeBy {
+                view?.setBitmap(it)
+            }
     }
 
     override fun isBackPressHandled(): Boolean {

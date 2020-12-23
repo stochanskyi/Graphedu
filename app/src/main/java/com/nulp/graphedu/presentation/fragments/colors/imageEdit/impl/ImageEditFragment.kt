@@ -1,5 +1,6 @@
 package com.nulp.graphedu.presentation.fragments.colors.imageEdit.impl
 
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -111,6 +112,10 @@ class ImageEditFragment : BaseFragment<PresenterContract>(R.layout.fragment_imag
     override fun showSelectColorSpaceDialog() {
         ColorsSpaceSelectionDialog.newInstance()
             .show(childFragmentManager, "afs")
+    }
+
+    override fun setBitmap(bitmap: Bitmap) {
+        image.setImageBitmap(bitmap)
     }
 
     override fun onColorSelected(color: PixelColor) {
