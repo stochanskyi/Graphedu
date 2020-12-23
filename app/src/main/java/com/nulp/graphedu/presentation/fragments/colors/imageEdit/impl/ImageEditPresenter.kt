@@ -1,6 +1,7 @@
 package com.nulp.graphedu.presentation.fragments.colors.imageEdit.impl
 
 import android.net.Uri
+import com.nulp.graphedu.data.colors.container.ColorTransformation
 import com.nulp.graphedu.data.colors.container.ColorsContainer
 import com.nulp.graphedu.data.colors.container.ContainerGenerator
 import com.nulp.graphedu.data.colors.entity.PixelColor
@@ -94,15 +95,28 @@ class ImageEditPresenter(
     }
 
     override fun onTransformToRgb() {
-        //TODO
+        changeColorSpace { toRgb() }
     }
 
     override fun onTransformToHsl() {
-        //TODO
+        changeColorSpace { toHsl() }
     }
 
     override fun onHandbookClicked() {
         //TODO
+    }
+
+    private fun changeColorSpace(transformation: ColorTransformation) {
+        Single.fromCallable {
+            container.transform(transformation)
+        }
+            .observeOnUI()
+            .doOnSubscribe { view?.isLoading = true }
+            .doFinally { view?.isLoading = false }
+            .subscribe(
+                { container = it },
+                { view?.handleError(it) }
+            )
     }
 
     private fun updateSelectedColor() {

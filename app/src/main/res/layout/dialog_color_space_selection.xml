@@ -14,7 +14,6 @@
         android:textAlignment="center"
         android:text="@string/actionToRgb" />
 
-
     <TextView
         android:id="@+id/buttonHsl"
         android:layout_width="match_parent"
