@@ -36,6 +36,10 @@ object HslToRgbTransformer : ColorSchemeTransformer<HslPixelColor, RgbPixelColor
             rgb[i] = v
         }
 
+        for (i in rgb.indices) {
+            rgb[i] = rgb[i] * 255
+        }
+
         return RgbPixelColor(rgb[0].toInt(), rgb[1].toInt(), rgb[2].toInt())
     }
 }
