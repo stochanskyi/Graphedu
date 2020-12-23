@@ -1,41 +1,75 @@
 package com.nulp.graphedu.presentation.fragments.colors.imageEdit.impl
 
-import android.graphics.Color
 import android.net.Uri
+import com.nulp.graphedu.data.colors.container.ColorsContainer
+import com.nulp.graphedu.data.colors.container.ContainerGenerator
 import com.nulp.graphedu.data.formatter.AppFormatter
+import com.nulp.graphedu.data.observeOnUI
+import com.nulp.graphedu.data.onApiThread
+import com.nulp.graphedu.data.palette.ContainerPaletteGenerator
+import com.nulp.graphedu.data.uriConverter.UriConverter
 import com.nulp.graphedu.presentation.common.mvp.BasePresenter
 import com.nulp.graphedu.presentation.fragments.colors.imageEdit.ImageEditContract.PresenterContract
 import com.nulp.graphedu.presentation.fragments.colors.imageEdit.ImageEditContract.ViewContract
+import io.reactivex.rxjava3.core.Single
 
 class ImageEditPresenter(
-    private val formatter: AppFormatter
-): BasePresenter<ViewContract>(), PresenterContract {
+    private val formatter: AppFormatter,
+    private val uriConverter: UriConverter
+) : BasePresenter<ViewContract>(), PresenterContract {
 
     private lateinit var image: Uri
 
+    private var imageHeight: Int = 0
+    private var imageWidth: Int = 0
+
+    private lateinit var container: ColorsContainer
+
+    private var palette: ColorsContainer? = null
+
     override fun init(image: Uri) {
         this.image = image
-    }
-
-    override fun onActionChangeColorClicked() {
-        //TODO Replace with some SMART logic
-        view?.setActionsVisible(false, false)
-        updateSelectedColor(-0x10000)
-        view?.setSelectedColorVisible(true)
-    }
-
-    override fun onActionChangeColorSpaceClicked() {
-        //TODO
-    }
-
-    override fun onSelectedColorClicked() {
-        //TODO
     }
 
     override fun onStart() {
         super.onStart()
         view?.setImage(image)
         view?.setActionsVisible(true)
+
+        uriConverter.toBitmap(image)
+            .onApiThread()
+            .doOnSuccess {
+                imageWidth = it.width
+                imageHeight = it.height
+            }
+            .map { ContainerGenerator(it).generateRGBContainer() }
+            .subscribe(
+                { container = it },
+                { view?.handleError(it) }
+            )
+    }
+
+    override fun onActionChangeColorClicked() {
+        Single.fromCallable {
+            ContainerPaletteGenerator(container).generate()
+        }
+            .onApiThread()
+            .doOnSuccess { palette = it }
+            .observeOnUI()
+            .subscribe(
+                {
+                    view?.setActionsVisible(false, false)
+                    view?.setSelectedColorVisible(true)
+                },
+                { view?.handleError(it) }
+            )
+    }
+
+    override fun onActionChangeColorSpaceClicked() {
+    }
+
+    override fun onSelectedColorClicked() {
+        view?.openColorSelectionScreen(palette!!.getColors())
     }
 
     override fun onHandbookClicked() {

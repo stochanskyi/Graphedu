@@ -2,6 +2,7 @@
 
 import android.net.Uri
 import androidx.annotation.ColorInt
+import com.nulp.graphedu.data.colors.entity.PixelColor
 import com.nulp.graphedu.presentation.common.mvp.IBaseFragment
 import com.nulp.graphedu.presentation.common.mvp.IBasePresenter
 
@@ -17,6 +18,8 @@ interface ImageEditContract {
         fun setSelectedColorText(colorText: String)
 
         fun setImage(uri: Uri)
+
+        fun openColorSelectionScreen(colors: Array<PixelColor>)
     }
 
     interface PresenterContract : IBasePresenter<ViewContract> {
