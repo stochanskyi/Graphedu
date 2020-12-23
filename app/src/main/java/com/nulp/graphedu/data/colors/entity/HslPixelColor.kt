@@ -13,6 +13,12 @@ data class HslPixelColor(
         return ""
     }
 
+    init {
+        require(h in 0..360) { "h must be in range [0, 360]" }
+        require(s in 0..100) { "s must be in range [0, 100]" }
+        require(l in 0..100) { "l must be in range [0, 100]" }
+    }
+
     override fun toRgb(): RgbPixelColor {
         return HslToRgbTransformer.transform(this)
     }
