@@ -44,5 +44,7 @@
     <!--Space Selection Screen-->
     <string name="actionToRgb">to RGB</string>
     <string name="actionToHsl">to HSL</string>
+    <string name="title_change_color_lightness">Change lighness</string>
+    <string name="action_pick">Pick</string>
 
 </resources>

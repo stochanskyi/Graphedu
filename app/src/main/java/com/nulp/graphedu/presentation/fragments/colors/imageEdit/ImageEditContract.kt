@@ -22,6 +22,7 @@ interface ImageEditContract {
         fun setImage(uri: Uri)
 
         fun openColorSelectionScreen(colors: Array<PixelColor>)
+        fun pickColorToChangeWith(color: Int)
 
         fun showSelectColorSpaceDialog()
     }
@@ -33,8 +34,10 @@ interface ImageEditContract {
         fun onActionChangeColorSpaceClicked()
 
         fun onSelectedColorClicked()
+        fun selectColorToChange()
 
         fun onColorSelected(color: PixelColor)
+        fun onColorToChangeSelected(color: Int)
 
         fun isBackPressHandled(): Boolean
 

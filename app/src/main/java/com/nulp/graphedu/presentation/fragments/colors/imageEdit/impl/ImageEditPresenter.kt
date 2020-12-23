@@ -60,13 +60,16 @@ class ImageEditPresenter(
             ContainerPaletteGenerator(container).generate()
         }
             .onApiThread()
-            .doOnSuccess { palette = it }
+            .doOnSuccess {
+                palette = it
+                selectedColor = it.getColors().first()
+            }
             .observeOnUI()
             .doOnSubscribe { view?.isLoading = true }
             .doFinally { view?.isLoading = false }
             .subscribe(
                 {
-                    view?.setActionsVisible(false, false)
+                    view?.setActionsVisible(isVisible = false, animate = false)
                     view?.setSelectedColorVisible(true)
                 },
                 { view?.handleError(it) }
@@ -81,9 +84,17 @@ class ImageEditPresenter(
         view?.openColorSelectionScreen(palette!!.getColors())
     }
 
+    override fun selectColorToChange() {
+        view?.pickColorToChangeWith(selectedColor!!.toAndroidColor())
+    }
+
     override fun onColorSelected(color: PixelColor) {
         selectedColor = color
         updateSelectedColor()
+    }
+
+    override fun onColorToChangeSelected(color: Int) {
+        // TODO
     }
 
     override fun isBackPressHandled(): Boolean {

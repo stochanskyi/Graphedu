@@ -10,6 +10,8 @@ import com.nulp.graphedu.data.colors.entity.PixelColor
 import com.nulp.graphedu.presentation.common.mvp.BaseFragment
 import com.nulp.graphedu.presentation.dialogs.colorsSpaceSelection.ColorsSpaceSelectionContract
 import com.nulp.graphedu.presentation.dialogs.colorsSpaceSelection.impl.ColorsSpaceSelectionDialog
+import com.nulp.graphedu.presentation.dialogs.lighnessPicker.HSLColorPickerDialog
+import com.nulp.graphedu.presentation.dialogs.lighnessPicker.HSLColorPickerListener
 import com.nulp.graphedu.presentation.fragments.colors.colorsSelection.ColorsSelectionContract
 import com.nulp.graphedu.presentation.fragments.colors.colorsSelection.impl.ColorsSelectionFragment
 import com.nulp.graphedu.presentation.fragments.colors.imageEdit.ImageEditContract.PresenterContract
@@ -22,7 +24,8 @@ import org.koin.android.ext.android.inject
 class ImageEditFragment : BaseFragment<PresenterContract>(R.layout.fragment_image_edit),
     ViewContract,
     ColorsSelectionContract.ColorsSelectionParent,
-    ColorsSpaceSelectionContract.ColorsSpaceSelectionParent {
+    ColorsSpaceSelectionContract.ColorsSpaceSelectionParent,
+    HSLColorPickerListener {
 
     companion object {
         private const val IMAGE_KEY = "key_image"
@@ -55,6 +58,8 @@ class ImageEditFragment : BaseFragment<PresenterContract>(R.layout.fragment_imag
         buttonActionChangeColorSpace.setOnClickListener { presenter.onActionChangeColorSpaceClicked() }
 
         layoutSelectedColor.setOnClickListener { presenter.onSelectedColorClicked() }
+
+        imageNext.setOnClickListener { presenter.selectColorToChange() }
     }
 
     override fun onBackPressed(): Boolean {
@@ -98,6 +103,11 @@ class ImageEditFragment : BaseFragment<PresenterContract>(R.layout.fragment_imag
             .commit()
     }
 
+    override fun pickColorToChangeWith(color: Int) {
+        HSLColorPickerDialog.newInstance(color)
+            .show(childFragmentManager, null)
+    }
+
     override fun showSelectColorSpaceDialog() {
         ColorsSpaceSelectionDialog.newInstance()
             .show(childFragmentManager, "afs")
@@ -115,4 +125,7 @@ class ImageEditFragment : BaseFragment<PresenterContract>(R.layout.fragment_imag
         presenter.onTransformToRgb()
     }
 
+    override fun onLightnessChanged(color: Int) {
+        presenter.onColorToChangeSelected(color)
+    }
 }
