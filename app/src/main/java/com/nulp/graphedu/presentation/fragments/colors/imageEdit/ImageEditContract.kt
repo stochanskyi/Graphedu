@@ -34,6 +34,8 @@ interface ImageEditContract {
 
         fun onColorSelected(color: PixelColor)
 
+        fun isBackPressHandled(): Boolean
+
         fun onHandbookClicked()
     }
 }

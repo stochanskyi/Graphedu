@@ -53,6 +53,11 @@ class ImageEditFragment : BaseFragment<PresenterContract>(R.layout.fragment_imag
         layoutSelectedColor.setOnClickListener { presenter.onSelectedColorClicked() }
     }
 
+    override fun onBackPressed(): Boolean {
+        return if (super.onBackPressed()) true
+        else presenter.isBackPressHandled()
+    }
+
     override var isLoading: Boolean
         get() = layoutProgress.isVisible
         set(value) {

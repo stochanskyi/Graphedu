@@ -5,7 +5,6 @@ import com.nulp.graphedu.data.colors.container.ColorsContainer
 import com.nulp.graphedu.data.colors.container.ContainerGenerator
 import com.nulp.graphedu.data.colors.entity.PixelColor
 import com.nulp.graphedu.data.colors.utils.toAndroidColor
-import com.nulp.graphedu.data.formatter.AppFormatter
 import com.nulp.graphedu.data.observeOnUI
 import com.nulp.graphedu.data.onApiThread
 import com.nulp.graphedu.data.palette.ContainerPaletteGenerator
@@ -16,7 +15,6 @@ import com.nulp.graphedu.presentation.fragments.colors.imageEdit.ImageEditContra
 import io.reactivex.rxjava3.core.Single
 
 class ImageEditPresenter(
-    private val formatter: AppFormatter,
     private val uriConverter: UriConverter
 ) : BasePresenter<ViewContract>(), PresenterContract {
 
@@ -84,6 +82,14 @@ class ImageEditPresenter(
     override fun onColorSelected(color: PixelColor) {
         selectedColor = color
         updateSelectedColor()
+    }
+
+    override fun isBackPressHandled(): Boolean {
+        if (palette == null) return false
+        palette = null
+        view?.setSelectedColorVisible(false, false)
+        view?.setActionsVisible(true)
+        return true
     }
 
     override fun onHandbookClicked() {
