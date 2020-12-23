@@ -1,12 +1,17 @@
 package com.nulp.graphedu.data.colors.entity
 
 import com.nulp.graphedu.data.colors.transformers.HslToRgbTransformer
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class HslPixelColor(
     val h: Int,
     val s: Int,
     val l: Int
 ) : PixelColor {
+    override fun getFormattedString(): String {
+        return ""
+    }
 
     init {
         require(h in 0..360) { "h must be in range [0, 360]" }

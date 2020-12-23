@@ -1,7 +1,9 @@
 package com.nulp.graphedu.data.colors.entity
 
 import com.nulp.graphedu.data.colors.transformers.RgbToHslTransformer
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class RgbPixelColor(
     val r: Int,
     val g: Int,
@@ -24,5 +26,9 @@ data class RgbPixelColor(
 
     override fun colorOfSameType(input: PixelColor): PixelColor {
         return input.toRgb()
+    }
+
+    override fun getFormattedString(): String {
+        return "#${Integer.toHexString(r)}${Integer.toHexString(g)}${Integer.toHexString(b)}"
     }
 }

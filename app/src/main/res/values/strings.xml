@@ -41,4 +41,8 @@
     <string name="action_title_change_image_color">Change image color</string>
     <string name="action_title_change_image_color_space">Change image color space</string>
 
+    <!--Space Selection Screen-->
+    <string name="actionToRgb">to RGB</string>
+    <string name="actionToHsl">to HSL</string>
+
 </resources>

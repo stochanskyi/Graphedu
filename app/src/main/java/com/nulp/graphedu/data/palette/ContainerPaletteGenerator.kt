@@ -10,7 +10,7 @@ class ContainerPaletteGenerator(
 
     fun generate(): ColorsContainer {
         val containerColors = container.getColors()
-        val colors = sortedSetOf<PixelColor>()
+        val colors = mutableSetOf<PixelColor>()
         for (i in containerColors.indices) {
             val color = containerColors[i]
             colors += color

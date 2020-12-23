@@ -1,3 +1,7 @@
 package com.nulp.graphedu.data.colors.entity
 
-interface PixelColor: ColorTransformable
+import android.os.Parcelable
+
+interface PixelColor: ColorTransformable, Parcelable {
+    fun getFormattedString(): String
+}

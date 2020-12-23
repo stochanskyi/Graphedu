@@ -2,12 +2,15 @@
 
 import android.net.Uri
 import androidx.annotation.ColorInt
+import com.nulp.graphedu.data.colors.entity.PixelColor
 import com.nulp.graphedu.presentation.common.mvp.IBaseFragment
 import com.nulp.graphedu.presentation.common.mvp.IBasePresenter
 
 interface ImageEditContract {
 
     interface ViewContract: IBaseFragment {
+
+        var isLoading: Boolean
 
         fun setActionsVisible(isVisible: Boolean, animate: Boolean = true)
 
@@ -17,6 +20,10 @@ interface ImageEditContract {
         fun setSelectedColorText(colorText: String)
 
         fun setImage(uri: Uri)
+
+        fun openColorSelectionScreen(colors: Array<PixelColor>)
+
+        fun showSelectColorSpaceDialog()
     }
 
     interface PresenterContract : IBasePresenter<ViewContract> {
@@ -26,6 +33,13 @@ interface ImageEditContract {
         fun onActionChangeColorSpaceClicked()
 
         fun onSelectedColorClicked()
+
+        fun onColorSelected(color: PixelColor)
+
+        fun isBackPressHandled(): Boolean
+
+        fun onTransformToRgb()
+        fun onTransformToHsl()
 
         fun onHandbookClicked()
     }

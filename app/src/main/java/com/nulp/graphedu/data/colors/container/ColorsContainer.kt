@@ -1,5 +1,6 @@
 package com.nulp.graphedu.data.colors.container
 
+import android.os.Parcelable
 import com.nulp.graphedu.data.colors.entity.ColorTransformable
 import com.nulp.graphedu.data.colors.entity.PixelColor
 
