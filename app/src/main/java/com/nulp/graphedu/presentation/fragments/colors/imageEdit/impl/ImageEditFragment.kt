@@ -3,6 +3,7 @@ package com.nulp.graphedu.presentation.fragments.colors.imageEdit.impl
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.nulp.graphedu.R
 import com.nulp.graphedu.data.colors.entity.PixelColor
@@ -51,6 +52,12 @@ class ImageEditFragment : BaseFragment<PresenterContract>(R.layout.fragment_imag
 
         layoutSelectedColor.setOnClickListener { presenter.onSelectedColorClicked() }
     }
+
+    override var isLoading: Boolean
+        get() = layoutProgress.isVisible
+        set(value) {
+            layoutProgress.isVisible = value
+        }
 
     override fun setActionsVisible(isVisible: Boolean, animate: Boolean) {
         if (animate) animateActionsLayoutVisible()

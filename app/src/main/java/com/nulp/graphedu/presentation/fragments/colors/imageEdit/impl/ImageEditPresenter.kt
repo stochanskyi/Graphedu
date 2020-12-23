@@ -47,6 +47,9 @@ class ImageEditPresenter(
                 imageHeight = it.height
             }
             .map { ContainerGenerator(it).generateRGBContainer() }
+            .observeOnUI()
+            .doOnSubscribe { view?.isLoading = true }
+            .doFinally { view?.isLoading = false }
             .subscribe(
                 { container = it },
                 { view?.handleError(it) }
@@ -60,6 +63,8 @@ class ImageEditPresenter(
             .onApiThread()
             .doOnSuccess { palette = it }
             .observeOnUI()
+            .doOnSubscribe { view?.isLoading = true }
+            .doFinally { view?.isLoading = false }
             .subscribe(
                 {
                     view?.setActionsVisible(false, false)

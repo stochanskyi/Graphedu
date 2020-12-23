@@ -10,6 +10,8 @@ interface ImageEditContract {
 
     interface ViewContract: IBaseFragment {
 
+        var isLoading: Boolean
+
         fun setActionsVisible(isVisible: Boolean, animate: Boolean = true)
 
         fun setSelectedColorVisible(isVisible: Boolean, animate: Boolean = true)
