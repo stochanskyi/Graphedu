@@ -9,6 +9,9 @@ data class HslPixelColor(
     val s: Int,
     val l: Int
 ) : PixelColor {
+    override fun getFormattedString(): String {
+        return ""
+    }
 
     override fun toRgb(): RgbPixelColor {
         return HslToRgbTransformer.transform(this)

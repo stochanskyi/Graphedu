@@ -21,4 +21,8 @@ data class RgbPixelColor(
     override fun colorOfSameType(input: PixelColor): PixelColor {
         return input.toRgb()
     }
+
+    override fun getFormattedString(): String {
+        return "#${Integer.toHexString(r)}${Integer.toHexString(g)}${Integer.toHexString(b)}"
+    }
 }
