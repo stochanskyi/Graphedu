@@ -9,10 +9,6 @@ data class HslPixelColor(
     val s: Int,
     val l: Int
 ) : PixelColor {
-    override fun getFormattedString(): String {
-        return ""
-    }
-
     init {
         require(h in 0..360) { "h must be in range [0, 360]" }
         require(s in 0..100) { "s must be in range [0, 100]" }
@@ -29,5 +25,9 @@ data class HslPixelColor(
 
     override fun colorOfSameType(input: PixelColor): PixelColor {
         return input.toHsl()
+    }
+
+    override fun getFormattedString(): String {
+        return "$h°, $s%, $l%"
     }
 }
