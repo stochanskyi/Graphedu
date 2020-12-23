@@ -3,6 +3,8 @@ package com.nulp.graphedu.presentation.fragments.colors.imageEdit.impl
 import android.net.Uri
 import com.nulp.graphedu.data.colors.container.ColorsContainer
 import com.nulp.graphedu.data.colors.container.ContainerGenerator
+import com.nulp.graphedu.data.colors.entity.PixelColor
+import com.nulp.graphedu.data.colors.utils.toAndroidColor
 import com.nulp.graphedu.data.formatter.AppFormatter
 import com.nulp.graphedu.data.observeOnUI
 import com.nulp.graphedu.data.onApiThread
@@ -26,6 +28,8 @@ class ImageEditPresenter(
     private lateinit var container: ColorsContainer
 
     private var palette: ColorsContainer? = null
+
+    private var selectedColor: PixelColor? = null
 
     override fun init(image: Uri) {
         this.image = image
@@ -72,13 +76,20 @@ class ImageEditPresenter(
         view?.openColorSelectionScreen(palette!!.getColors())
     }
 
+    override fun onColorSelected(color: PixelColor) {
+        selectedColor = color
+        updateSelectedColor()
+    }
+
     override fun onHandbookClicked() {
         //TODO
     }
 
-    private fun updateSelectedColor(color: Int) {
-        view?.setSelectedColor(color)
-        view?.setSelectedColorText(formatter.formatColorHex(color))
+    private fun updateSelectedColor() {
+        selectedColor?.let {
+            view?.setSelectedColor(it.toAndroidColor())
+            view?.setSelectedColorText(it.getFormattedString())
+        }
     }
 
 }

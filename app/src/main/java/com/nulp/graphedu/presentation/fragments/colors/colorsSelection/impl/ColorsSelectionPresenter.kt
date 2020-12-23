@@ -25,6 +25,9 @@ class ColorsSelectionPresenter : BasePresenter<ViewContract>(), PresenterContrac
         return ColorViewModel(
             toAndroidColor(),
             getFormattedString()
-        ) { listener.onColorSelected(this) }
+        ) {
+            listener.onColorSelected(this)
+            view?.close()
+        }
     }
 }

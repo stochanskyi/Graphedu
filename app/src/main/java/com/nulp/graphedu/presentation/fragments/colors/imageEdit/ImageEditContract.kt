@@ -30,6 +30,8 @@ interface ImageEditContract {
 
         fun onSelectedColorClicked()
 
+        fun onColorSelected(color: PixelColor)
+
         fun onHandbookClicked()
     }
 }

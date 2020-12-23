@@ -83,7 +83,7 @@ class ImageEditFragment : BaseFragment<PresenterContract>(R.layout.fragment_imag
     }
 
     override fun onColorSelected(color: PixelColor) {
-        //TODO
+        presenter.onColorSelected(color)
     }
 
 }
