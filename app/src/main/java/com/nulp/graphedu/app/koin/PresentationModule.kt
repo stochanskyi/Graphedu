@@ -2,6 +2,8 @@ package com.nulp.graphedu.app.koin
 
 import com.nulp.graphedu.presentation.activities.main.MainContract
 import com.nulp.graphedu.presentation.activities.main.impl.MainPresenter
+import com.nulp.graphedu.presentation.dialogs.colorsSpaceSelection.ColorsSpaceSelectionContract
+import com.nulp.graphedu.presentation.dialogs.colorsSpaceSelection.impl.ColorsSpaceSelectionPresenter
 import com.nulp.graphedu.presentation.dialogs.createFractal.CreateFractalContract
 import com.nulp.graphedu.presentation.dialogs.createFractal.impl.CreateFractalPresenter
 import com.nulp.graphedu.presentation.fragments.colors.colorsSelection.ColorsSelectionContract
@@ -41,4 +43,6 @@ object PresentationModule : KoinModule({
 
     //Dialogs
     factory { CreateFractalPresenter() as CreateFractalContract.PresenterContract }
+
+    factory { ColorsSpaceSelectionPresenter() as ColorsSpaceSelectionContract.PresenterContract }
 })

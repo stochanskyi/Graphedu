@@ -22,6 +22,8 @@ interface ImageEditContract {
         fun setImage(uri: Uri)
 
         fun openColorSelectionScreen(colors: Array<PixelColor>)
+
+        fun showSelectColorSpaceDialog()
     }
 
     interface PresenterContract : IBasePresenter<ViewContract> {
@@ -35,6 +37,9 @@ interface ImageEditContract {
         fun onColorSelected(color: PixelColor)
 
         fun isBackPressHandled(): Boolean
+
+        fun onTransformToRgb()
+        fun onTransformToHsl()
 
         fun onHandbookClicked()
     }

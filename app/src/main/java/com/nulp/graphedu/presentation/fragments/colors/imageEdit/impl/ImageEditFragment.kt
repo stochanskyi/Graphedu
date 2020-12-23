@@ -8,6 +8,8 @@ import com.bumptech.glide.Glide
 import com.nulp.graphedu.R
 import com.nulp.graphedu.data.colors.entity.PixelColor
 import com.nulp.graphedu.presentation.common.mvp.BaseFragment
+import com.nulp.graphedu.presentation.dialogs.colorsSpaceSelection.ColorsSpaceSelectionContract
+import com.nulp.graphedu.presentation.dialogs.colorsSpaceSelection.impl.ColorsSpaceSelectionDialog
 import com.nulp.graphedu.presentation.fragments.colors.colorsSelection.ColorsSelectionContract
 import com.nulp.graphedu.presentation.fragments.colors.colorsSelection.impl.ColorsSelectionFragment
 import com.nulp.graphedu.presentation.fragments.colors.imageEdit.ImageEditContract.PresenterContract
@@ -18,7 +20,9 @@ import kotlinx.android.synthetic.main.fragment_image_edit.*
 import org.koin.android.ext.android.inject
 
 class ImageEditFragment : BaseFragment<PresenterContract>(R.layout.fragment_image_edit),
-    ViewContract, ColorsSelectionContract.ColorsSelectionParent {
+    ViewContract,
+    ColorsSelectionContract.ColorsSelectionParent,
+    ColorsSpaceSelectionContract.ColorsSpaceSelectionParent {
 
     companion object {
         private const val IMAGE_KEY = "key_image"
@@ -94,8 +98,21 @@ class ImageEditFragment : BaseFragment<PresenterContract>(R.layout.fragment_imag
             .commit()
     }
 
+    override fun showSelectColorSpaceDialog() {
+        ColorsSpaceSelectionDialog.newInstance()
+            .show(childFragmentManager, "afs")
+    }
+
     override fun onColorSelected(color: PixelColor) {
         presenter.onColorSelected(color)
+    }
+
+    override fun onHslColorsSpaceSelected() {
+        presenter.onTransformToHsl()
+    }
+
+    override fun onRgbColorsSpaceSelected() {
+        presenter.onTransformToRgb()
     }
 
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_dialog">
+
+    <TextView
+        android:id="@+id/buttonRgb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="@drawable/ripple_color_selector_dark"
+        android:padding="13dp"
+        android:textAlignment="center"
+        android:text="@string/actionToRgb" />
+
+
+    <TextView
+        android:id="@+id/buttonHsl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="@drawable/ripple_color_selector_dark"
+        android:padding="13dp"
+        android:textAlignment="center"
+        android:text="@string/actionToHsl" />
+
+</LinearLayout>

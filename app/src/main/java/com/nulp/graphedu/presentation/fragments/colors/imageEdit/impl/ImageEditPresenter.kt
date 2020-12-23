@@ -73,6 +73,7 @@ class ImageEditPresenter(
     }
 
     override fun onActionChangeColorSpaceClicked() {
+        view?.showSelectColorSpaceDialog()
     }
 
     override fun onSelectedColorClicked() {
@@ -90,6 +91,14 @@ class ImageEditPresenter(
         view?.setSelectedColorVisible(false, false)
         view?.setActionsVisible(true)
         return true
+    }
+
+    override fun onTransformToRgb() {
+        //TODO
+    }
+
+    override fun onTransformToHsl() {
+        //TODO
     }
 
     override fun onHandbookClicked() {
