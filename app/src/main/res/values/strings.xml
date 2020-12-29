@@ -46,5 +46,6 @@
     <string name="actionToHsl">to HSL</string>
     <string name="title_change_color_lightness">Change lighness</string>
     <string name="action_pick">Pick</string>
+    <string name="action_select">Select</string>
 
 </resources>

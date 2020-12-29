@@ -5,8 +5,9 @@ import android.net.Uri
 import com.nulp.graphedu.data.colors.entity.PixelColor
 import com.nulp.graphedu.presentation.common.mvp.IBaseFragment
 import com.nulp.graphedu.presentation.common.mvp.IBasePresenter
+import com.nulp.graphedu.presentation.fragments.imageBoundsSelector.ImageBounds
 
-interface ImageEditContract {
+    interface ImageEditContract {
 
     interface ViewContract: IBaseFragment {
 
@@ -24,6 +25,8 @@ interface ImageEditContract {
         fun openColorSelectionScreen(colors: Array<PixelColor>)
         fun pickColorToChangeWith(color: Int)
 
+        fun selectImageBounds()
+
         fun showSelectColorSpaceDialog()
 
         fun setBitmap(bitmap: Bitmap)
@@ -40,6 +43,9 @@ interface ImageEditContract {
 
         fun onColorSelected(color: PixelColor)
         fun onColorToChangeSelected(color: Int)
+
+        fun provideBoundsSelectionImage(): Bitmap
+        fun handleImageBoundsSelected(bounds: ImageBounds)
 
         fun isBackPressHandled(): Boolean
 

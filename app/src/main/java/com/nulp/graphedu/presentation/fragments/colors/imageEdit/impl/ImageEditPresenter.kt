@@ -1,5 +1,6 @@
 package com.nulp.graphedu.presentation.fragments.colors.imageEdit.impl
 
+import android.graphics.Bitmap
 import android.net.Uri
 import com.nulp.graphedu.data.colors.container.ColorTransformation
 import com.nulp.graphedu.data.colors.container.ColorsContainer
@@ -10,12 +11,12 @@ import com.nulp.graphedu.data.colors.utils.toAndroidColor
 import com.nulp.graphedu.data.colors.utils.toRGBColor
 import com.nulp.graphedu.data.observeOnUI
 import com.nulp.graphedu.data.onApiThread
-import com.nulp.graphedu.data.palette.BitmapPaletteGenerator
 import com.nulp.graphedu.data.palette.ContainerPaletteGenerator
 import com.nulp.graphedu.data.uriConverter.UriConverter
 import com.nulp.graphedu.presentation.common.mvp.BasePresenter
 import com.nulp.graphedu.presentation.fragments.colors.imageEdit.ImageEditContract.PresenterContract
 import com.nulp.graphedu.presentation.fragments.colors.imageEdit.ImageEditContract.ViewContract
+import com.nulp.graphedu.presentation.fragments.imageBoundsSelector.ImageBounds
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.kotlin.subscribeBy
 
@@ -25,14 +26,14 @@ class ImageEditPresenter(
 
     private lateinit var image: Uri
 
-    private var imageHeight: Int = 0
-    private var imageWidth: Int = 0
+    private var imageBitmap: Bitmap? = null
 
     private lateinit var container: ColorsContainer
 
     private var palette: ColorsContainer? = null
 
     private var selectedColor: PixelColor? = null
+    private var changeToColor: PixelColor? = null
 
     override fun init(image: Uri) {
         this.image = image
@@ -46,8 +47,7 @@ class ImageEditPresenter(
         uriConverter.toBitmap(image)
             .onApiThread()
             .doOnSuccess {
-                imageWidth = it.width
-                imageHeight = it.height
+                imageBitmap = it
             }
             .map { ContainerGenerator(it).generateRGBContainer() }
             .observeOnUI()
@@ -98,26 +98,40 @@ class ImageEditPresenter(
     }
 
     override fun onColorToChangeSelected(color: Int) {
+        changeToColor = color.toRGBColor()
+        view?.selectImageBounds()
+    }
+
+    override fun isBackPressHandled(): Boolean {
+        if (palette == null) return false
+        palette = null
+        view?.setSelectedColorVisible(isVisible = false, animate = false)
+        view?.setActionsVisible(true)
+        return true
+    }
+
+    override fun provideBoundsSelectionImage(): Bitmap {
+        return imageBitmap!!
+    }
+
+    override fun handleImageBoundsSelected(bounds: ImageBounds) {
         Single.fromCallable {
-            color.toRGBColor()
+            container.changeColor(selectedColor!!, changeToColor!!, imageBitmap!!.width, bounds)
         }
             .onApiThread()
-            .doOnSuccess { container.changeColor(selectedColor!!, it) }
-            .map { ColorsBitmapProviderImpl(imageWidth, imageHeight, container.getColors()).generateBitmap() }
+            .map {
+                ColorsBitmapProviderImpl(
+                    imageBitmap!!.width,
+                    imageBitmap!!.height,
+                    container.getColors()
+                ).generateBitmap()
+            }
             .observeOnUI()
             .doOnSubscribe { view?.isLoading = true }
             .doFinally { view?.isLoading = false }
             .subscribeBy {
                 view?.setBitmap(it)
             }
-    }
-
-    override fun isBackPressHandled(): Boolean {
-        if (palette == null) return false
-        palette = null
-        view?.setSelectedColorVisible(false, false)
-        view?.setActionsVisible(true)
-        return true
     }
 
     override fun onTransformToRgb() {

@@ -2,6 +2,7 @@ package com.nulp.graphedu.presentation.fragments.colors.imageEdit.impl
 
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import androidx.core.view.isVisible
@@ -17,6 +18,9 @@ import com.nulp.graphedu.presentation.fragments.colors.colorsSelection.ColorsSel
 import com.nulp.graphedu.presentation.fragments.colors.colorsSelection.impl.ColorsSelectionFragment
 import com.nulp.graphedu.presentation.fragments.colors.imageEdit.ImageEditContract.PresenterContract
 import com.nulp.graphedu.presentation.fragments.colors.imageEdit.ImageEditContract.ViewContract
+import com.nulp.graphedu.presentation.fragments.imageBoundsSelector.ImageBounds
+import com.nulp.graphedu.presentation.fragments.imageBoundsSelector.ImageBoundsSelectionFragment
+import com.nulp.graphedu.presentation.fragments.imageBoundsSelector.ImageBoundsSelectionListener
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ClickableMenuItem
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ToolbarConfigurator
 import kotlinx.android.synthetic.main.fragment_image_edit.*
@@ -26,7 +30,8 @@ class ImageEditFragment : BaseFragment<PresenterContract>(R.layout.fragment_imag
     ViewContract,
     ColorsSelectionContract.ColorsSelectionParent,
     ColorsSpaceSelectionContract.ColorsSpaceSelectionParent,
-    HSLColorPickerListener {
+    HSLColorPickerListener,
+    ImageBoundsSelectionListener {
 
     companion object {
         private const val IMAGE_KEY = "key_image"
@@ -109,6 +114,17 @@ class ImageEditFragment : BaseFragment<PresenterContract>(R.layout.fragment_imag
             .show(childFragmentManager, null)
     }
 
+    override fun selectImageBounds() {
+        childFragmentManager.beginTransaction()
+            .addToBackStack(null)
+            .add(
+                fragmentContainer.id,
+                ImageBoundsSelectionFragment.newInstance(),
+                null
+            )
+            .commit()
+    }
+
     override fun showSelectColorSpaceDialog() {
         ColorsSpaceSelectionDialog.newInstance()
             .show(childFragmentManager, "afs")
@@ -132,5 +148,13 @@ class ImageEditFragment : BaseFragment<PresenterContract>(R.layout.fragment_imag
 
     override fun onLightnessChanged(color: Int) {
         presenter.onColorToChangeSelected(color)
+    }
+
+    override fun provideBoundsSelectionImage(): Bitmap {
+        return presenter.provideBoundsSelectionImage()
+    }
+
+    override fun handleImageBoundsSelected(bounds: ImageBounds) {
+        presenter.handleImageBoundsSelected(bounds)
     }
 }
