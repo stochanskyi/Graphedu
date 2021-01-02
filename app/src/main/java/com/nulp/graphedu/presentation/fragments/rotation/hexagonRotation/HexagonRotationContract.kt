@@ -11,7 +11,8 @@ interface HexagonRotationContract {
 
         fun setHexagonPoints(items: List<IHexagonPointViewModel>)
 
-        fun showTutorialDialog()
+        fun showVertexSelectionTutorial()
+        fun showRotationTutorial()
     }
 
     interface PresenterContract : IBasePresenter<ViewContract> {
@@ -19,7 +20,8 @@ interface HexagonRotationContract {
 
         fun onRotateClicked()
 
-        fun onTutorialCompleted()
+        fun onVertexSelectionTutorialCompleted()
+        fun onRotationTutorialCompleted()
 
         fun onHandbookClicked()
     }

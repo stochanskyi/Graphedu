@@ -16,6 +16,6 @@ interface TutorialContract {
     }
 
     interface TutorialParent {
-        fun onTutorialCompleted()
+        fun onTutorialCompleted(tag: String?)
     }
 }

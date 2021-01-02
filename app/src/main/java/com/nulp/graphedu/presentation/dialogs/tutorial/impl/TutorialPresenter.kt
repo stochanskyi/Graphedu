@@ -20,7 +20,7 @@ class TutorialPresenter : BasePresenter<ViewContract>(), PresenterContract {
     }
 
     override fun onCompleteClicked() {
-        listener.onTutorialCompleted()
+        listener.onTutorialCompleted(view?.dialogTag)
         view?.close()
     }
 }

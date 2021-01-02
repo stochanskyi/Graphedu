@@ -24,13 +24,17 @@ class HexagonRotationPresenter : BasePresenter<ViewContract>(), PresenterContrac
 
     override fun onRotateClicked() {
         view?.setRotateActionVisible(false)
-        view?.showTutorialDialog()
+        view?.showVertexSelectionTutorial()
     }
 
-    override fun onTutorialCompleted() {
+    override fun onVertexSelectionTutorialCompleted() {
         val hexagonPoints = HexagonRotationPoint.values().map { it.toViewModel() }
         view?.setHexagonPointsVisible(true)
         view?.setHexagonPoints(hexagonPoints)
+    }
+
+    override fun onRotationTutorialCompleted() {
+        //TODO Show dragging angle view
     }
 
     override fun onHandbookClicked() {
@@ -44,6 +48,8 @@ class HexagonRotationPresenter : BasePresenter<ViewContract>(), PresenterContrac
     private fun onPointSelected(point: HexagonRotationPoint) {
         selectedPoint = point
         //TODO process selected point
+        view?.setHexagonPointsVisible(false)
+        view?.showRotationTutorial()
     }
 
 }

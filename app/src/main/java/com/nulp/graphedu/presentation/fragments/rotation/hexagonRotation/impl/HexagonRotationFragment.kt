@@ -12,7 +12,6 @@ import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.Hexagon
 import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.adapter.HexagonPointsAdapter
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ClickableMenuItem
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ToolbarConfigurator
-import kotlinx.android.synthetic.main.fragment_image_edit.*
 import kotlinx.android.synthetic.main.fragment_image_edit.toolbar
 import kotlinx.android.synthetic.main.fragment_rotation.*
 import org.koin.android.ext.android.inject
@@ -24,7 +23,8 @@ class HexagonRotationFragment : BaseFragment<PresenterContract>(R.layout.fragmen
         private const val COORDINATE_X_KEY = "key_coordinate_x"
         private const val COORDINATE_Y_KEY = "key_coordinate_y"
 
-        private const val TUTORIAL_DIALOG = "dialog_tutorial"
+        private const val VERTEX_SELECTION_TUTORIAL_DIALOG = "vertex_selection_dialog_tutorial"
+        private const val ROTATION_TUTORIAL_DIALOG = "dialog_rotation_tutorial"
 
         fun newInstance(x: Float, y: Float): HexagonRotationFragment {
             return HexagonRotationFragment().apply {
@@ -82,17 +82,26 @@ class HexagonRotationFragment : BaseFragment<PresenterContract>(R.layout.fragmen
 
     }
 
-    override fun showTutorialDialog() {
-        val message = getString(R.string.rotation_tutorial_message)
+    override fun showVertexSelectionTutorial() {
+        val message = getString(R.string.vertex_selection_tutorial_message)
         TutorialDialog.newInstance(message).show(
-            childFragmentManager, TUTORIAL_DIALOG
+            childFragmentManager, VERTEX_SELECTION_TUTORIAL_DIALOG
         )
     }
 
-    override fun onTutorialCompleted() {
-        presenter.onTutorialCompleted()
+    override fun showRotationTutorial() {
+        val message = getString(R.string.rotation_tutorial_message)
+        TutorialDialog.newInstance(message).show(
+            childFragmentManager, ROTATION_TUTORIAL_DIALOG
+        )
     }
 
+    override fun onTutorialCompleted(tag: String?) {
+        when (tag) {
+            VERTEX_SELECTION_TUTORIAL_DIALOG -> presenter.onVertexSelectionTutorialCompleted()
+            ROTATION_TUTORIAL_DIALOG -> presenter.onRotationTutorialCompleted()
+        }
+    }
 
     private fun hexagonPointsAdapterAction(action: HexagonPointsAdapter.() -> Unit) {
         (recyclerHexagonPoints.adapter as? HexagonPointsAdapter)?.action()
