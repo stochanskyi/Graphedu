@@ -5,16 +5,21 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.CallSuper
+import androidx.annotation.LayoutRes
 import androidx.fragment.app.DialogFragment
 import com.nulp.graphedu.presentation.common.extensions.BackPressListener
 import com.nulp.graphedu.presentation.common.extensions.FragmentHolder
 
-abstract class BaseDialog<T : IBasePresenter<out IBaseView>> : DialogFragment(),
+abstract class BaseDialog<T : IBasePresenter<out IBaseView>> : DialogFragment,
     IBaseDialog,
     FragmentHolder,
     BackPressListener {
 
     protected abstract val presenter: T
+
+    constructor() : super()
+
+    constructor(@LayoutRes layoutRes: Int) : super(layoutRes)
 
     protected abstract fun initPresenter()
 
