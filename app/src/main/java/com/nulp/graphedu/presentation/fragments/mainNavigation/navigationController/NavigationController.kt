@@ -6,6 +6,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.nulp.graphedu.presentation.fragments.mainNavigation.navigationController.navItems.ColorsNavigationItem
 import com.nulp.graphedu.presentation.fragments.mainNavigation.navigationController.navItems.FractalsNavigationItem
 import com.nulp.graphedu.presentation.fragments.mainNavigation.navigationController.navItems.NavigationItem
+import com.nulp.graphedu.presentation.fragments.mainNavigation.navigationController.navItems.RotationNavigationItem
 
 class NavigationController(
     private val fragmentManager: FragmentManager,
@@ -14,7 +15,8 @@ class NavigationController(
 
     private val items: List<NavigationItem> = listOf(
         FractalsNavigationItem(),
-        ColorsNavigationItem()
+        ColorsNavigationItem(),
+        RotationNavigationItem()
     )
 
     init {

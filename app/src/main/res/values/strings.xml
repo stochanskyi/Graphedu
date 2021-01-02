@@ -47,5 +47,9 @@
     <string name="title_change_color_lightness">Change lighness</string>
     <string name="action_pick">Pick</string>
     <string name="action_select">Select</string>
+    
+    <!--Rotation Start Screen-->
+    <string name="rotation_screen_toolbar_title">Rotation</string>
+    <string name="create_hexagon_title">"Click to create hexagon to rotate</string>
 
 </resources>
