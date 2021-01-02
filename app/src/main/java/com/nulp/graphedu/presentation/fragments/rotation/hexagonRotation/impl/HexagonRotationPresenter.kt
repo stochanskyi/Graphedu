@@ -13,6 +13,11 @@ class HexagonRotationPresenter : BasePresenter<ViewContract>(), PresenterContrac
         this.y = y
     }
 
+    override fun onStart() {
+        super.onStart()
+        view?.setRotateActionVisible(true, false)
+    }
+
     override fun onHandbookClicked() {
         //TODO
     }

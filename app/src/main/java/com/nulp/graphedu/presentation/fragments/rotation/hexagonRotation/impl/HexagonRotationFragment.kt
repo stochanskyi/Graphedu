@@ -3,13 +3,15 @@ package com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.impl
 import android.os.Bundle
 import com.nulp.graphedu.R
 import com.nulp.graphedu.presentation.common.mvp.BaseFragment
-import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.HexagonRotationContract.*
+import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.HexagonRotationContract.PresenterContract
+import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.HexagonRotationContract.ViewContract
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ClickableMenuItem
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ToolbarConfigurator
 import kotlinx.android.synthetic.main.fragment_image_edit.*
 import org.koin.android.ext.android.inject
 
-class HexagonRotationFragment : BaseFragment<PresenterContract>(R.layout.fragment_rotation), ViewContract {
+class HexagonRotationFragment : BaseFragment<PresenterContract>(R.layout.fragment_rotation),
+    ViewContract {
 
     companion object {
         private const val COORDINATE_X_KEY = "key_coordinate_x"
@@ -43,4 +45,12 @@ class HexagonRotationFragment : BaseFragment<PresenterContract>(R.layout.fragmen
             .addClickableItem(ClickableMenuItem(R.id.buttonHandbook) { presenter.onHandbookClicked() })
             .applyToToolbar(toolbar)
     }
+
+    override fun setRotateActionVisible(isVisible: Boolean, animate: Boolean) {
+        if (animate) {
+            animateActionsVisible()
+        }
+        setActionsVisible(isVisible)
+    }
+
 }

@@ -23,21 +23,22 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <Button
-            android:id="@+id/buttonActionChangeColor"
+        <TextView
+            android:id="@+id/buttonActionRotate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
             android:background="@drawable/bg_rounded_top"
             android:backgroundTint="@color/imageEditActionBackgroundColor"
             android:foreground="@drawable/ripple_color_selector_dark"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp"
+            android:textAlignment="center"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
             android:fontFamily="sans-serif-light"
             android:textColor="@color/text_color"
             android:textAllCaps="false"
+            android:textSize="16sp"
             android:text="@string/action_rotate"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -6,7 +6,7 @@ import com.nulp.graphedu.presentation.common.mvp.IBasePresenter
 interface HexagonRotationContract {
 
     interface ViewContract : IBaseFragment {
-
+        fun setRotateActionVisible(isVisible: Boolean, animate: Boolean = false)
     }
 
     interface PresenterContract : IBasePresenter<ViewContract> {
