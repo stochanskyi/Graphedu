@@ -4,6 +4,7 @@ import com.nulp.graphedu.R
 import com.nulp.graphedu.presentation.common.mvp.BaseFragment
 import com.nulp.graphedu.presentation.dialogs.hexagonCreation.HexagonCreationContract
 import com.nulp.graphedu.presentation.dialogs.hexagonCreation.impl.HexagonCreationDialog
+import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.impl.HexagonRotationFragment
 import com.nulp.graphedu.presentation.fragments.rotation.rotationStart.RotationStartContract.PresentationContract
 import com.nulp.graphedu.presentation.fragments.rotation.rotationStart.RotationStartContract.ViewContract
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ClickableMenuItem
@@ -45,7 +46,10 @@ class RotationStartFragment :
     }
 
     override fun openRotationScreen(x: Float, y: Float) {
-        //TODO
+        childFragmentManager.beginTransaction()
+            .addToBackStack(null)
+            .add(fragmentContainer.id, HexagonRotationFragment.newInstance(x, y))
+            .commit()
     }
 
     override fun onHexagonCoordinatesSelected(x: Float, y: Float) {

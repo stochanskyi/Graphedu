@@ -60,4 +60,7 @@
     <string name="hexagon_creation_action_positive">Confirm</string>
     <string name="hexagon_creation_action_negative">Cancel</string>
 
+    <!--Rotation Screen-->
+    <string name="action_rotate">Rotate</string>
+
 </resources>

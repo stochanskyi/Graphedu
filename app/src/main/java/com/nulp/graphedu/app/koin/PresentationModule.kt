@@ -22,6 +22,8 @@ import com.nulp.graphedu.presentation.fragments.mainNavigation.MainNavigationCon
 import com.nulp.graphedu.presentation.fragments.mainNavigation.impl.MainNavigationPresenter
 import com.nulp.graphedu.presentation.fragments.menu.MenuContract
 import com.nulp.graphedu.presentation.fragments.menu.impl.MenuPresenter
+import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.HexagonRotationContract
+import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.impl.HexagonRotationPresenter
 import com.nulp.graphedu.presentation.fragments.rotation.rotationStart.RotationStartContract
 import com.nulp.graphedu.presentation.fragments.rotation.rotationStart.impl.RotationStartPresenter
 
@@ -46,6 +48,8 @@ object PresentationModule : KoinModule({
     factory { ColorsSelectionPresenter() as ColorsSelectionContract.PresenterContract }
 
     factory { RotationStartPresenter() as RotationStartContract.PresentationContract }
+
+    factory { HexagonRotationPresenter() as HexagonRotationContract.PresenterContract }
 
     //Dialogs
     factory { CreateFractalPresenter() as CreateFractalContract.PresenterContract }
