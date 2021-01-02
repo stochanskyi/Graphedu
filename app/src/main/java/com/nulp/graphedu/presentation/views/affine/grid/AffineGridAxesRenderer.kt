@@ -22,7 +22,7 @@ class AffineGridAxesRenderer(
 
         // Axis text
         private const val AXIS_LABEL_COLOR = Color.BLACK
-        private const val AXIS_LABEL_SIZE = 12
+        private const val AXIS_LABEL_SIZE = 18
         private const val AXIS_LABEL_MARGIN = 8
         private const val AXIS_LABEL_AXIS_MARGIN = 4
     }

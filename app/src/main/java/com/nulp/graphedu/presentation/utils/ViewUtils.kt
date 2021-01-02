@@ -7,7 +7,6 @@ import android.view.View
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 import java.lang.IllegalStateException
-import java.lang.reflect.Type
 import kotlin.math.roundToInt
 
 fun View.setTint(@ColorInt tintColor: Int) {
@@ -53,8 +52,34 @@ fun Context.dpi(value: Float): Int {
     ).roundToInt()
 }
 
-val TextPaint.baselineToBottom: Float
-    get() = fontMetrics.bottom
+
+fun Context.sp(value: Int): Float {
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_SP,
+        value.toFloat(),
+        resources.displayMetrics
+    )
+}
+
+fun Context.sp(value: Float): Float {
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_SP,
+        value,
+        resources.displayMetrics
+    )
+}
 
 val TextPaint.baselineToTop: Float
     get() = -fontMetrics.top
+
+val TextPaint.baselineToAscent: Float
+    get() = -fontMetrics.ascent
+
+val TextPaint.baselineToBottom: Float
+    get() = fontMetrics.bottom
+
+val TextPaint.baselineToDescent: Float
+    get() = fontMetrics.descent
+
+val TextPaint.height: Float
+    get() = with(fontMetrics) { bottom - top }
