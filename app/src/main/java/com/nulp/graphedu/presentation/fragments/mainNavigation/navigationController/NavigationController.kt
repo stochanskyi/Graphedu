@@ -51,7 +51,7 @@ class NavigationController(
         currentItem = item
         transaction.apply {
             showItem(item)
-            commit()
+            commitNow()
         }
     }
 
