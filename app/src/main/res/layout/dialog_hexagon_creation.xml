@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:background="@drawable/bg_dialog">
+
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:textColor="@color/text_color"
+        android:text="@string/title_hexagon_creation"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textMessage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"
+        android:textColor="@color/text_color"
+        android:text="@string/message_hexagon_creation"
+        app:layout_constraintTop_toBottomOf="@id/textTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrierCoordinatesInputTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:barrierMargin="18dp"
+        app:constraint_referenced_ids="textMessage" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineCoordinatesCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <TextView
+        android:id="@+id/textTitleCoordinateX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@color/text_color"
+        android:text="@string/hexagon_creation_coordinate_x"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintTop_toTopOf="@id/barrierCoordinatesInputTop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/inputCoordinateX"
+        app:layout_constraintBottom_toBottomOf="@id/barrierCoordinatesInputBottom"/>
+
+    <EditText
+        android:id="@+id/inputCoordinateX"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:padding="5dp"
+        android:background="@drawable/bg_stroke_rounded"
+        android:backgroundTint="@color/text_hint_color"
+        android:inputType="numberSigned|numberDecimal"
+        android:textColor="@color/text_color"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:hint="10.5"
+        app:layout_constraintTop_toTopOf="@id/barrierCoordinatesInputTop"
+        app:layout_constraintStart_toEndOf="@id/textTitleCoordinateX"
+        app:layout_constraintEnd_toStartOf="@id/guidelineCoordinatesCenter"
+        app:layout_constraintBottom_toBottomOf="@id/barrierCoordinatesInputBottom"/>
+
+    <TextView
+        android:id="@+id/textTitleCoordinateY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@color/text_color"
+        android:text="@string/hexagon_creation_coordinate_y"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintTop_toTopOf="@id/barrierCoordinatesInputTop"
+        app:layout_constraintStart_toEndOf="@id/guidelineCoordinatesCenter"
+        app:layout_constraintEnd_toStartOf="@id/inputCoordinateY"
+        app:layout_constraintBottom_toBottomOf="@id/barrierCoordinatesInputBottom"/>
+
+    <EditText
+        android:id="@+id/inputCoordinateY"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:padding="5dp"
+        android:background="@drawable/bg_stroke_rounded"
+        android:backgroundTint="@color/text_hint_color"
+        android:inputType="numberSigned|numberDecimal"
+        android:textColor="@color/text_color"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:hint="10.5"
+        app:layout_constraintTop_toTopOf="@id/barrierCoordinatesInputTop"
+        app:layout_constraintStart_toEndOf="@id/textTitleCoordinateY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/barrierCoordinatesInputBottom"/>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrierCoordinatesInputBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="textTitleCoordinateX, textTitleCoordinateY, inputCoordinateX, inputCoordinateY" />
+
+    <Button
+        style="@style/ActionButton.ActionButtonNegative"
+        android:id="@+id/buttonNegative"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="29dp"
+        android:text="@string/hexagon_creation_action_negative"
+        app:layout_constraintWidth_percent="0.45"
+        app:layout_constraintTop_toBottomOf="@id/barrierCoordinatesInputBottom"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        style="@style/ActionButton.ActionButtonPositive"
+        android:id="@+id/buttonPositive"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="29dp"
+        android:text="@string/hexagon_creation_action_positive"
+        app:layout_constraintWidth_percent="0.45"
+        app:layout_constraintTop_toBottomOf="@id/barrierCoordinatesInputBottom"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

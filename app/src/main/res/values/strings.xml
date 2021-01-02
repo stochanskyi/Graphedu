@@ -52,4 +52,12 @@
     <string name="rotation_screen_toolbar_title">Rotation</string>
     <string name="create_hexagon_title">"Click to create hexagon to rotate</string>
 
+    <!--Rotation Creation Dialog-->
+    <string name="title_hexagon_creation">Hexagon</string>
+    <string name="message_hexagon_creation">Select the hexagon center</string>
+    <string name="hexagon_creation_coordinate_x" translatable="false">x</string>
+    <string name="hexagon_creation_coordinate_y" translatable="false">y</string>
+    <string name="hexagon_creation_action_positive">Confirm</string>
+    <string name="hexagon_creation_action_negative">Cancel</string>
+
 </resources>

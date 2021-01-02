@@ -5,8 +5,15 @@ import com.nulp.graphedu.presentation.fragments.rotation.rotationStart.RotationS
 
 class RotationStartPresenter : BasePresenter<ViewContract>(), PresentationContract {
 
-
     override fun onHandbookClicked() {
-        TODO("Not yet implemented")
+        //TODO
+    }
+
+    override fun onCreateClicked() {
+        view?.showHexagonCreationFragment()
+    }
+
+    override fun onCoordinatesSelected(x: Float, y: Float) {
+        view?.openRotationScreen(x, y)
     }
 }
