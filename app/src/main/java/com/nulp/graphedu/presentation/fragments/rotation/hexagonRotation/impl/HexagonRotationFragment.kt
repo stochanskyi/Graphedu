@@ -1,12 +1,15 @@
 package com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.impl
 
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.nulp.graphedu.R
 import com.nulp.graphedu.presentation.common.mvp.BaseFragment
 import com.nulp.graphedu.presentation.dialogs.tutorial.TutorialContract
 import com.nulp.graphedu.presentation.dialogs.tutorial.impl.TutorialDialog
+import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.HexagonRotationContract
 import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.HexagonRotationContract.PresenterContract
 import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.HexagonRotationContract.ViewContract
+import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.adapter.HexagonPointsAdapter
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ClickableMenuItem
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ToolbarConfigurator
 import kotlinx.android.synthetic.main.fragment_image_edit.*
@@ -52,6 +55,12 @@ class HexagonRotationFragment : BaseFragment<PresenterContract>(R.layout.fragmen
             .applyToToolbar(toolbar)
 
         buttonActionRotate.setOnClickListener { presenter.onRotateClicked() }
+
+        recyclerHexagonPoints.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = HexagonPointsAdapter()
+        }
+
     }
 
     override fun setRotateActionVisible(isVisible: Boolean, animate: Boolean) {
@@ -59,6 +68,18 @@ class HexagonRotationFragment : BaseFragment<PresenterContract>(R.layout.fragmen
             animateActionsVisible()
         }
         setActionsVisible(isVisible)
+    }
+
+    override fun setHexagonPointsVisible(isVisible: Boolean, animate: Boolean) {
+        if (animate) {
+            animateHexagonPointsVisible()
+        }
+        setHexagonPointsVisibility(isVisible)
+    }
+
+    override fun setHexagonPoints(items: List<HexagonRotationContract.IHexagonPointViewModel>) {
+        hexagonPointsAdapterAction { setItems(items) }
+
     }
 
     override fun showTutorialDialog() {
@@ -70,6 +91,11 @@ class HexagonRotationFragment : BaseFragment<PresenterContract>(R.layout.fragmen
 
     override fun onTutorialCompleted() {
         presenter.onTutorialCompleted()
+    }
+
+
+    private fun hexagonPointsAdapterAction(action: HexagonPointsAdapter.() -> Unit) {
+        (recyclerHexagonPoints.adapter as? HexagonPointsAdapter)?.action()
     }
 
 }

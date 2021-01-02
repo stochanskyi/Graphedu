@@ -6,7 +6,10 @@ import com.nulp.graphedu.presentation.common.mvp.IBasePresenter
 interface HexagonRotationContract {
 
     interface ViewContract : IBaseFragment {
-        fun setRotateActionVisible(isVisible: Boolean, animate: Boolean = false)
+        fun setRotateActionVisible(isVisible: Boolean, animate: Boolean = true)
+        fun setHexagonPointsVisible(isVisible: Boolean, animate: Boolean = true)
+
+        fun setHexagonPoints(items: List<IHexagonPointViewModel>)
 
         fun showTutorialDialog()
     }
@@ -19,5 +22,11 @@ interface HexagonRotationContract {
         fun onTutorialCompleted()
 
         fun onHandbookClicked()
+    }
+
+    interface IHexagonPointViewModel {
+        val imageRes: Int
+        val textRes: Int
+        val onClickBlock: () -> Unit
     }
 }

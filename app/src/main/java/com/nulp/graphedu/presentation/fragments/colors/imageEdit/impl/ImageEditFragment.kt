@@ -2,7 +2,6 @@ package com.nulp.graphedu.presentation.fragments.colors.imageEdit.impl
 
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import androidx.core.view.isVisible
@@ -18,9 +17,9 @@ import com.nulp.graphedu.presentation.fragments.colors.colorsSelection.ColorsSel
 import com.nulp.graphedu.presentation.fragments.colors.colorsSelection.impl.ColorsSelectionFragment
 import com.nulp.graphedu.presentation.fragments.colors.imageEdit.ImageEditContract.PresenterContract
 import com.nulp.graphedu.presentation.fragments.colors.imageEdit.ImageEditContract.ViewContract
-import com.nulp.graphedu.presentation.fragments.imageBoundsSelector.ImageBounds
-import com.nulp.graphedu.presentation.fragments.imageBoundsSelector.ImageBoundsSelectionFragment
-import com.nulp.graphedu.presentation.fragments.imageBoundsSelector.ImageBoundsSelectionListener
+import com.nulp.graphedu.presentation.fragments.fractals.imageBoundsSelector.ImageBounds
+import com.nulp.graphedu.presentation.fragments.fractals.imageBoundsSelector.ImageBoundsSelectionFragment
+import com.nulp.graphedu.presentation.fragments.fractals.imageBoundsSelector.ImageBoundsSelectionListener
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ClickableMenuItem
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ToolbarConfigurator
 import kotlinx.android.synthetic.main.fragment_image_edit.*

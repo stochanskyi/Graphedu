@@ -1,7 +1,7 @@
 package com.nulp.graphedu.data.colors.container
 
 import com.nulp.graphedu.data.colors.entity.PixelColor
-import com.nulp.graphedu.presentation.fragments.imageBoundsSelector.ImageBounds
+import com.nulp.graphedu.presentation.fragments.fractals.imageBoundsSelector.ImageBounds
 
 class ColorContainerImpl(
     private val colors: Array<PixelColor>

@@ -46,6 +46,17 @@
             tools:layout_constraintTop_toBottomOf="@null"
             tools:layout_constraintBottom_toBottomOf="parent" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerHexagonPoints"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_rounded_top"
+            android:backgroundTint="@color/imageEditActionBackgroundColor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

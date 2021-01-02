@@ -67,4 +67,12 @@
     <!--Tutorial screen-->
     <string name="tutorial_complete_action">OK</string>
 
+    <string name="hexagon_rotation_point_center_text">Center</string>
+    <string name="hexagon_rotation_point_top_text">Top</string>
+    <string name="hexagon_rotation_point_top_right_text">Top Right</string>
+    <string name="hexagon_rotation_point_bottom_right_text">Bottom Right</string>
+    <string name="hexagon_rotation_point_bottom_text">Bottom</string>
+    <string name="hexagon_rotation_point_bottom_left_text">Bottom Left</string>
+    <string name="hexagon_rotation_point_top_left_text">Top Left</string>
+
 </resources>

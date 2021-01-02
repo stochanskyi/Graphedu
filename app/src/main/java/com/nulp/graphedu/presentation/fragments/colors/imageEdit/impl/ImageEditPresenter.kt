@@ -16,7 +16,7 @@ import com.nulp.graphedu.data.uriConverter.UriConverter
 import com.nulp.graphedu.presentation.common.mvp.BasePresenter
 import com.nulp.graphedu.presentation.fragments.colors.imageEdit.ImageEditContract.PresenterContract
 import com.nulp.graphedu.presentation.fragments.colors.imageEdit.ImageEditContract.ViewContract
-import com.nulp.graphedu.presentation.fragments.imageBoundsSelector.ImageBounds
+import com.nulp.graphedu.presentation.fragments.fractals.imageBoundsSelector.ImageBounds
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.kotlin.subscribeBy
 

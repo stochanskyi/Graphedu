@@ -5,7 +5,7 @@ import android.net.Uri
 import com.nulp.graphedu.data.colors.entity.PixelColor
 import com.nulp.graphedu.presentation.common.mvp.IBaseFragment
 import com.nulp.graphedu.presentation.common.mvp.IBasePresenter
-import com.nulp.graphedu.presentation.fragments.imageBoundsSelector.ImageBounds
+import com.nulp.graphedu.presentation.fragments.fractals.imageBoundsSelector.ImageBounds
 
     interface ImageEditContract {
 

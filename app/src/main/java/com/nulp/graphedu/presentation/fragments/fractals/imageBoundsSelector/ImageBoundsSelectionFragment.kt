@@ -1,4 +1,4 @@
-package com.nulp.graphedu.presentation.fragments.imageBoundsSelector
+package com.nulp.graphedu.presentation.fragments.fractals.imageBoundsSelector
 
 import android.graphics.Rect
 import android.os.Bundle

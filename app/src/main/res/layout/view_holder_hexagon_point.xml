@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:paddingTop="8dp"
+    android:paddingBottom="4dp"
+    android:background="?android:selectableItemBackground"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/imageHexagonVertex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:src="@drawable/ic_hexagon_bottom" />
+
+    <TextView
+        android:id="@+id/textVertexType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:lines="1"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-light"
+        android:textColor="@color/text_color"
+        android:textSize="14sp"
+        tools:text="Top" />
+
+</LinearLayout>
