@@ -15,7 +15,16 @@ class HexagonRotationPresenter : BasePresenter<ViewContract>(), PresenterContrac
 
     override fun onStart() {
         super.onStart()
-        view?.setRotateActionVisible(true, false)
+        view?.setRotateActionVisible(isVisible = true, animate = false)
+    }
+
+    override fun onRotateClicked() {
+        view?.setRotateActionVisible(false)
+        view?.showTutorialDialog()
+    }
+
+    override fun onTutorialCompleted() {
+        //TODO
     }
 
     override fun onHandbookClicked() {

@@ -62,5 +62,9 @@
 
     <!--Rotation Screen-->
     <string name="action_rotate">Rotate</string>
+    <string name="rotation_tutorial_message">To begin with, you need to pick a color from the image with a pipette</string>
+
+    <!--Tutorial screen-->
+    <string name="tutorial_complete_action">OK</string>
 
 </resources>

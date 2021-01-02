@@ -25,6 +25,8 @@ abstract class BaseDialog<T : IBasePresenter<out IBaseView>> : DialogFragment,
 
     protected open fun initViews() {}
 
+    open val isFullScreen: Boolean = false
+
     override val dialogTag: String?
         get() = tag
 
@@ -48,7 +50,9 @@ abstract class BaseDialog<T : IBasePresenter<out IBaseView>> : DialogFragment,
 
         val newAttributes = dialog?.window?.attributes?.apply {
             width = ViewGroup.LayoutParams.MATCH_PARENT
-            height = ViewGroup.LayoutParams.WRAP_CONTENT
+            height =
+                if (isFullScreen) ViewGroup.LayoutParams.MATCH_PARENT
+                else ViewGroup.LayoutParams.WRAP_CONTENT
         }
 
         dialog?.window?.attributes = newAttributes
