@@ -1,6 +1,5 @@
 package com.nulp.graphedu.presentation.fragments.mainNavigation.navigationController
 
-import android.content.Context
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -9,7 +8,6 @@ import com.nulp.graphedu.presentation.fragments.mainNavigation.navigationControl
 import com.nulp.graphedu.presentation.fragments.mainNavigation.navigationController.navItems.NavigationItem
 
 class NavigationController(
-    private val context: Context,
     private val fragmentManager: FragmentManager,
     fragmentContainerId: Int
 ) {
@@ -58,7 +56,6 @@ class NavigationController(
     private fun FragmentTransaction.showItem(item: NavigationItem) {
         show(item.fragment)
     }
-
 
     private fun FragmentTransaction.hideItem(item: NavigationItem) {
         hide(item.fragment)
