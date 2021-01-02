@@ -3,7 +3,7 @@ package com.nulp.graphedu.presentation.dialogs.hexagonCreation.impl
 import com.nulp.graphedu.presentation.common.mvp.BasePresenter
 import com.nulp.graphedu.presentation.dialogs.hexagonCreation.HexagonCreationContract.*
 
-class HexagonCoordinatesPresenter : BasePresenter<ViewContract>(), PresenterContract {
+class HexagonCreationPresenter : BasePresenter<ViewContract>(), PresenterContract {
 
     private lateinit var listener: HexagonCreationParent
 

@@ -7,7 +7,7 @@ import com.nulp.graphedu.presentation.dialogs.colorsSpaceSelection.impl.ColorsSp
 import com.nulp.graphedu.presentation.dialogs.createFractal.CreateFractalContract
 import com.nulp.graphedu.presentation.dialogs.createFractal.impl.CreateFractalPresenter
 import com.nulp.graphedu.presentation.dialogs.hexagonCreation.HexagonCreationContract
-import com.nulp.graphedu.presentation.dialogs.hexagonCreation.impl.HexagonCoordinatesPresenter
+import com.nulp.graphedu.presentation.dialogs.hexagonCreation.impl.HexagonCreationPresenter
 import com.nulp.graphedu.presentation.fragments.colors.colorsSelection.ColorsSelectionContract
 import com.nulp.graphedu.presentation.fragments.colors.colorsSelection.impl.ColorsSelectionPresenter
 import com.nulp.graphedu.presentation.fragments.colors.colorsStart.ColorsStartContract
@@ -52,5 +52,5 @@ object PresentationModule : KoinModule({
 
     factory { ColorsSpaceSelectionPresenter() as ColorsSpaceSelectionContract.PresenterContract }
 
-    factory { HexagonCoordinatesPresenter() as HexagonCreationContract.PresenterContract }
+    factory { HexagonCreationPresenter() as HexagonCreationContract.PresenterContract }
 })
