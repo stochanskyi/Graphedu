@@ -18,7 +18,7 @@ class AffineGridAxesRenderer(
     companion object {
         // Axis line
         private const val AXIS_LINE_COLOR = Color.BLACK
-        private const val AXIS_LINE_WIDTH = 2
+        private const val AXIS_LINE_WIDTH = 2f
 
         // Axis text
         private const val AXIS_LABEL_COLOR = Color.BLACK
@@ -52,8 +52,8 @@ class AffineGridAxesRenderer(
     }
 
     private fun drawXAxis(canvas: Canvas) {
-        if (translateY > halfHeight + DRAW_OUT_OF_BOUNDS) return
-        if (translateY < -halfHeight - DRAW_OUT_OF_BOUNDS) return
+        if (translateY > cy + DRAW_OUT_OF_BOUNDS) return
+        if (translateY < -cy - DRAW_OUT_OF_BOUNDS) return
 
         canvas.drawLine(
             0f, cy + translateY,
@@ -63,8 +63,8 @@ class AffineGridAxesRenderer(
     }
 
     private fun drawYAxis(canvas: Canvas) {
-        if (translateX > halfWidth + DRAW_OUT_OF_BOUNDS) return
-        if (translateX < -halfWidth - DRAW_OUT_OF_BOUNDS) return
+        if (translateX > cx + DRAW_OUT_OF_BOUNDS) return
+        if (translateX < -cx - DRAW_OUT_OF_BOUNDS) return
 
         canvas.drawLine(
             cx + translateX, 0f,

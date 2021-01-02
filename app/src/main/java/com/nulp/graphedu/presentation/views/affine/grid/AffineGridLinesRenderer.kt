@@ -7,6 +7,8 @@ import android.graphics.Paint
 import com.nulp.graphedu.presentation.utils.dp
 import com.nulp.graphedu.presentation.views.affine.BaseRenderer
 import com.nulp.graphedu.presentation.views.affine.DRAW_OUT_OF_BOUNDS
+import com.nulp.graphedu.presentation.views.affine.SEGMENTS_BETWEEN_ALIQUOT
+import kotlin.math.floor
 
 class AffineGridLinesRenderer(
     context: Context
@@ -15,7 +17,7 @@ class AffineGridLinesRenderer(
     companion object {
         // Grid line
         private const val GRID_LINE_COLOR = Color.LTGRAY
-        private const val GRID_LINE_WIDTH = 0.5f
+        private const val GRID_LINE_WIDTH = 1f
     }
 
     private val gridLinePaint = Paint().apply {
@@ -30,23 +32,25 @@ class AffineGridLinesRenderer(
     }
 
     override fun render(canvas: Canvas) {
-        drawXLines(canvas)
-        drawYLines(canvas)
+        drawHorizontalLines(canvas)
+        drawVerticalLines(canvas)
     }
 
-    private fun drawXLines(canvas: Canvas) {
-        var currentY = translateY % segmentSize
-        var i = 1
+    private fun drawHorizontalLines(canvas: Canvas) {
+        val absoluteCy = cy + translateY
+        var currentY = absoluteCy % segmentSize
+        var i = resolveIndexRelativeToAxis(absoluteCy)
+
         while (currentY < heightF + DRAW_OUT_OF_BOUNDS) {
-            if (i % 5 != 0) {
-                drawXLine(canvas, currentY)
+            if (i !=0 && i % SEGMENTS_BETWEEN_ALIQUOT != 0) {
+                drawHorizontalLine(canvas, currentY)
             }
             currentY += segmentSize
             i++
         }
     }
 
-    private fun drawXLine(canvas: Canvas, y: Float) {
+    private fun drawHorizontalLine(canvas: Canvas, y: Float) {
         canvas.drawLine(
             0f, y,
             widthF, y,
@@ -54,23 +58,31 @@ class AffineGridLinesRenderer(
         )
     }
 
-    private fun drawYLines(canvas: Canvas) {
-        var currentX = translateX % segmentSize
-        var i = 1
+    private fun drawVerticalLines(canvas: Canvas) {
+        val absoluteCx = cx + translateX
+        var currentX = absoluteCx % segmentSize
+        var i = resolveIndexRelativeToAxis(absoluteCx)
+
         while (currentX < widthF + DRAW_OUT_OF_BOUNDS) {
-            if (i % 5 != 0) {
-                drawYLine(canvas, currentX)
+            if (i !=0 && i % SEGMENTS_BETWEEN_ALIQUOT != 0) {
+                drawVerticalLine(canvas, currentX)
             }
             currentX += segmentSize
             i++
         }
     }
 
-    private fun drawYLine(canvas: Canvas, x: Float) {
+    private fun drawVerticalLine(canvas: Canvas, x: Float) {
         canvas.drawLine(
             x, 0f,
             x, heightF,
             gridLinePaint
         )
+    }
+
+    private fun resolveIndexRelativeToAxis(value: Float): Int {
+        var i = -floor(value / segmentSize).toInt()
+        if (i >= 1) i--
+        return i
     }
 }

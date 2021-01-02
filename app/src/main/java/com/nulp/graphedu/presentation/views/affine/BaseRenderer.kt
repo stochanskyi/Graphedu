@@ -14,12 +14,6 @@ abstract class BaseRenderer : AffineRenderer {
     protected val heightF: Float
         get() = height.toFloat()
 
-    protected var halfWidth: Float = 0f
-        private set
-
-    protected var halfHeight: Float = 0f
-        private set
-
     protected var cx: Float = 0f
         private set
 
@@ -33,12 +27,6 @@ abstract class BaseRenderer : AffineRenderer {
         private set
 
     protected var translateY: Float = 0f
-        private set
-
-    protected var relativeCx: Float = 0f
-        private set
-
-    protected var relativeCy: Float = 0f
         private set
 
     protected var relativeLeft: Float = 0f
@@ -57,8 +45,6 @@ abstract class BaseRenderer : AffineRenderer {
     override fun setSize(width: Int, height: Int) {
         this.width = width
         this.height = height
-        halfWidth = width / 2f
-        halfHeight = height / 2f
         updateAbsoluteCenter()
         updateRelativeData()
     }
@@ -87,12 +73,5 @@ abstract class BaseRenderer : AffineRenderer {
         relativeRight = translateX + width
         relativeTop = translateY
         relativeBottom = translateY + heightF
-
-        updateRelativeCenter()
-    }
-
-    private fun updateRelativeCenter() {
-        relativeCx = (relativeRight - relativeLeft) / 2f
-        relativeCx = (relativeBottom - relativeTop) / 2f
     }
 }

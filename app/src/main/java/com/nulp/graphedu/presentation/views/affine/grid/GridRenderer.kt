@@ -9,11 +9,12 @@ class GridRenderer(
 ) : ComplexRenderer() {
 
     companion object {
-        private const val DEFAULT_SEGMENT_SIZE = 50f
+        private const val DEFAULT_SEGMENT_SIZE = 15f
     }
 
     override val renderers: List<GridSubRenderer> = listOf(
         AffineGridLinesRenderer(context),
+        AffineGridAliquotLinesRenderer(context),
         AffineGridAxesRenderer(context),
     )
 
