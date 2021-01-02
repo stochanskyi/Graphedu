@@ -34,7 +34,6 @@ class MainNavigationFragment : BaseFragment<PresenterContract>(), ViewContract {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         NavigationController(
-            requireContext(),
             childFragmentManager,
             R.id.fragmentContainer
         ).also { it.setup(viewBottomNavigation) }
