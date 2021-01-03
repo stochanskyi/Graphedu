@@ -17,21 +17,23 @@ class HexagonRotationPresenter(
     private val hexagonGenerator: HexagonGenerator
 ) : BasePresenter<ViewContract>(), PresenterContract {
 
-    private lateinit var centerCoordinates: PointCoordinates
+    private var x: Float = 0f
+    private var y: Float = 0f
 
     private lateinit var rotatingPoint: PointCoordinates
 
     private lateinit var hexagon: Hexagon
 
     override fun init(x: Float, y: Float) {
-        centerCoordinates = PointCoordinates(x, y)
-        rotatingPoint = centerCoordinates
+        this.x = x
+        this.y = y
     }
 
     override fun onStart() {
         super.onStart()
 
-        hexagon = hexagonGenerator.generateHexagon(centerCoordinates)
+        hexagon = hexagonGenerator.generateHexagon(PointCoordinates(x, y))
+        rotatingPoint = hexagon.hexagonCenter
 
         view?.setRotateActionVisible(isVisible = true, animate = false)
 
@@ -51,14 +53,25 @@ class HexagonRotationPresenter(
     }
 
     override fun onRotationTutorialCompleted() {
-
-        val newMatrix = TransformationBuilder()
-            .take(AffineMatrix.ofCoordinates(hexagon.hexagonPoints.toList()))
+        val transformationBuilder = TransformationBuilder()
             .moveCoordinates(rotatingPoint.x, rotatingPoint.y)
             .rotateObject((PI / 6).toFloat())
             .scaleObject(5f, 5f)
+
+        val vertexesCoordinates = transformationBuilder
+            .take(AffineMatrix.ofCoordinates(hexagon.hexagonPoints.toList()))
             .transform()
-        view?.setHexagonRenderingData(newMatrix.toCoordinates().toRenderingData())
+            .toCoordinates()
+
+        val centerCoordinates = transformationBuilder
+            .take(AffineMatrix.ofCoordinates(hexagon.hexagonCenter))
+            .transform()
+            .toCoordinates()
+            .first()
+
+        val newHexagon = Hexagon(centerCoordinates, vertexesCoordinates)
+
+        view?.setHexagonRenderingData(newHexagon.toRenderingData())
     }
 
     override fun onHandbookClicked() {
@@ -74,14 +87,6 @@ class HexagonRotationPresenter(
 
         view?.setHexagonPointsVisible(false)
         view?.showRotationTutorial()
-    }
-
-    private fun List<PointCoordinates>.toRenderingData(): FigureRendererData {
-        return FigureRendererData(
-            map { it.toPointF() },
-            centerCoordinates.toPointF(),
-            rotatingPoint.toPointF()
-        )
     }
 
     private fun Hexagon.toRenderingData(): FigureRendererData {
