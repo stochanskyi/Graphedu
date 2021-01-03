@@ -78,12 +78,12 @@ class AffineGridAliquotLinesRenderer(
 
     private fun drawHorizontalLines(canvas: Canvas) {
         var currentY = translatedCy % quintSize
-        var value = resolveIndexRelativeToAxis(translatedCy, quintSize) * segmentValue
+        var value = -resolveIndexRelativeToAxis(translatedCy, quintSize) * segmentValue
         while (currentY < heightF + DRAW_OUT_OF_BOUNDS) {
             drawHorizontalLine(canvas, currentY)
             drawYCoordinate(canvas, currentY, value.toString())
             currentY += quintSize
-            value += segmentValue
+            value -= segmentValue
         }
     }
 
