@@ -3,22 +3,33 @@ package com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.impl
 import com.nulp.graphedu.presentation.common.mvp.BasePresenter
 import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.HexagonRotationContract.*
 import com.nulp.graphedu.hexagonRotation.hexagon.enums.HexagonPointType
+import com.nulp.graphedu.hexagonRotation.hexagon.generator.HexagonGenerator
+import com.nulp.graphedu.hexagonRotation.hexagon.generator.HexagonPoints
+import com.nulp.graphedu.hexagonRotation.hexagon.models.PointCoordinates
 import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.nodels.HexagonPointViewModel
 
-class HexagonRotationPresenter : BasePresenter<ViewContract>(), PresenterContract {
+class HexagonRotationPresenter(
+    private val hexagonGenerator: HexagonGenerator
+) : BasePresenter<ViewContract>(), PresenterContract {
 
     private var x: Float = 0f
     private var y: Float = 0f
 
-    private lateinit var selectedPoint: HexagonPointType
+    private lateinit var centerCoordinates: PointCoordinates
+
+    private lateinit var rotatingPoint: PointCoordinates
+
+    private lateinit var hexagonPoints: HexagonPoints
 
     override fun init(x: Float, y: Float) {
-        this.x = x
-        this.y = y
+        centerCoordinates = PointCoordinates(x, y)
     }
 
     override fun onStart() {
         super.onStart()
+
+        hexagonPoints = hexagonGenerator.generateHexagonPoints(centerCoordinates)
+
         view?.setRotateActionVisible(isVisible = true, animate = false)
     }
 
@@ -28,9 +39,10 @@ class HexagonRotationPresenter : BasePresenter<ViewContract>(), PresenterContrac
     }
 
     override fun onVertexSelectionTutorialCompleted() {
-        val hexagonPoints = HexagonPointType.values().map { it.toViewModel() }
         view?.setHexagonPointsVisible(true)
-        view?.setHexagonPoints(hexagonPoints)
+
+        val points = hexagonPoints.keys.map { it.toViewModel() }
+        view?.setHexagonPoints(points)
     }
 
     override fun onRotationTutorialCompleted() {
@@ -46,8 +58,8 @@ class HexagonRotationPresenter : BasePresenter<ViewContract>(), PresenterContrac
     }
 
     private fun onPointSelected(point: HexagonPointType) {
-        selectedPoint = point
-        //TODO process selected point
+        rotatingPoint = hexagonPoints[point] ?: centerCoordinates
+
         view?.setHexagonPointsVisible(false)
         view?.showRotationTutorial()
     }

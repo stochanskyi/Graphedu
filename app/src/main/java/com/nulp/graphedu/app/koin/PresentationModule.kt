@@ -51,7 +51,7 @@ object PresentationModule : KoinModule({
 
     factory { RotationStartPresenter() as RotationStartContract.PresentationContract }
 
-    factory { HexagonRotationPresenter() as HexagonRotationContract.PresenterContract }
+    factory { HexagonRotationPresenter(get()) as HexagonRotationContract.PresenterContract }
 
     //Dialogs
     factory { CreateFractalPresenter() as CreateFractalContract.PresenterContract }
