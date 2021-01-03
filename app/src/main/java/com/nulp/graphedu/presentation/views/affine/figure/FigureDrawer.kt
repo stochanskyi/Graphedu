@@ -52,13 +52,13 @@ class FigureDrawer(context: Context) {
         path.reset()
 
         val initialPoint = linePoints.first()
-        path.moveTo(initialPoint.x, initialPoint.y)
+        path.moveTo(initialPoint.x, -initialPoint.y)
 
         for (i in 1 until linePoints.size) {
             val point = linePoints[i]
-            path.lineTo(point.x, point.y)
+            path.lineTo(point.x, -point.y)
         }
-        path.lineTo(initialPoint.x, initialPoint.y)
+        path.lineTo(initialPoint.x, -initialPoint.y)
         path.close()
 
         canvas.drawPath(path, linePaint)
@@ -67,7 +67,7 @@ class FigureDrawer(context: Context) {
     private fun drawCenterPoint(canvas: Canvas, point: PointF) {
         canvas.drawCircle(
             point.x,
-            point.y,
+            -point.y,
             centerPointRadius,
             centerPointPaint
         )
@@ -76,7 +76,7 @@ class FigureDrawer(context: Context) {
     private fun drawSelectedPointCircle(canvas: Canvas, point: PointF) {
         canvas.drawCircle(
             point.x,
-            point.y,
+            -point.y,
             selectedPointRadius,
             selectedPointPaint
         )
