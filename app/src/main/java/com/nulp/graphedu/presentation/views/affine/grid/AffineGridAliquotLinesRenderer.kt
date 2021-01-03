@@ -6,7 +6,6 @@ import android.text.TextPaint
 import com.nulp.graphedu.presentation.utils.*
 import com.nulp.graphedu.presentation.views.affine.BaseRenderer
 import com.nulp.graphedu.presentation.views.affine.DRAW_OUT_OF_BOUNDS
-import com.nulp.graphedu.presentation.views.affine.SEGMENTS_BETWEEN_ALIQUOT
 import com.nulp.graphedu.presentation.views.affine.grid.coordinate.*
 
 // TODO do not draw below axes
@@ -56,11 +55,17 @@ class AffineGridAliquotLinesRenderer(
     private val bottomTextStickyY = coordinateTextPaint.height + coordinateTextMargin
 
     private var segmentSize: Float = 0f
+    private var segmentValue: Float = 0f
+
     private var quintSize: Float = 0f
 
     override fun setSegmentSize(size: Float) {
         this.segmentSize = size
         quintSize = segmentSize * SEGMENTS_BETWEEN_ALIQUOT
+    }
+
+    override fun setSegmentValue(value: Float) {
+        this.segmentValue = value
     }
 
     override fun render(canvas: Canvas) {
@@ -70,12 +75,12 @@ class AffineGridAliquotLinesRenderer(
 
     private fun drawHorizontalLines(canvas: Canvas) {
         var currentY = translatedCy % quintSize
-        var value = resolveIndexRelativeToAxis(translatedCy, quintSize)
+        var value = resolveIndexRelativeToAxis(translatedCy, quintSize) * segmentValue
         while (currentY < heightF + DRAW_OUT_OF_BOUNDS) {
             drawHorizontalLine(canvas, currentY)
             drawYCoordinate(canvas, currentY, value.toString())
             currentY += quintSize
-            value++
+            value += segmentValue
         }
     }
 
@@ -130,12 +135,12 @@ class AffineGridAliquotLinesRenderer(
 
     private fun drawVerticalLines(canvas: Canvas) {
         var currentX = translatedCx % quintSize
-        var value = resolveIndexRelativeToAxis(translatedCx, quintSize)
+        var value = resolveIndexRelativeToAxis(translatedCx, quintSize) * segmentValue
         while (currentX < widthF + DRAW_OUT_OF_BOUNDS) {
             drawVerticalLine(canvas, currentX)
             drawXCoordinate(canvas, currentX, value.toString())
             currentX += quintSize
-            value++
+            value += segmentValue
         }
     }
 

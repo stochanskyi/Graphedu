@@ -41,9 +41,6 @@ class AffineGridAxesRenderer(
     private val axisLabelMargin = context.dp(AXIS_LABEL_MARGIN)
     private val axisLabelAxisMargin = context.dp(AXIS_LABEL_AXIS_MARGIN)
 
-    override fun setSegmentSize(size: Float) {
-    }
-
     override fun render(canvas: Canvas) {
         drawXAxis(canvas)
         drawYAxis(canvas)

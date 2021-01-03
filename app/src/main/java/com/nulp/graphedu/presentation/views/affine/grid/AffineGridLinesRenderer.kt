@@ -7,7 +7,6 @@ import android.graphics.Paint
 import com.nulp.graphedu.presentation.utils.dp
 import com.nulp.graphedu.presentation.views.affine.BaseRenderer
 import com.nulp.graphedu.presentation.views.affine.DRAW_OUT_OF_BOUNDS
-import com.nulp.graphedu.presentation.views.affine.SEGMENTS_BETWEEN_ALIQUOT
 
 class AffineGridLinesRenderer(
     context: Context

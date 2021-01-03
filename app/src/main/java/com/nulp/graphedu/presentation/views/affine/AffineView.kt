@@ -10,7 +10,6 @@ import com.dinuscxj.gesture.MultiTouchGestureDetector
 import com.nulp.graphedu.presentation.views.affine.grid.GridRenderer
 
 const val DRAW_OUT_OF_BOUNDS = 10f
-const val SEGMENTS_BETWEEN_ALIQUOT = 4
 
 class AffineView @JvmOverloads constructor(
     context: Context,

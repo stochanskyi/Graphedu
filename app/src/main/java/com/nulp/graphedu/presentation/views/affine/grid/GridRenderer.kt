@@ -4,12 +4,14 @@ import android.content.Context
 import com.nulp.graphedu.presentation.utils.dp
 import com.nulp.graphedu.presentation.views.affine.ComplexRenderer
 
+const val SEGMENTS_BETWEEN_ALIQUOT = 4
+
 class GridRenderer(
     context: Context
 ) : ComplexRenderer() {
 
     companion object {
-        private const val DEFAULT_SEGMENT_SIZE = 15f
+        private const val DEFAULT_SEGMENT_SIZE = 48
     }
 
     override val renderers: List<GridSubRenderer> = listOf(
@@ -18,19 +20,45 @@ class GridRenderer(
         AffineGridAxesRenderer(context),
     )
 
-    private var currentSegmentSize = context.dp(DEFAULT_SEGMENT_SIZE)
+    private val defaultSegmentSize = context.dp(DEFAULT_SEGMENT_SIZE)
+
+    private var currentSegmentSize = defaultSegmentSize
+    private var currentSegmentValue = 1f
 
     init {
-        renderers.forEach {
-            it.setSegmentSize(currentSegmentSize)
-        }
+        updateRenderersSegments()
     }
 
     override fun setScale(scale: Float) {
         super.setScale(scale)
-        renderers.forEach {
-            it.setSegmentSize(DEFAULT_SEGMENT_SIZE * scale)
+
+        currentSegmentValue = 1f
+
+        var currentScale = scale
+        when {
+            scale > 2f -> {
+                while (currentScale > 2f) {
+                    currentScale /= 2
+                    currentSegmentValue /= 2
+                }
+            }
+            scale < 0.5f -> {
+                while (currentScale < 0.5f) {
+                    currentScale *= 2
+                    currentSegmentValue *= 2
+                }
+            }
         }
+
+        currentSegmentSize = defaultSegmentSize * currentScale
+
+        updateRenderersSegments()
     }
 
+    private fun updateRenderersSegments() {
+        renderers.forEach {
+            it.setSegmentSize(currentSegmentSize)
+            it.setSegmentValue(currentSegmentValue)
+        }
+    }
 }
