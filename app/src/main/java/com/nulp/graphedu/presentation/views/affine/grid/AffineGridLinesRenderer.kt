@@ -8,7 +8,6 @@ import com.nulp.graphedu.presentation.utils.dp
 import com.nulp.graphedu.presentation.views.affine.BaseRenderer
 import com.nulp.graphedu.presentation.views.affine.DRAW_OUT_OF_BOUNDS
 import com.nulp.graphedu.presentation.views.affine.SEGMENTS_BETWEEN_ALIQUOT
-import kotlin.math.floor
 
 class AffineGridLinesRenderer(
     context: Context
@@ -37,9 +36,8 @@ class AffineGridLinesRenderer(
     }
 
     private fun drawHorizontalLines(canvas: Canvas) {
-        val absoluteCy = cy + translateY
-        var currentY = absoluteCy % segmentSize
-        var i = resolveIndexRelativeToAxis(absoluteCy, segmentSize)
+        var currentY = translatedCy % segmentSize
+        var i = resolveIndexRelativeToAxis(translatedCy, segmentSize)
 
         while (currentY < heightF + DRAW_OUT_OF_BOUNDS) {
             if (i !=0 && i % SEGMENTS_BETWEEN_ALIQUOT != 0) {
@@ -59,9 +57,8 @@ class AffineGridLinesRenderer(
     }
 
     private fun drawVerticalLines(canvas: Canvas) {
-        val absoluteCx = cx + translateX
-        var currentX = absoluteCx % segmentSize
-        var i = resolveIndexRelativeToAxis(absoluteCx, segmentSize)
+        var currentX = translatedCx % segmentSize
+        var i = resolveIndexRelativeToAxis(translatedCx, segmentSize)
 
         while (currentX < widthF + DRAW_OUT_OF_BOUNDS) {
             if (i !=0 && i % SEGMENTS_BETWEEN_ALIQUOT != 0) {

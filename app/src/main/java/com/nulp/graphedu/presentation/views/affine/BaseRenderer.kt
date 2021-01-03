@@ -29,16 +29,10 @@ abstract class BaseRenderer : AffineRenderer {
     protected var translateY: Float = 0f
         private set
 
-    protected var relativeLeft: Float = 0f
+    protected var translatedCx: Float = 0f
         private set
 
-    protected var relativeTop: Float = 0f
-        private set
-
-    protected var relativeRight: Float = 0f
-        private set
-
-    protected var relativeBottom: Float = 0f
+    protected var translatedCy: Float = 0f
         private set
 
     override fun setSize(width: Int, height: Int) {
@@ -68,9 +62,7 @@ abstract class BaseRenderer : AffineRenderer {
     }
 
     private fun updateRelativeData() {
-        relativeLeft = translateX
-        relativeRight = translateX + width
-        relativeTop = translateY
-        relativeBottom = translateY + heightF
+        translatedCx = cx + translateX
+        translatedCy = cy + translateY
     }
 }

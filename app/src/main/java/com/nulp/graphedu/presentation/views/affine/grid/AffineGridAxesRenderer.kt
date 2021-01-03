@@ -56,8 +56,8 @@ class AffineGridAxesRenderer(
         if (translateY < -cy - DRAW_OUT_OF_BOUNDS) return
 
         canvas.drawLine(
-            0f, cy + translateY,
-            widthF, cy + translateY,
+            0f, translatedCy,
+            widthF, translatedCy,
             axisLinePaint
         )
     }
@@ -67,8 +67,8 @@ class AffineGridAxesRenderer(
         if (translateX < -cx - DRAW_OUT_OF_BOUNDS) return
 
         canvas.drawLine(
-            cx + translateX, 0f,
-            cx + translateX, heightF,
+            translatedCx, 0f,
+            translatedCx, heightF,
             axisLinePaint
         )
     }
@@ -78,7 +78,7 @@ class AffineGridAxesRenderer(
         canvas.drawText(
             "X",
             width - textWidth - axisLabelMargin,
-            cy + translateY - axisLabelAxisMargin,
+            translatedCy - axisLabelAxisMargin,
             axisLabelPaint
         )
     }
@@ -86,7 +86,7 @@ class AffineGridAxesRenderer(
     private fun drawYAxisLabel(canvas: Canvas) {
         canvas.drawText(
             "Y",
-            cx + translateX + axisLabelAxisMargin,
+            translatedCx + axisLabelAxisMargin,
             axisLabelPaint.baselineToTop + axisLabelAxisMargin,
             axisLabelPaint
         )

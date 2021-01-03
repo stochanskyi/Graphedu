@@ -69,9 +69,8 @@ class AffineGridAliquotLinesRenderer(
     }
 
     private fun drawHorizontalLines(canvas: Canvas) {
-        val absoluteCy = cy + translateY
-        var currentY = absoluteCy % quintSize
-        var value = resolveIndexRelativeToAxis(absoluteCy, quintSize)
+        var currentY = translatedCy % quintSize
+        var value = resolveIndexRelativeToAxis(translatedCy, quintSize)
         while (currentY < heightF + DRAW_OUT_OF_BOUNDS) {
             drawHorizontalLine(canvas, currentY)
             drawYCoordinate(canvas, currentY, value.toString())
@@ -89,13 +88,16 @@ class AffineGridAliquotLinesRenderer(
     }
 
     private fun drawYCoordinate(canvas: Canvas, y: Float, text: String) {
-        val axisX = cx + translateX
         val textY = y + coordinateTextPaint.baselineToTop / 3f
         val textWidth = coordinateTextPaint.measureText(text)
         when {
-            axisX < textWidth + coordinateTextMargin * 2 -> drawYCoordinateLeft(canvas, textY, text)
-            axisX > widthF -> drawYCoordinateRight(canvas, textY, text)
-            else -> drawYCoordinateNearAxis(canvas, axisX, textY, text)
+            translatedCx < textWidth + coordinateTextMargin * 2 -> {
+                drawYCoordinateLeft(canvas, textY, text)
+            }
+            translatedCx > widthF -> {
+                drawYCoordinateRight(canvas, textY, text)
+            }
+            else -> drawYCoordinateNearAxis(canvas, translatedCx, textY, text)
         }
     }
 
@@ -127,9 +129,8 @@ class AffineGridAliquotLinesRenderer(
     }
 
     private fun drawVerticalLines(canvas: Canvas) {
-        val absoluteCx = cx + translateX
-        var currentX = absoluteCx % quintSize
-        var value = resolveIndexRelativeToAxis(absoluteCx, quintSize)
+        var currentX = translatedCx % quintSize
+        var value = resolveIndexRelativeToAxis(translatedCx, quintSize)
         while (currentX < widthF + DRAW_OUT_OF_BOUNDS) {
             drawVerticalLine(canvas, currentX)
             drawXCoordinate(canvas, currentX, value.toString())
@@ -147,11 +148,14 @@ class AffineGridAliquotLinesRenderer(
     }
 
     private fun drawXCoordinate(canvas: Canvas, x: Float, text: String) {
-        val axisY = cy + translateY
         when {
-            axisY < 0 -> drawXCoordinateTop(canvas, x, text)
-            axisY > heightF - bottomTextStickyY -> drawXCoordinateBottom(canvas, x, text)
-            else -> drawXCoordinateNearAxis(canvas, x, axisY, text)
+            translatedCy < 0 -> {
+                drawXCoordinateTop(canvas, x, text)
+            }
+            translatedCy > heightF - bottomTextStickyY -> {
+                drawXCoordinateBottom(canvas, x, text)
+            }
+            else -> drawXCoordinateNearAxis(canvas, x, translatedCy, text)
         }
     }
 
