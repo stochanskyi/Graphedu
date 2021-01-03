@@ -20,7 +20,7 @@ class AffineGridAliquotLinesRenderer(
 
         // Grid coordinate text
         private const val COORDINATE_TEXT_COLOR = Color.RED
-        private const val COORDINATE_TEXT_SIZE = 14
+        private const val COORDINATE_TEXT_SIZE = 16
         private const val COORDINATE_TEXT_MARGIN = 4
     }
 
