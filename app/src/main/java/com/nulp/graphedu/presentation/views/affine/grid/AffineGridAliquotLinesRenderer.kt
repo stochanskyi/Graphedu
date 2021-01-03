@@ -7,6 +7,8 @@ import com.nulp.graphedu.presentation.utils.*
 import com.nulp.graphedu.presentation.views.affine.BaseRenderer
 import com.nulp.graphedu.presentation.views.affine.DRAW_OUT_OF_BOUNDS
 import com.nulp.graphedu.presentation.views.affine.grid.coordinate.*
+import kotlin.math.max
+import kotlin.math.min
 
 // TODO do not draw below axes
 class AffineGridAliquotLinesRenderer(
@@ -23,6 +25,7 @@ class AffineGridAliquotLinesRenderer(
         private const val COORDINATE_TEXT_SIZE = 16
         private const val COORDINATE_TEXT_STROKE_COLOR = Color.WHITE
         private const val COORDINATE_TEXT_STROKE_WIDTH = 4
+
         private const val COORDINATE_TEXT_MARGIN = 4
     }
 
@@ -107,9 +110,13 @@ class AffineGridAliquotLinesRenderer(
     }
 
     private fun drawYCoordinateNearAxis(canvas: Canvas, axisX: Float, y: Float, text: String) {
+        if (y.isNotInBounds(0f, heightF)) return
         canvas.drawTextWithBackground(
             axisX - coordinateTextMargin,
-            y,
+            y.inBounds(
+                coordinateTextPaint.baselineToAscent + coordinateTextMargin,
+                heightF - coordinateTextPaint.baselineToDescent - coordinateTextMargin
+            ),
             text,
             TextRightAlignBackgroundResolver
         )
@@ -165,8 +172,10 @@ class AffineGridAliquotLinesRenderer(
     }
 
     private fun drawXCoordinateNearAxis(canvas: Canvas, x: Float, axisY: Float, text: String) {
+        if (x.isNotInBounds(0f, widthF)) return
+        val textXMargin = coordinateTextPaint.measureText(text) / 2f + coordinateTextMargin
         canvas.drawTextWithBackground(
-            x,
+            x.inBounds(textXMargin, widthF - textXMargin),
             axisY + coordinateTextPaint.baselineToTop + coordinateTextMargin,
             text,
             TextCenterAlignBackgroundResolver
@@ -204,5 +213,13 @@ class AffineGridAliquotLinesRenderer(
         )
         drawText(text, x, y, coordinateStrokeTextPaint)
         drawText(text, x, y, coordinateTextPaint)
+    }
+
+    private fun Float.inBounds(from: Float, to: Float): Float {
+        return max(from, min(this, to))
+    }
+
+    private fun Float.isNotInBounds(from: Float, to: Float): Boolean {
+        return this > to || this < from
     }
 }

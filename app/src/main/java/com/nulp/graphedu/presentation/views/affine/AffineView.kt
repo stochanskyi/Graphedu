@@ -7,6 +7,8 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import com.dinuscxj.gesture.MultiTouchGestureDetector
+import com.dinuscxj.gesture.MultiTouchGestureDetector.OnMultiTouchGestureListener
+import com.dinuscxj.gesture.MultiTouchGestureDetector.SimpleOnMultiTouchGestureListener
 import com.nulp.graphedu.presentation.views.affine.grid.GridRenderer
 
 const val DRAW_OUT_OF_BOUNDS = 10f
@@ -22,37 +24,33 @@ class AffineView @JvmOverloads constructor(
     private var localTranslateX: Float = 0f
     private var localTranslateY: Float = 0f
 
-    private val renderers: List<AffineRenderer> = listOf(
+    private val gestureListener: OnMultiTouchGestureListener = createGestureListener()
+
+    private val renderers: MutableList<AffineRenderer> = mutableListOf(
         GridRenderer(context)
     )
-
-    private val gestureListener: MultiTouchGestureDetector.OnMultiTouchGestureListener =
-        object : MultiTouchGestureDetector.SimpleOnMultiTouchGestureListener() {
-
-            override fun onScale(detector: MultiTouchGestureDetector) {
-                localScale *= detector.scale
-                renderers.forEach { it.setScale(localScale) }
-
-                invalidate()
-            }
-
-            override fun onMove(detector: MultiTouchGestureDetector) {
-                localTranslateX += detector.moveX
-                localTranslateY += detector.moveY
-                renderers.forEach {
-                    it.setTranslateX(localTranslateX)
-                    it.setTranslateY(localTranslateY)
-                }
-
-                invalidate()
-            }
-        }
-
 
     private val gestureDetector = MultiTouchGestureDetector(context, gestureListener)
 
     init {
         setWillNotDraw(false)
+    }
+
+    fun addCustomRenderer(renderer: AffineRenderer) {
+        with(renderer) {
+            setSize(width, height)
+            setScale(localScale)
+            setTranslateX(localTranslateX)
+            setTranslateY(localTranslateY)
+        }
+
+        renderers += renderer
+        invalidate()
+    }
+
+    fun removeCustomRenderer(renderer: AffineRenderer) {
+        renderers -= renderer
+        invalidate()
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
@@ -71,4 +69,24 @@ class AffineView @JvmOverloads constructor(
         return gestureDetector.onTouchEvent(event)
     }
 
+    private fun createGestureListener() = object : SimpleOnMultiTouchGestureListener() {
+
+        override fun onScale(detector: MultiTouchGestureDetector) {
+            localScale *= detector.scale
+            renderers.forEach { it.setScale(localScale) }
+
+            invalidate()
+        }
+
+        override fun onMove(detector: MultiTouchGestureDetector) {
+            localTranslateX += detector.moveX
+            localTranslateY += detector.moveY
+            renderers.forEach {
+                it.setTranslateX(localTranslateX)
+                it.setTranslateY(localTranslateY)
+            }
+
+            invalidate()
+        }
+    }
 }
