@@ -62,8 +62,8 @@ class TransformationBuilder {
             resultMatrix = resultMatrix.action()
         }
 
-        outputMatrix = resultMatrix
+        outputMatrix?.let {
+            resultMatrix.data.copyInto(it.data)
+        }
     }
-
-
 }

@@ -4,7 +4,7 @@ import com.nulp.graphedu.hexagonRotation.hexagon.models.PointCoordinates
 import java.lang.IllegalStateException
 
 data class AffineMatrix(
-    private val data: Array<FloatArray>
+    val data: Array<FloatArray>
 ) {
 
     companion object {
