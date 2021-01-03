@@ -83,7 +83,7 @@ class AffineGridAliquotLinesRenderer(
             drawHorizontalLine(canvas, currentY)
             drawYCoordinate(canvas, currentY, value.toString())
             currentY += quintSize
-            value += segmentValue
+            value -= segmentValue
         }
     }
 
