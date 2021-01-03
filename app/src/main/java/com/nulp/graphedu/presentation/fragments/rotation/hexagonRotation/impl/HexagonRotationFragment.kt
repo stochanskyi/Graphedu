@@ -1,5 +1,6 @@
 package com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.impl
 
+import android.content.Context
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nulp.graphedu.R
@@ -10,6 +11,8 @@ import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.Hexagon
 import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.HexagonRotationContract.PresenterContract
 import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.HexagonRotationContract.ViewContract
 import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.adapter.HexagonPointsAdapter
+import com.nulp.graphedu.presentation.views.affine.figure.FigureRenderer
+import com.nulp.graphedu.presentation.views.affine.figure.FigureRendererData
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ClickableMenuItem
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ToolbarConfigurator
 import kotlinx.android.synthetic.main.fragment_image_edit.toolbar
@@ -46,6 +49,13 @@ class HexagonRotationFragment : BaseFragment<PresenterContract>(R.layout.fragmen
         }
     }
 
+    private lateinit var shapeRenderer: FigureRenderer
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        shapeRenderer = FigureRenderer(context)
+    }
+
     override fun initViews() {
         ToolbarConfigurator()
             .setNavigationClickListener { close() }
@@ -61,6 +71,7 @@ class HexagonRotationFragment : BaseFragment<PresenterContract>(R.layout.fragmen
             adapter = HexagonPointsAdapter()
         }
 
+        affineView.addCustomRenderer(shapeRenderer)
     }
 
     override fun setRotateActionVisible(isVisible: Boolean, animate: Boolean) {
@@ -80,6 +91,11 @@ class HexagonRotationFragment : BaseFragment<PresenterContract>(R.layout.fragmen
     override fun setHexagonPoints(items: List<HexagonRotationContract.IHexagonPointViewModel>) {
         hexagonPointsAdapterAction { setItems(items) }
 
+    }
+
+    override fun setHexagonRenderingData(data: FigureRendererData) {
+        shapeRenderer.setFigure(data)
+        affineView.invalidate()
     }
 
     override fun showVertexSelectionTutorial() {

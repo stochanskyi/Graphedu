@@ -12,12 +12,12 @@ private typealias MutableHexagonPoints = MutableMap<HexagonPointType, PointCoord
 class HexagonGeneratorImpl : HexagonGenerator {
 
     companion object {
-        private const val DEFAULT_HEXAGON_RADIUS = 5
+        private const val DEFAULT_HEXAGON_RADIUS = 50
     }
 
     private fun calculateVertexCoordinates(center: PointCoordinates, vertexIndex: Int): PointCoordinates {
-        val x = center.x + DEFAULT_HEXAGON_RADIUS * cos((2 * PI * vertexIndex) / 6).toFloat()
-        val y = center.y + DEFAULT_HEXAGON_RADIUS * sin((2 * PI * vertexIndex) / 6).toFloat()
+        val x = center.x + DEFAULT_HEXAGON_RADIUS * sin((2 * PI * vertexIndex) / 6).toFloat()
+        val y = center.y + DEFAULT_HEXAGON_RADIUS * cos((2 * PI * vertexIndex) / 6).toFloat()
 
         return PointCoordinates(x, y)
     }
