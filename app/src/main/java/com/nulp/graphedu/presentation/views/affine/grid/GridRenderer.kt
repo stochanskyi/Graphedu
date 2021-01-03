@@ -11,7 +11,7 @@ class GridRenderer(
 ) : ComplexRenderer() {
 
     companion object {
-        private const val DEFAULT_SEGMENT_SIZE = 48
+        private const val DEFAULT_SEGMENT_SIZE = 32
     }
 
     override val renderers: List<GridSubRenderer> = listOf(
