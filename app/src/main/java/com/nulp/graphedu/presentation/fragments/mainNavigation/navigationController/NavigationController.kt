@@ -3,6 +3,7 @@ package com.nulp.graphedu.presentation.fragments.mainNavigation.navigationContro
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.nulp.graphedu.presentation.fragments.mainNavigation.navigationController.navItems.AffineNavigationItem
 import com.nulp.graphedu.presentation.fragments.mainNavigation.navigationController.navItems.ColorsNavigationItem
 import com.nulp.graphedu.presentation.fragments.mainNavigation.navigationController.navItems.FractalsNavigationItem
 import com.nulp.graphedu.presentation.fragments.mainNavigation.navigationController.navItems.NavigationItem
@@ -14,7 +15,8 @@ class NavigationController(
 
     private val items: List<NavigationItem> = listOf(
         FractalsNavigationItem(),
-        ColorsNavigationItem()
+        ColorsNavigationItem(),
+        AffineNavigationItem()
     )
 
     init {
