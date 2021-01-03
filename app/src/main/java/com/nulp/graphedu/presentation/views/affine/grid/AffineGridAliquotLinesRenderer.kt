@@ -7,6 +7,7 @@ import com.nulp.graphedu.presentation.utils.*
 import com.nulp.graphedu.presentation.views.affine.BaseRenderer
 import com.nulp.graphedu.presentation.views.affine.DRAW_OUT_OF_BOUNDS
 import com.nulp.graphedu.presentation.views.affine.SEGMENTS_BETWEEN_ALIQUOT
+import com.nulp.graphedu.presentation.views.affine.grid.coordinate.*
 
 // TODO do not draw below axes
 class AffineGridAliquotLinesRenderer(
@@ -19,8 +20,10 @@ class AffineGridAliquotLinesRenderer(
         private const val ALIQUOT_LINE_WIDTH = 1.5f
 
         // Grid coordinate text
-        private const val COORDINATE_TEXT_COLOR = Color.RED
+        private const val COORDINATE_TEXT_COLOR = Color.DKGRAY
         private const val COORDINATE_TEXT_SIZE = 16
+        private const val COORDINATE_TEXT_STROKE_COLOR = Color.WHITE
+        private const val COORDINATE_TEXT_STROKE_WIDTH = 4
         private const val COORDINATE_TEXT_MARGIN = 4
     }
 
@@ -31,22 +34,16 @@ class AffineGridAliquotLinesRenderer(
         strokeWidth = context.dp(ALIQUOT_LINE_WIDTH)
     }
 
-    private val baseCoordinatePaint = TextPaint().apply {
+    private val coordinateTextPaint = TextPaint().apply {
+        style = Paint.Style.FILL
         color = COORDINATE_TEXT_COLOR
-        textSize = context.dp(COORDINATE_TEXT_SIZE)
+        textSize = context.sp(COORDINATE_TEXT_SIZE)
         typeface = Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL)
     }
-
-    private val coordinateYTextPaintLeft = TextPaint(baseCoordinatePaint).apply {
-        textAlign = Paint.Align.LEFT
-    }
-
-    private val coordinateYTextPaintRight = TextPaint(baseCoordinatePaint).apply {
-        textAlign = Paint.Align.RIGHT
-    }
-
-    private val coordinateXTextPaint = TextPaint(baseCoordinatePaint).apply {
-        textAlign = Paint.Align.CENTER
+    private val coordinateStrokeTextPaint = TextPaint(coordinateTextPaint).apply {
+        style = Paint.Style.STROKE
+        color = COORDINATE_TEXT_STROKE_COLOR
+        strokeWidth = context.sp(COORDINATE_TEXT_STROKE_WIDTH)
     }
 
     private val textBackgroundPaint = Paint().apply {
@@ -56,7 +53,7 @@ class AffineGridAliquotLinesRenderer(
     }
 
     private val bottomTextYOffset = coordinateTextMargin
-    private val bottomTextStickyY = coordinateXTextPaint.height + coordinateTextMargin
+    private val bottomTextStickyY = coordinateTextPaint.height + coordinateTextMargin
 
     private var segmentSize: Float = 0f
     private var quintSize: Float = 0f
@@ -93,8 +90,8 @@ class AffineGridAliquotLinesRenderer(
 
     private fun drawYCoordinate(canvas: Canvas, y: Float, text: String) {
         val axisX = cx + translateX
-        val textY = y + coordinateYTextPaintLeft.baselineToTop / 3f
-        val textWidth = baseCoordinatePaint.measureText(text)
+        val textY = y + coordinateTextPaint.baselineToTop / 3f
+        val textWidth = coordinateTextPaint.measureText(text)
         when {
             axisX < textWidth + coordinateTextMargin * 2 -> drawYCoordinateLeft(canvas, textY, text)
             axisX > widthF -> drawYCoordinateRight(canvas, textY, text)
@@ -102,30 +99,30 @@ class AffineGridAliquotLinesRenderer(
         }
     }
 
-    private fun drawYCoordinateNearAxis(canvas: Canvas, x: Float, y: Float, text: String) {
-        canvas.drawText(
-            text,
-            x - coordinateTextMargin,
+    private fun drawYCoordinateNearAxis(canvas: Canvas, axisX: Float, y: Float, text: String) {
+        canvas.drawTextWithBackground(
+            axisX - coordinateTextMargin,
             y,
-            coordinateYTextPaintRight
+            text,
+            TextRightAlignBackgroundResolver
         )
     }
 
     private fun drawYCoordinateLeft(canvas: Canvas, y: Float, text: String) {
-        canvas.drawText(
-            text,
+        canvas.drawTextWithBackground(
             coordinateTextMargin,
             y,
-            coordinateYTextPaintLeft
+            text,
+            TextLeftAlignBackgroundResolver
         )
     }
 
     private fun drawYCoordinateRight(canvas: Canvas, y: Float, text: String) {
-        canvas.drawText(
-            text,
+        canvas.drawTextWithBackground(
             widthF - coordinateTextMargin,
             y,
-            coordinateYTextPaintRight
+            text,
+            TextRightAlignBackgroundResolver
         )
     }
 
@@ -159,21 +156,44 @@ class AffineGridAliquotLinesRenderer(
     }
 
     private fun drawXCoordinateNearAxis(canvas: Canvas, x: Float, axisY: Float, text: String) {
-        val y = axisY + coordinateXTextPaint.baselineToTop + coordinateTextMargin
-        canvas.drawText(text, x, y, coordinateXTextPaint)
+        canvas.drawTextWithBackground(
+            x,
+            axisY + coordinateTextPaint.baselineToTop + coordinateTextMargin,
+            text,
+            TextCenterAlignBackgroundResolver
+        )
     }
 
     private fun drawXCoordinateTop(canvas: Canvas, x: Float, text: String) {
-        val y = coordinateXTextPaint.baselineToTop + coordinateTextMargin
-        canvas.drawText(text, x, y, coordinateXTextPaint)
+        canvas.drawTextWithBackground(
+            x,
+            coordinateTextPaint.baselineToTop + coordinateTextMargin,
+            text,
+            TextCenterAlignBackgroundResolver
+        )
     }
 
     private fun drawXCoordinateBottom(canvas: Canvas, x: Float, text: String) {
-        canvas.drawText(
-            text,
+        canvas.drawTextWithBackground(
             x,
             heightF - bottomTextYOffset,
-            coordinateXTextPaint
+            text,
+            TextCenterAlignBackgroundResolver
         )
+    }
+
+    private fun Canvas.drawTextWithBackground(
+        x: Float, y: Float,
+        text: String,
+        resolver: TextBackgroundResolver
+    ) {
+        coordinateTextPaint.textAlign = resolver.align
+        coordinateStrokeTextPaint.textAlign = resolver.align
+        drawRect(
+            resolver.resolve(x, y, coordinateTextPaint, text),
+            textBackgroundPaint
+        )
+        drawText(text, x, y, coordinateStrokeTextPaint)
+        drawText(text, x, y, coordinateTextPaint)
     }
 }
