@@ -72,11 +72,14 @@ class AffineGridAliquotLinesRenderer(
     }
 
     private fun drawHorizontalLines(canvas: Canvas) {
-        var currentY = (cy + translateY) % quintSize
+        val absoluteCy = cy + translateY
+        var currentY = absoluteCy % quintSize
+        var value = resolveIndexRelativeToAxis(absoluteCy, quintSize)
         while (currentY < heightF + DRAW_OUT_OF_BOUNDS) {
             drawHorizontalLine(canvas, currentY)
-            drawYCoordinate(canvas, currentY, currentY.toString())
+            drawYCoordinate(canvas, currentY, value.toString())
             currentY += quintSize
+            value++
         }
     }
 
@@ -127,11 +130,14 @@ class AffineGridAliquotLinesRenderer(
     }
 
     private fun drawVerticalLines(canvas: Canvas) {
-        var currentX = (cx + translateX) % quintSize
+        val absoluteCx = cx + translateX
+        var currentX = absoluteCx % quintSize
+        var value = resolveIndexRelativeToAxis(absoluteCx, quintSize)
         while (currentX < widthF + DRAW_OUT_OF_BOUNDS) {
             drawVerticalLine(canvas, currentX)
-            drawXCoordinate(canvas, currentX, currentX.toString())
+            drawXCoordinate(canvas, currentX, value.toString())
             currentX += quintSize
+            value++
         }
     }
 

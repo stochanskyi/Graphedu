@@ -39,7 +39,7 @@ class AffineGridLinesRenderer(
     private fun drawHorizontalLines(canvas: Canvas) {
         val absoluteCy = cy + translateY
         var currentY = absoluteCy % segmentSize
-        var i = resolveIndexRelativeToAxis(absoluteCy)
+        var i = resolveIndexRelativeToAxis(absoluteCy, segmentSize)
 
         while (currentY < heightF + DRAW_OUT_OF_BOUNDS) {
             if (i !=0 && i % SEGMENTS_BETWEEN_ALIQUOT != 0) {
@@ -61,7 +61,7 @@ class AffineGridLinesRenderer(
     private fun drawVerticalLines(canvas: Canvas) {
         val absoluteCx = cx + translateX
         var currentX = absoluteCx % segmentSize
-        var i = resolveIndexRelativeToAxis(absoluteCx)
+        var i = resolveIndexRelativeToAxis(absoluteCx, segmentSize)
 
         while (currentX < widthF + DRAW_OUT_OF_BOUNDS) {
             if (i !=0 && i % SEGMENTS_BETWEEN_ALIQUOT != 0) {
@@ -78,11 +78,5 @@ class AffineGridLinesRenderer(
             x, heightF,
             gridLinePaint
         )
-    }
-
-    private fun resolveIndexRelativeToAxis(value: Float): Int {
-        var i = -floor(value / segmentSize).toInt()
-        if (i >= 1) i--
-        return i
     }
 }

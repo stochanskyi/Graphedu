@@ -41,7 +41,6 @@ abstract class BaseRenderer : AffineRenderer {
     protected var relativeBottom: Float = 0f
         private set
 
-
     override fun setSize(width: Int, height: Int) {
         this.width = width
         this.height = height
