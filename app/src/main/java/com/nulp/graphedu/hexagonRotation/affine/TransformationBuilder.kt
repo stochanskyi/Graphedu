@@ -6,7 +6,7 @@ private typealias TransformationAction = AffineMatrix.() -> AffineMatrix
 
 class TransformationBuilder {
 
-    var inputMatrix: AffineMatrix? = null
+    private var inputMatrix: AffineMatrix? = null
 
     private val actions: Queue<TransformationAction> = LinkedList()
 
