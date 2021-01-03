@@ -1,7 +1,6 @@
 package com.nulp.graphedu.presentation.fragments.mainNavigation.navigationController.navItems
 
 import com.nulp.graphedu.R
-import com.nulp.graphedu.presentation.common.mvp.IBaseFragment
 import com.nulp.graphedu.presentation.fragments.fractals.fractalsStart.impl.FractalsStartFragment
 
 class FractalsNavigationItem : NavigationItem() {

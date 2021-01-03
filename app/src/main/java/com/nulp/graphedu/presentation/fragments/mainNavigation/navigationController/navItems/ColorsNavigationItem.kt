@@ -1,6 +1,5 @@
 package com.nulp.graphedu.presentation.fragments.mainNavigation.navigationController.navItems
 
-import androidx.fragment.app.Fragment
 import com.nulp.graphedu.R
 import com.nulp.graphedu.presentation.fragments.colors.colorsStart.impl.ColorsStartFragment
 

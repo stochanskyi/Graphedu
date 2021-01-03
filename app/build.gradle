@@ -59,4 +59,7 @@ dependencies {
     implementation "codes.side:andcolorpicker:0.5.0"
 
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+    
+    implementation 'com.dinuscxj:multitouchgesturedetector:1.0.0'
+
 }
