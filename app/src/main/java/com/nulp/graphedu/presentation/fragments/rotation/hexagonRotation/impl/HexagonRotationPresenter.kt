@@ -5,7 +5,7 @@ import com.nulp.graphedu.hexagonRotation.affine.AffineMatrix
 import com.nulp.graphedu.hexagonRotation.affine.TransformationBuilder
 import com.nulp.graphedu.hexagonRotation.hexagon.enums.HexagonPointType
 import com.nulp.graphedu.hexagonRotation.hexagon.generator.HexagonGenerator
-import com.nulp.graphedu.hexagonRotation.hexagon.generator.HexagonPoints
+import com.nulp.graphedu.hexagonRotation.hexagon.models.Hexagon
 import com.nulp.graphedu.hexagonRotation.hexagon.models.PointCoordinates
 import com.nulp.graphedu.presentation.common.mvp.BasePresenter
 import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.HexagonRotationContract.*
@@ -17,14 +17,11 @@ class HexagonRotationPresenter(
     private val hexagonGenerator: HexagonGenerator
 ) : BasePresenter<ViewContract>(), PresenterContract {
 
-    private var x: Float = 0f
-    private var y: Float = 0f
-
     private lateinit var centerCoordinates: PointCoordinates
 
     private lateinit var rotatingPoint: PointCoordinates
 
-    private lateinit var hexagonPoints: HexagonPoints
+    private lateinit var hexagon: Hexagon
 
     override fun init(x: Float, y: Float) {
         centerCoordinates = PointCoordinates(x, y)
@@ -34,11 +31,11 @@ class HexagonRotationPresenter(
     override fun onStart() {
         super.onStart()
 
-        hexagonPoints = hexagonGenerator.generateHexagonPoints(centerCoordinates)
+        hexagon = hexagonGenerator.generateHexagon(centerCoordinates)
 
         view?.setRotateActionVisible(isVisible = true, animate = false)
 
-        view?.setHexagonRenderingData(hexagonPoints.toRenderingData())
+        view?.setHexagonRenderingData(hexagon.toRenderingData())
     }
 
     override fun onRotateClicked() {
@@ -49,20 +46,18 @@ class HexagonRotationPresenter(
     override fun onVertexSelectionTutorialCompleted() {
         view?.setHexagonPointsVisible(true)
 
-        val points = hexagonPoints.keys.map { it.toViewModel() }
+        val points = HexagonPointType.values().map { it.toViewModel() }
         view?.setHexagonPoints(points)
     }
 
     override fun onRotationTutorialCompleted() {
-        val newMatrix = AffineMatrix(Array(6) { floatArrayOf() })
 
-        TransformationBuilder()
-            .take(AffineMatrix.ofCoordinates(hexagonPoints.filterNot { it.key == HexagonPointType.CENTER }.values.toList()))
-            .into(newMatrix)
+        val newMatrix = TransformationBuilder()
+            .take(AffineMatrix.ofCoordinates(hexagon.hexagonPoints.toList()))
             .moveCoordinates(rotatingPoint.x, rotatingPoint.y)
             .rotateObject((PI / 6).toFloat())
             .scaleObject(5f, 5f)
-            .commit()
+            .transform()
         view?.setHexagonRenderingData(newMatrix.toCoordinates().toRenderingData())
     }
 
@@ -75,20 +70,24 @@ class HexagonRotationPresenter(
     }
 
     private fun onPointSelected(point: HexagonPointType) {
-        rotatingPoint = hexagonPoints[point] ?: centerCoordinates
+        rotatingPoint = hexagon.vertexTypeCoordinates(point)
 
         view?.setHexagonPointsVisible(false)
         view?.showRotationTutorial()
-    }
-
-    private fun HexagonPoints.toRenderingData(): FigureRendererData {
-        return filterNot { it.key == HexagonPointType.CENTER }.values.toList().toRenderingData()
     }
 
     private fun List<PointCoordinates>.toRenderingData(): FigureRendererData {
         return FigureRendererData(
             map { it.toPointF() },
             centerCoordinates.toPointF(),
+            rotatingPoint.toPointF()
+        )
+    }
+
+    private fun Hexagon.toRenderingData(): FigureRendererData {
+        return FigureRendererData(
+            hexagonPoints.map { it.toPointF() },
+            hexagonCenter.toPointF(),
             rotatingPoint.toPointF()
         )
     }

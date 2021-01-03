@@ -1,5 +1,6 @@
 package com.nulp.graphedu.hexagonRotation.affine
 
+import java.lang.IllegalStateException
 import java.util.*
 
 private typealias TransformationAction = AffineMatrix.() -> AffineMatrix
@@ -8,20 +9,12 @@ class TransformationBuilder {
 
     var inputMatrix: AffineMatrix? = null
 
-    var outputMatrix: AffineMatrix? = null
-
     private val actions: Queue<TransformationAction> = LinkedList()
 
     private val backActions: Stack<TransformationAction> = Stack()
 
-
     fun take(matrix: AffineMatrix): TransformationBuilder {
         inputMatrix = matrix
-        return this
-    }
-
-    fun into(matrix: AffineMatrix): TransformationBuilder {
-        outputMatrix = matrix
         return this
     }
 
@@ -47,10 +40,8 @@ class TransformationBuilder {
         return this
     }
 
-    fun commit() {
-        if (inputMatrix == null || outputMatrix == null) return
-
-        var resultMatrix = inputMatrix ?: return
+    fun transform(): AffineMatrix {
+        var resultMatrix = inputMatrix ?: throw IllegalStateException()
 
         for (i in 0 until actions.size) {
             val action = actions.poll() ?: break
@@ -61,9 +52,6 @@ class TransformationBuilder {
             val action = backActions.pop()
             resultMatrix = resultMatrix.action()
         }
-
-        outputMatrix?.let {
-            resultMatrix.data.copyInto(it.data)
-        }
+        return resultMatrix
     }
 }
