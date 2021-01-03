@@ -1,10 +1,10 @@
-package com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.enums
+package com.nulp.graphedu.hexagonRotation.hexagon.enums
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.nulp.graphedu.R
 
-enum class HexagonRotationPoint(@DrawableRes val imageRes: Int, @StringRes val textRes: Int) {
+enum class HexagonPointType(@DrawableRes val imageRes: Int, @StringRes val textRes: Int) {
     CENTER(R.drawable.ic_hexagon_center, R.string.hexagon_rotation_point_center_text),
     TOP(R.drawable.ic_hexagon_top, R.string.hexagon_rotation_point_top_text),
     TOP_RIGHT(R.drawable.ic_hexagon_top_right, R.string.hexagon_rotation_point_top_right_text),

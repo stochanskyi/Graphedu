@@ -9,4 +9,5 @@ object DataModule : KoinModule({
     single { UriConverterImpl(get()) as UriConverter }
 
     single { AppFormatterImpl() as AppFormatter }
+
 })
