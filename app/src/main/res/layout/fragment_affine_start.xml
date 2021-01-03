@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <com.nulp.graphedu.presentation.views.affine.AffineView
+        android:id="@+id/affineView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"/>
