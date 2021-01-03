@@ -13,6 +13,10 @@ data class AffineMatrix(
         }
     }
 
+    fun toCoordinates(): List<PointCoordinates> {
+        return data.map { PointCoordinates(it[0], it[1]) }
+    }
+
     operator fun times(another: AffineMatrix): AffineMatrix {
         if (this.data[0].size != another.data.size) throw IllegalStateException("Cannot calculate")
 

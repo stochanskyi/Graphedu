@@ -1,14 +1,17 @@
 package com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.impl
 
 import android.graphics.PointF
-import com.nulp.graphedu.presentation.common.mvp.BasePresenter
-import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.HexagonRotationContract.*
+import com.nulp.graphedu.hexagonRotation.affine.AffineMatrix
+import com.nulp.graphedu.hexagonRotation.affine.TransformationBuilder
 import com.nulp.graphedu.hexagonRotation.hexagon.enums.HexagonPointType
 import com.nulp.graphedu.hexagonRotation.hexagon.generator.HexagonGenerator
 import com.nulp.graphedu.hexagonRotation.hexagon.generator.HexagonPoints
 import com.nulp.graphedu.hexagonRotation.hexagon.models.PointCoordinates
+import com.nulp.graphedu.presentation.common.mvp.BasePresenter
+import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.HexagonRotationContract.*
 import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.nodels.HexagonPointViewModel
 import com.nulp.graphedu.presentation.views.affine.figure.FigureRendererData
+import kotlin.math.PI
 
 class HexagonRotationPresenter(
     private val hexagonGenerator: HexagonGenerator
@@ -51,7 +54,16 @@ class HexagonRotationPresenter(
     }
 
     override fun onRotationTutorialCompleted() {
-        view?.setHexagonRenderingData(hexagonPoints.toRenderingData())
+        val newMatrix = AffineMatrix(Array(6) { floatArrayOf() })
+
+        TransformationBuilder()
+            .take(AffineMatrix.ofCoordinates(hexagonPoints.filterNot { it.key == HexagonPointType.CENTER }.values.toList()))
+            .into(newMatrix)
+            .moveCoordinates(rotatingPoint.x, rotatingPoint.y)
+            .rotateObject((PI / 6).toFloat())
+            .scaleObject(5f, 5f)
+            .commit()
+        view?.setHexagonRenderingData(newMatrix.toCoordinates().toRenderingData())
     }
 
     override fun onHandbookClicked() {
@@ -70,8 +82,12 @@ class HexagonRotationPresenter(
     }
 
     private fun HexagonPoints.toRenderingData(): FigureRendererData {
+        return filterNot { it.key == HexagonPointType.CENTER }.values.toList().toRenderingData()
+    }
+
+    private fun List<PointCoordinates>.toRenderingData(): FigureRendererData {
         return FigureRendererData(
-            filterNot { it.key == HexagonPointType.CENTER }.map { it.value.toPointF() },
+            map { it.toPointF() },
             centerCoordinates.toPointF(),
             rotatingPoint.toPointF()
         )
