@@ -30,7 +30,7 @@ class FigureRenderer(
     }
 
     private fun Canvas.applyAffineTransformations() {
-        scale(scale, scale, cx, cy)
-        translate(translateX, translateY)
+        scale(scale, scale, 0f, 0f)
+        translate(translateX / scale, translateY  / scale)
     }
 }

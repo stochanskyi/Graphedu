@@ -23,13 +23,13 @@ class AffineStartFragment: Fragment(R.layout.fragment_affine_start) {
         val renderer = FigureRenderer(requireContext())
         val figure = FigureRendererData(
             listOf(
-                PointF(-50f, -50f),
-                PointF(-50f, 50f),
                 PointF(50f, 50f),
-                PointF(50f, -50f)
+                PointF(50f, 100f),
+                PointF(100f, 100f),
+                PointF(100f, 50f)
             ),
-            PointF(10f, 10f),
-            PointF(-50f, -50f)
+            PointF(75f, 75f),
+            PointF(50f, 50f)
         )
         renderer.setFigure(figure)
         affineView.addCustomRenderer(renderer)
