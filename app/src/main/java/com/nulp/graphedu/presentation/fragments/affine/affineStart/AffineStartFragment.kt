@@ -32,6 +32,7 @@ class AffineStartFragment: Fragment(R.layout.fragment_affine_start) {
             PointF(50f, 50f)
         )
         renderer.setFigure(figure)
-        affineView.addCustomRenderer(renderer)
+        affineView.gridRenderer.addRenderer(renderer)
+        affineView.invalidate()
     }
 }

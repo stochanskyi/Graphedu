@@ -18,7 +18,9 @@ class AffineView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0
-) : View(context, attrs, defStyleAttr, defStyleRes) {
+) : View(context, attrs, defStyleAttr, defStyleRes), RenderersContainer<AffineRenderer> {
+
+    val gridRenderer: GridRenderer = GridRenderer(context)
 
     private var localScale: Float = 1f
     private var localTranslateX: Float = 0f
@@ -27,7 +29,7 @@ class AffineView @JvmOverloads constructor(
     private val gestureListener: OnMultiTouchGestureListener = createGestureListener()
 
     private val renderers: MutableList<AffineRenderer> = mutableListOf(
-        GridRenderer(context)
+        gridRenderer
     )
 
     private val gestureDetector = MultiTouchGestureDetector(context, gestureListener)
@@ -36,21 +38,18 @@ class AffineView @JvmOverloads constructor(
         setWillNotDraw(false)
     }
 
-    fun addCustomRenderer(renderer: AffineRenderer) {
+    override fun addRenderer(renderer: AffineRenderer) {
         with(renderer) {
             setSize(width, height)
             setScale(localScale)
             setTranslateX(localTranslateX)
             setTranslateY(localTranslateY)
         }
-
         renderers += renderer
-        invalidate()
     }
 
-    fun removeCustomRenderer(renderer: AffineRenderer) {
+    override fun removeRenderer(renderer: AffineRenderer) {
         renderers -= renderer
-        invalidate()
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {

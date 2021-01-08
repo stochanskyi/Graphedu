@@ -2,9 +2,18 @@ package com.nulp.graphedu.presentation.views.affine
 
 import android.graphics.Canvas
 
-abstract class ComplexRenderer: BaseRenderer() {
+abstract class ComplexRenderer<T: AffineRenderer>: BaseRenderer(), RenderersContainer<T> {
 
-    abstract val renderers: List<AffineRenderer>
+    abstract val renderers: MutableList<T>
+
+    override fun addRenderer(renderer: T) {
+        initRendererParams(renderer)
+        renderers += renderer
+    }
+
+    override fun removeRenderer(renderer: T) {
+        renderers -= renderer
+    }
 
     override fun setSize(width: Int, height: Int) {
         renderers.forEach { it.setSize(width, height) }
@@ -24,6 +33,13 @@ abstract class ComplexRenderer: BaseRenderer() {
 
     override fun render(canvas: Canvas) {
         renderers.forEach { it.render(canvas) }
+    }
+
+    protected open fun initRendererParams(renderer: T) {
+        renderer.setSize(width, height)
+        renderer.setScale(scale)
+        renderer.setTranslateX(translateX)
+        renderer.setTranslateY(translateY)
     }
 
 }

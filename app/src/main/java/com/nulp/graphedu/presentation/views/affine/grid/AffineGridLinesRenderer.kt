@@ -5,12 +5,11 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import com.nulp.graphedu.presentation.utils.dp
-import com.nulp.graphedu.presentation.views.affine.BaseRenderer
 import com.nulp.graphedu.presentation.views.affine.DRAW_OUT_OF_BOUNDS
 
 class AffineGridLinesRenderer(
     context: Context
-): BaseRenderer(), GridSubRenderer {
+): BaseGridRendererComponent() {
 
     companion object {
         // Grid line
@@ -21,12 +20,6 @@ class AffineGridLinesRenderer(
     private val gridLinePaint = Paint().apply {
         color = GRID_LINE_COLOR
         strokeWidth = context.dp(GRID_LINE_WIDTH)
-    }
-
-    private var segmentSize: Float = 0f
-
-    override fun setSegmentSize(size: Float) {
-        this.segmentSize = size
     }
 
     override fun render(canvas: Canvas) {

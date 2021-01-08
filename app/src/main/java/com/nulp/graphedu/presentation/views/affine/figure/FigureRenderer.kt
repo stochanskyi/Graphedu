@@ -1,12 +1,12 @@
 package com.nulp.graphedu.presentation.views.affine.figure
 
 import android.content.Context
-import android.graphics.*
-import com.nulp.graphedu.presentation.views.affine.BaseRenderer
+import android.graphics.Canvas
+import com.nulp.graphedu.presentation.views.affine.grid.BaseGridRendererComponent
 
 class FigureRenderer(
     context: Context
-) : BaseRenderer() {
+) : BaseGridRendererComponent() {
 
     private val drawer = FigureDrawer(context)
 
@@ -14,6 +14,11 @@ class FigureRenderer(
 
     fun setFigure(figure: FigureRendererData) {
         this.figure = figure
+    }
+
+    override fun initDefaultSegmentSize(size: Float) {
+        super.initDefaultSegmentSize(size)
+        drawer.setDefaultSegmentSize(size)
     }
 
     override fun render(canvas: Canvas) {

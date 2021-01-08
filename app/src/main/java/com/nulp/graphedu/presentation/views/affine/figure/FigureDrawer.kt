@@ -3,6 +3,7 @@ package com.nulp.graphedu.presentation.views.affine.figure
 import android.content.Context
 import android.graphics.*
 import com.nulp.graphedu.presentation.utils.dp
+import com.nulp.graphedu.presentation.views.affine.grid.SEGMENTS_BETWEEN_ALIQUOT
 
 class FigureDrawer(context: Context) {
 
@@ -40,10 +41,18 @@ class FigureDrawer(context: Context) {
 
     val path = Path()
 
+    private var defaultSegmentSize: Float = 1f
+
+    fun setDefaultSegmentSize(size: Float) {
+        this.defaultSegmentSize = size * SEGMENTS_BETWEEN_ALIQUOT
+    }
+
     fun draw(canvas: Canvas, figure: FigureRendererData) {
-        drawLines(canvas, figure.linePoints)
-        drawCenterPoint(canvas, figure.centerPoint)
-        drawSelectedPointCircle(canvas, figure.selectedPoint)
+        val transformedFigure = figure.transformedToCanvasCoordinates(defaultSegmentSize)
+
+        drawLines(canvas, transformedFigure.linePoints)
+        drawCenterPoint(canvas, transformedFigure.centerPoint)
+        drawSelectedPointCircle(canvas, transformedFigure.selectedPoint)
     }
 
     private fun drawLines(canvas: Canvas, linePoints: List<PointF>) {
@@ -52,13 +61,13 @@ class FigureDrawer(context: Context) {
         path.reset()
 
         val initialPoint = linePoints.first()
-        path.moveTo(initialPoint.x, -initialPoint.y)
+        path.moveTo(initialPoint.x, initialPoint.y)
 
         for (i in 1 until linePoints.size) {
             val point = linePoints[i]
-            path.lineTo(point.x, -point.y)
+            path.lineTo(point.x, point.y)
         }
-        path.lineTo(initialPoint.x, -initialPoint.y)
+        path.lineTo(initialPoint.x, initialPoint.y)
         path.close()
 
         canvas.drawPath(path, linePaint)
@@ -67,7 +76,7 @@ class FigureDrawer(context: Context) {
     private fun drawCenterPoint(canvas: Canvas, point: PointF) {
         canvas.drawCircle(
             point.x,
-            -point.y,
+            point.y,
             centerPointRadius,
             centerPointPaint
         )
@@ -76,7 +85,7 @@ class FigureDrawer(context: Context) {
     private fun drawSelectedPointCircle(canvas: Canvas, point: PointF) {
         canvas.drawCircle(
             point.x,
-            -point.y,
+            point.y,
             selectedPointRadius,
             selectedPointPaint
         )

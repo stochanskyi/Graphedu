@@ -8,13 +8,13 @@ const val SEGMENTS_BETWEEN_ALIQUOT = 4
 
 class GridRenderer(
     context: Context
-) : ComplexRenderer() {
+) : ComplexRenderer<GridRendererComponent>() {
 
     companion object {
         private const val DEFAULT_SEGMENT_SIZE = 32
     }
 
-    override val renderers: List<GridSubRenderer> = listOf(
+    override val renderers: MutableList<GridRendererComponent> = mutableListOf(
         AffineGridLinesRenderer(context),
         AffineGridAliquotLinesRenderer(context),
         AffineGridAxesRenderer(context),
@@ -26,7 +26,15 @@ class GridRenderer(
     private var currentSegmentValue = 1f
 
     init {
+        renderers.forEach { it.initDefaultSegmentSize(defaultSegmentSize) }
         updateRenderersSegments()
+    }
+
+    override fun initRendererParams(renderer: GridRendererComponent) {
+        super.initRendererParams(renderer)
+        renderer.initDefaultSegmentSize(defaultSegmentSize)
+        renderer.setSegmentSize(currentSegmentSize)
+        renderer.setSegmentValue(currentSegmentValue)
     }
 
     override fun setScale(scale: Float) {

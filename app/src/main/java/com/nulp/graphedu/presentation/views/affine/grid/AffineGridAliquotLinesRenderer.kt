@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.*
 import android.text.TextPaint
 import com.nulp.graphedu.presentation.utils.*
-import com.nulp.graphedu.presentation.views.affine.BaseRenderer
 import com.nulp.graphedu.presentation.views.affine.DRAW_OUT_OF_BOUNDS
 import com.nulp.graphedu.presentation.views.affine.grid.coordinate.*
 import kotlin.math.max
@@ -13,7 +12,7 @@ import kotlin.math.min
 // TODO do not draw below axes
 class AffineGridAliquotLinesRenderer(
     context: Context
-) : BaseRenderer(), GridSubRenderer {
+) : BaseGridRendererComponent() {
 
     companion object {
         // Grid aliquot line
@@ -57,18 +56,11 @@ class AffineGridAliquotLinesRenderer(
     private val bottomTextYOffset = coordinateTextMargin
     private val bottomTextStickyY = coordinateTextPaint.height + coordinateTextMargin
 
-    private var segmentSize: Float = 0f
-    private var segmentValue: Float = 0f
-
     private var quintSize: Float = 0f
 
     override fun setSegmentSize(size: Float) {
-        this.segmentSize = size
+        super.setSegmentSize(size)
         quintSize = segmentSize * SEGMENTS_BETWEEN_ALIQUOT
-    }
-
-    override fun setSegmentValue(value: Float) {
-        this.segmentValue = value
     }
 
     override fun render(canvas: Canvas) {
