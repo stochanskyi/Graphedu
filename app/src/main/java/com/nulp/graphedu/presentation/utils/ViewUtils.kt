@@ -1,6 +1,8 @@
 package com.nulp.graphedu.presentation.utils
 
 import android.content.Context
+import android.graphics.Rect
+import android.graphics.RectF
 import android.text.TextPaint
 import android.util.TypedValue
 import android.view.View
@@ -83,3 +85,9 @@ val TextPaint.baselineToDescent: Float
 
 val TextPaint.height: Float
     get() = with(fontMetrics) { bottom - top }
+
+fun TextPaint.measuredHeight(text: String): Int {
+    val rect = Rect()
+    getTextBounds(text, 0, text.length, rect)
+    return rect.bottom - rect.top
+}

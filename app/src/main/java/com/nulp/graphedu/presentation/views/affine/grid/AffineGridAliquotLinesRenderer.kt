@@ -53,6 +53,7 @@ class AffineGridAliquotLinesRenderer(
         alpha = 64
     }
 
+    private val coordinateTextHalfHeight = coordinateTextPaint.measuredHeight("0") / 2f
     private val bottomTextYOffset = coordinateTextMargin
     private val bottomTextStickyY = coordinateTextPaint.height + coordinateTextMargin
 
@@ -88,7 +89,12 @@ class AffineGridAliquotLinesRenderer(
     }
 
     private fun drawYCoordinate(canvas: Canvas, y: Float, text: String) {
-        val textY = y + coordinateTextPaint.baselineToTop / 3f
+        if (y.isNotInBounds(0f, heightF)) return
+        var textY = y + coordinateTextHalfHeight
+        textY = textY.inBounds(
+            coordinateTextPaint.baselineToAscent + coordinateTextMargin,
+            heightF - coordinateTextMargin
+        )
         val textWidth = coordinateTextPaint.measureText(text)
         when {
             translatedCx < textWidth + coordinateTextMargin * 2 -> {
@@ -102,13 +108,9 @@ class AffineGridAliquotLinesRenderer(
     }
 
     private fun drawYCoordinateNearAxis(canvas: Canvas, axisX: Float, y: Float, text: String) {
-        if (y.isNotInBounds(0f, heightF)) return
         canvas.drawTextWithBackground(
             axisX - coordinateTextMargin,
-            y.inBounds(
-                coordinateTextPaint.baselineToAscent + coordinateTextMargin,
-                heightF - coordinateTextPaint.baselineToDescent - coordinateTextMargin
-            ),
+            y,
             text,
             TextRightAlignBackgroundResolver
         )
@@ -152,22 +154,23 @@ class AffineGridAliquotLinesRenderer(
     }
 
     private fun drawXCoordinate(canvas: Canvas, x: Float, text: String) {
+        if (x.isNotInBounds(0f, widthF)) return
+        val textXMargin = coordinateTextPaint.measureText(text) / 2f + coordinateTextMargin
+        val textX = x.inBounds(textXMargin, widthF - textXMargin)
         when {
             translatedCy < 0 -> {
-                drawXCoordinateTop(canvas, x, text)
+                drawXCoordinateTop(canvas, textX, text)
             }
             translatedCy > heightF - bottomTextStickyY -> {
-                drawXCoordinateBottom(canvas, x, text)
+                drawXCoordinateBottom(canvas, textX, text)
             }
-            else -> drawXCoordinateNearAxis(canvas, x, translatedCy, text)
+            else -> drawXCoordinateNearAxis(canvas, textX, translatedCy, text)
         }
     }
 
     private fun drawXCoordinateNearAxis(canvas: Canvas, x: Float, axisY: Float, text: String) {
-        if (x.isNotInBounds(0f, widthF)) return
-        val textXMargin = coordinateTextPaint.measureText(text) / 2f + coordinateTextMargin
         canvas.drawTextWithBackground(
-            x.inBounds(textXMargin, widthF - textXMargin),
+            x,
             axisY + coordinateTextPaint.baselineToTop + coordinateTextMargin,
             text,
             TextCenterAlignBackgroundResolver
