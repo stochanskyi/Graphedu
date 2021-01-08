@@ -3,7 +3,6 @@ package com.nulp.graphedu.presentation.views.affine.figure
 import android.content.Context
 import android.graphics.*
 import com.nulp.graphedu.presentation.utils.dp
-import com.nulp.graphedu.presentation.views.affine.grid.SEGMENTS_BETWEEN_ALIQUOT
 
 class FigureDrawer(context: Context) {
 
@@ -41,18 +40,10 @@ class FigureDrawer(context: Context) {
 
     val path = Path()
 
-    private var defaultSegmentSize: Float = 1f
-
-    fun setDefaultSegmentSize(size: Float) {
-        this.defaultSegmentSize = size * SEGMENTS_BETWEEN_ALIQUOT
-    }
-
     fun draw(canvas: Canvas, figure: FigureRendererData) {
-        val transformedFigure = figure.transformedToCanvasCoordinates(defaultSegmentSize)
-
-        drawLines(canvas, transformedFigure.linePoints)
-        drawCenterPoint(canvas, transformedFigure.centerPoint)
-        drawSelectedPointCircle(canvas, transformedFigure.selectedPoint)
+        drawLines(canvas, figure.linePoints)
+        drawCenterPoint(canvas, figure.centerPoint)
+        drawSelectedPointCircle(canvas, figure.selectedPoint)
     }
 
     private fun drawLines(canvas: Canvas, linePoints: List<PointF>) {
