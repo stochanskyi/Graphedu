@@ -12,6 +12,7 @@
     <color name="transparent">#00000000</color>
 
     <color name="text_color">#000000</color>
+    <color name="text_disabled_color">#88000000</color>
     <color name="text_hint_color">#6B6B6B</color>
 
     <color name="window_background_light">#FCFCFC</color>

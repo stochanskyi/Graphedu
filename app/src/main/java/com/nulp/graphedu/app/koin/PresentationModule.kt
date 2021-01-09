@@ -20,6 +20,10 @@ import com.nulp.graphedu.presentation.fragments.fractals.fractal.FractalContract
 import com.nulp.graphedu.presentation.fragments.fractals.fractal.impl.FractalsPresenter
 import com.nulp.graphedu.presentation.fragments.fractals.fractalsStart.FractalsStartContract
 import com.nulp.graphedu.presentation.fragments.fractals.fractalsStart.impl.FractalsStartPresenter
+import com.nulp.graphedu.presentation.fragments.handbook.container.HandbookContainerContract
+import com.nulp.graphedu.presentation.fragments.handbook.container.impl.HandbookContainerPresenter
+import com.nulp.graphedu.presentation.fragments.handbook.content.HandbookContentContract
+import com.nulp.graphedu.presentation.fragments.handbook.content.impl.HandbookContentPresenter
 import com.nulp.graphedu.presentation.fragments.mainNavigation.MainNavigationContract
 import com.nulp.graphedu.presentation.fragments.mainNavigation.impl.MainNavigationPresenter
 import com.nulp.graphedu.presentation.fragments.menu.MenuContract
@@ -61,4 +65,8 @@ object PresentationModule : KoinModule({
     factory { HexagonCreationPresenter() as HexagonCreationContract.PresenterContract }
 
     factory { TutorialPresenter() as TutorialContract.PresenterContract }
+
+    factory { HandbookContainerPresenter() as HandbookContainerContract.PresenterContract }
+
+    factory { HandbookContentPresenter() as HandbookContentContract.PresenterContract }
 })

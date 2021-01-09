@@ -12,7 +12,6 @@ import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.Hexagon
 import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.nodels.HexagonPointViewModel
 import com.nulp.graphedu.presentation.views.affine.figure.FigureRendererData
 import java.text.DecimalFormat
-import kotlin.math.PI
 
 class HexagonRotationPresenter(
     private val hexagonGenerator: HexagonGenerator

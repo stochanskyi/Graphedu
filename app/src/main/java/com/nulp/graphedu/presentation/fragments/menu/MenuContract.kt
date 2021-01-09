@@ -7,6 +7,10 @@ interface MenuContract {
 
     interface ViewContract : IBaseFragment {
         fun openFractalsScreen()
+
+        fun openAboutUs()
+
+        fun openHandbook()
     }
 
     interface PresenterContract : IBasePresenter<ViewContract> {

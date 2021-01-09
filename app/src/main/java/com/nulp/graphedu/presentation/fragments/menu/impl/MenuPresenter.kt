@@ -9,11 +9,11 @@ class MenuPresenter : BasePresenter<ViewContract>(), PresenterContract {
         view?.openFractalsScreen()
     }
 
-    override fun onInfoClicked() {
-        //TODO info screen
+    override fun onAboutUsClicked() {
+        view?.openAboutUs()
     }
 
-    override fun onAboutUsClicked() {
-        //TODO about us screen
+    override fun onInfoClicked() {
+        view?.openHandbook()
     }
 }
