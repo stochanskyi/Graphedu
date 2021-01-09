@@ -11,11 +11,14 @@ import com.nulp.graphedu.presentation.common.mvp.BasePresenter
 import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.HexagonRotationContract.*
 import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.nodels.HexagonPointViewModel
 import com.nulp.graphedu.presentation.views.affine.figure.FigureRendererData
+import java.text.DecimalFormat
 import kotlin.math.PI
 
 class HexagonRotationPresenter(
     private val hexagonGenerator: HexagonGenerator
 ) : BasePresenter<ViewContract>(), PresenterContract {
+
+    private val angleFormatter = DecimalFormat("0.0")
 
     private var x: Float = 0f
     private var y: Float = 0f
@@ -35,9 +38,11 @@ class HexagonRotationPresenter(
         hexagon = hexagonGenerator.generateHexagon(PointCoordinates(x, y))
         rotatingPoint = hexagon.hexagonCenter
 
-        view?.setRotateActionVisible(isVisible = true, animate = false)
+        view?.setRotateActionVisible(true)
+        view?.setHexagonPointsVisible(false)
+        view?.setScrollerVisible(false)
 
-        view?.setHexagonRenderingData(hexagon.toRenderingData())
+        view?.setHexagon(hexagon.toRenderingData())
     }
 
     override fun onRotateClicked() {
@@ -53,10 +58,19 @@ class HexagonRotationPresenter(
     }
 
     override fun onRotationTutorialCompleted() {
+        view?.setScrollerVisible(true)
+        view?.setAngle(0f.formatAsAngle())
+        view?.setHexagon(hexagon.toRenderingData())
+    }
+
+    override fun onFigureScrolled(angle: Float) {
+        view?.setAngle(angle.formatAsAngle())
+
+        val scale = angle / 180f + 1
         val transformationBuilder = TransformationBuilder()
             .moveCoordinates(rotatingPoint.x, rotatingPoint.y)
-            .rotateObject((PI / 6).toFloat())
-            .scaleObject(5f, 5f)
+            .rotateObject((Math.toRadians(angle.toDouble())).toFloat())
+            .scaleObject(scale, scale)
 
         val vertexesCoordinates = transformationBuilder
             .take(AffineMatrix.ofCoordinates(hexagon.hexagonPoints.toList()))
@@ -71,7 +85,7 @@ class HexagonRotationPresenter(
 
         val newHexagon = Hexagon(centerCoordinates, vertexesCoordinates)
 
-        view?.setHexagonRenderingData(newHexagon.toRenderingData())
+        view?.setHexagon(newHexagon.toRenderingData())
     }
 
     override fun onHandbookClicked() {
@@ -99,6 +113,10 @@ class HexagonRotationPresenter(
 
     private fun PointCoordinates.toPointF(): PointF {
         return PointF(x, y)
+    }
+
+    private fun Float.formatAsAngle(): String {
+        return angleFormatter.format(this)
     }
 
 }

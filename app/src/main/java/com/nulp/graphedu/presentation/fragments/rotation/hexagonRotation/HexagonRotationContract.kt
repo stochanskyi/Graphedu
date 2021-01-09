@@ -7,12 +7,14 @@ import com.nulp.graphedu.presentation.views.affine.figure.FigureRendererData
 interface HexagonRotationContract {
 
     interface ViewContract : IBaseFragment {
-        fun setRotateActionVisible(isVisible: Boolean, animate: Boolean = true)
-        fun setHexagonPointsVisible(isVisible: Boolean, animate: Boolean = true)
+        fun setRotateActionVisible(isVisible: Boolean)
+        fun setHexagonPointsVisible(isVisible: Boolean)
+        fun setScrollerVisible(isVisible: Boolean)
 
         fun setHexagonPoints(items: List<IHexagonPointViewModel>)
 
-        fun setHexagonRenderingData(data: FigureRendererData)
+        fun setAngle(angle: String)
+        fun setHexagon(data: FigureRendererData)
 
         fun showVertexSelectionTutorial()
         fun showRotationTutorial()
@@ -25,6 +27,8 @@ interface HexagonRotationContract {
 
         fun onVertexSelectionTutorialCompleted()
         fun onRotationTutorialCompleted()
+
+        fun onFigureScrolled(angle: Float)
 
         fun onHandbookClicked()
     }

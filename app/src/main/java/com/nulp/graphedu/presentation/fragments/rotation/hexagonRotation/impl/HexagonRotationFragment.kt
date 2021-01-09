@@ -13,6 +13,7 @@ import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.Hexagon
 import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.adapter.HexagonPointsAdapter
 import com.nulp.graphedu.presentation.views.affine.figure.FigureRenderer
 import com.nulp.graphedu.presentation.views.affine.figure.FigureRendererData
+import com.nulp.graphedu.presentation.views.scroller.setScrollerListener
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ClickableMenuItem
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ToolbarConfigurator
 import kotlinx.android.synthetic.main.fragment_image_edit.toolbar
@@ -23,11 +24,14 @@ class HexagonRotationFragment : BaseFragment<PresenterContract>(R.layout.fragmen
     ViewContract, TutorialContract.TutorialParent {
 
     companion object {
-        private const val COORDINATE_X_KEY = "key_coordinate_x"
-        private const val COORDINATE_Y_KEY = "key_coordinate_y"
+
+        private const val ANGLE_WIDTH = 180f
 
         private const val VERTEX_SELECTION_TUTORIAL_DIALOG = "vertex_selection_dialog_tutorial"
         private const val ROTATION_TUTORIAL_DIALOG = "dialog_rotation_tutorial"
+
+        private const val COORDINATE_X_KEY = "key_coordinate_x"
+        private const val COORDINATE_Y_KEY = "key_coordinate_y"
 
         fun newInstance(x: Float, y: Float): HexagonRotationFragment {
             return HexagonRotationFragment().apply {
@@ -71,29 +75,39 @@ class HexagonRotationFragment : BaseFragment<PresenterContract>(R.layout.fragmen
             adapter = HexagonPointsAdapter()
         }
 
-        affineView.addCustomRenderer(shapeRenderer)
+        affineView.gridRenderer.addRenderer(shapeRenderer)
+
+        touchScroller.setSensitivity(calculateScrollerSensitivity())
+        touchScroller.listenToView(layoutAngleScroller)
+        touchScroller.setScrollerListener {
+            presenter.onFigureScrolled(it)
+        }
     }
 
-    override fun setRotateActionVisible(isVisible: Boolean, animate: Boolean) {
-        if (animate) {
-            animateActionsVisible()
-        }
+    override fun setRotateActionVisible(isVisible: Boolean) {
+        animateActionsVisible()
         setActionsVisible(isVisible)
     }
 
-    override fun setHexagonPointsVisible(isVisible: Boolean, animate: Boolean) {
-        if (animate) {
-            animateHexagonPointsVisible()
-        }
+    override fun setHexagonPointsVisible(isVisible: Boolean) {
+        animateHexagonPointsVisible()
         setHexagonPointsVisibility(isVisible)
+    }
+
+    override fun setScrollerVisible(isVisible: Boolean) {
+        animateScrollerVisible()
+        setScrollerVisibility(isVisible)
     }
 
     override fun setHexagonPoints(items: List<HexagonRotationContract.IHexagonPointViewModel>) {
         hexagonPointsAdapterAction { setItems(items) }
-
     }
 
-    override fun setHexagonRenderingData(data: FigureRendererData) {
+    override fun setAngle(angle: String) {
+        textAngle.text = angle
+    }
+
+    override fun setHexagon(data: FigureRendererData) {
         shapeRenderer.setFigure(data)
         affineView.invalidate()
     }
@@ -123,4 +137,7 @@ class HexagonRotationFragment : BaseFragment<PresenterContract>(R.layout.fragmen
         (recyclerHexagonPoints.adapter as? HexagonPointsAdapter)?.action()
     }
 
+    private fun calculateScrollerSensitivity(): Float {
+        return requireContext().resources.displayMetrics.widthPixels / ANGLE_WIDTH
+    }
 }

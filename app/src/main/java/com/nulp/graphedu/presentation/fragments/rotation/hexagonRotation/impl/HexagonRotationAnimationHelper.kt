@@ -16,6 +16,11 @@ internal fun HexagonRotationFragment.animateHexagonPointsVisible() {
     TransitionManager.beginDelayedTransition(layoutContent, hexagonPointsVisibilityTransition())
 }
 
+
+internal fun HexagonRotationFragment.animateScrollerVisible() {
+    TransitionManager.beginDelayedTransition(layoutContent, scrollerVisibilityTransition())
+}
+
 internal fun HexagonRotationFragment.setActionsVisible(isVisible: Boolean) {
     ConstraintSet().apply {
         clone(layoutContent)
@@ -46,6 +51,21 @@ internal fun HexagonRotationFragment.setHexagonPointsVisibility(isVisible: Boole
     }.applyTo(layoutContent)
 }
 
+internal fun HexagonRotationFragment.setScrollerVisibility(isVisible: Boolean) {
+    ConstraintSet().apply {
+        clone(layoutContent)
+
+        if (isVisible) {
+            clear(layoutAngleScroller.id, ConstraintSet.TOP)
+            connect(layoutAngleScroller.id, ConstraintSet.BOTTOM, 0, ConstraintSet.BOTTOM)
+        } else {
+            clear(layoutAngleScroller.id, ConstraintSet.BOTTOM)
+            connect(layoutAngleScroller.id, ConstraintSet.TOP, 0, ConstraintSet.BOTTOM)
+        }
+
+    }.applyTo(layoutContent)
+}
+
 private fun HexagonRotationFragment.actionsVisibilityTransition(): Transition {
     return ChangeBounds().apply {
         duration = 200L
@@ -59,5 +79,13 @@ private fun HexagonRotationFragment.hexagonPointsVisibilityTransition(): Transit
         duration = 200L
         interpolator = FastOutSlowInInterpolator()
         addTarget(recyclerHexagonPoints)
+    }
+}
+
+private fun HexagonRotationFragment.scrollerVisibilityTransition(): Transition {
+    return ChangeBounds().apply {
+        duration = 200L
+        interpolator = FastOutSlowInInterpolator()
+        addTarget(layoutAngleScroller)
     }
 }
