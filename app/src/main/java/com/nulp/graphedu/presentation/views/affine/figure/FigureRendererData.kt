@@ -6,4 +6,6 @@ class FigureRendererData(
     val linePoints: List<PointF>,
     val centerPoint: PointF,
     val selectedPoint: PointF
-)
+) {
+
+}

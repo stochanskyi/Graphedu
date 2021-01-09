@@ -3,10 +3,10 @@ package com.nulp.graphedu.presentation.fragments.mainNavigation.navigationContro
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.nulp.graphedu.presentation.fragments.mainNavigation.navigationController.navItems.AffineNavigationItem
 import com.nulp.graphedu.presentation.fragments.mainNavigation.navigationController.navItems.ColorsNavigationItem
 import com.nulp.graphedu.presentation.fragments.mainNavigation.navigationController.navItems.FractalsNavigationItem
 import com.nulp.graphedu.presentation.fragments.mainNavigation.navigationController.navItems.NavigationItem
-import com.nulp.graphedu.presentation.fragments.mainNavigation.navigationController.navItems.RotationNavigationItem
 
 class NavigationController(
     private val fragmentManager: FragmentManager,
@@ -16,7 +16,7 @@ class NavigationController(
     private val items: List<NavigationItem> = listOf(
         FractalsNavigationItem(),
         ColorsNavigationItem(),
-        RotationNavigationItem()
+        AffineNavigationItem()
     )
 
     init {
@@ -51,13 +51,14 @@ class NavigationController(
         currentItem = item
         transaction.apply {
             showItem(item)
-            commitNow()
+            commit()
         }
     }
 
     private fun FragmentTransaction.showItem(item: NavigationItem) {
         show(item.fragment)
     }
+
 
     private fun FragmentTransaction.hideItem(item: NavigationItem) {
         hide(item.fragment)

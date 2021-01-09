@@ -8,12 +8,11 @@ import android.graphics.Typeface
 import android.text.TextPaint
 import com.nulp.graphedu.presentation.utils.baselineToTop
 import com.nulp.graphedu.presentation.utils.dp
-import com.nulp.graphedu.presentation.views.affine.BaseRenderer
 import com.nulp.graphedu.presentation.views.affine.DRAW_OUT_OF_BOUNDS
 
 class AffineGridAxesRenderer(
     context: Context
-): BaseRenderer(), GridSubRenderer {
+): BaseGridRendererComponent() {
 
     companion object {
         // Axis line
