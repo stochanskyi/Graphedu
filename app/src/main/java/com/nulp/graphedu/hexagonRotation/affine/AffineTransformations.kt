@@ -18,8 +18,8 @@ object AffineTransformations {
     fun scaleMatrix(x: Float, y: Float): AffineMatrix {
         return AffineMatrix(
             arrayOf(
-                floatArrayOf(x, 0f, 1f),
-                floatArrayOf(0f, y, 1f),
+                floatArrayOf(x, 0f, 0f),
+                floatArrayOf(0f, y, 0f),
                 floatArrayOf(0f, 0f, 1f)
             )
         )

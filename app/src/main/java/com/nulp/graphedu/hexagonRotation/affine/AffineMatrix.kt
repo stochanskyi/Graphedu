@@ -11,6 +11,14 @@ data class AffineMatrix(
         fun ofCoordinates(coordinates: List<PointCoordinates>): AffineMatrix {
             return AffineMatrix(coordinates.map { floatArrayOf(it.x, it.y, 1f) }.toTypedArray())
         }
+
+        fun ofCoordinates(coordinates: PointCoordinates): AffineMatrix {
+            return ofCoordinates(listOf(coordinates))
+        }
+    }
+
+    fun toCoordinates(): List<PointCoordinates> {
+        return data.map { PointCoordinates(it[0], it[1]) }
     }
 
     operator fun times(another: AffineMatrix): AffineMatrix {
