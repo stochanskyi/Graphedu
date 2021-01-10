@@ -46,7 +46,8 @@ class HandbookContainerFragment : BaseFragment<HandbookContainerContract.Present
 
     override fun initViews() {
         ToolbarConfigurator()
-            .withNavigationButton(false)
+            .withNavigationButton(true)
+            .setNavigationClickListener { close() }
             .setTitle(getString(R.string.title_handbook))
             .applyToToolbar(toolbar)
 
