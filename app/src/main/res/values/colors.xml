@@ -24,11 +24,11 @@
     <color name="colorDimWhite">#88ffffff</color>
 
     <color name="zoomButtonColor">#AFB0AF</color>
-    
-    <color name="imageEditActionBackgroundColor">#80FFFFFF</color>
 
     <color name="imageEditBackgroundColor">#EAEAEA</color>
 
     <color name="actionsSeparatorColor">#C4C4C4</color>
+
+    <color name="colorOpaqueBackground">#ccFFFFFF</color>
 
 </resources>
