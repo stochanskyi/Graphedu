@@ -2,7 +2,7 @@ package com.nulp.graphedu.presentation.fragments.handbook.container.tab
 
 import com.nulp.graphedu.R
 import com.nulp.graphedu.presentation.fragments.handbook.content.data.HandbookContent
-import com.nulp.graphedu.presentation.fragments.handbook.content.data.HandbookContentTest
+import com.nulp.graphedu.presentation.fragments.handbook.content.data.HandbookContentColors
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -12,6 +12,6 @@ object HandbookTabColors: HandbookTab {
 
     override fun provideTitleRes(): Int = R.string.navigation_item_colors
 
-    override fun provideContent(): HandbookContent = HandbookContentTest()
+    override fun provideContent(): HandbookContent = HandbookContentColors()
     
 }
