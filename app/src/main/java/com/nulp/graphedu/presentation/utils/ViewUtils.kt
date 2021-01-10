@@ -2,7 +2,6 @@ package com.nulp.graphedu.presentation.utils
 
 import android.content.Context
 import android.graphics.Rect
-import android.graphics.RectF
 import android.text.TextPaint
 import android.util.TypedValue
 import android.view.View

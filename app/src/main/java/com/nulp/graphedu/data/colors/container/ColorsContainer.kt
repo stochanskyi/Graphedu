@@ -6,7 +6,7 @@ import com.nulp.graphedu.presentation.fragments.fractals.imageBoundsSelector.Ima
 
 typealias ColorTransformation = ColorTransformable.() -> PixelColor
 
-interface ColorsContainer {
+interface   ColorsContainer {
 
     fun getColors(): Array<PixelColor>
 

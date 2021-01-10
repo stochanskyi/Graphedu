@@ -40,14 +40,14 @@ import com.nulp.graphedu.presentation.fragments.fractals.imageBoundsSelector.Ima
         fun onActionChangeColorClicked()
         fun onActionChangeColorSpaceClicked()
 
+        fun provideBoundsSelectionImage(): Bitmap
+        fun handleImageBoundsSelected(bounds: ImageBounds)
+
         fun onSelectedColorClicked()
         fun selectColorToChange()
 
         fun onColorSelected(color: PixelColor)
         fun onColorToChangeSelected(color: Int)
-
-        fun provideBoundsSelectionImage(): Bitmap
-        fun handleImageBoundsSelected(bounds: ImageBounds)
 
         fun isBackPressHandled(): Boolean
 

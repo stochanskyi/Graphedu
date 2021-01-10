@@ -32,6 +32,7 @@ class ImageEditPresenter(
 
     private var palette: ColorsContainer? = null
 
+    private var selectedBounds: ImageBounds? = null
     private var selectedColor: PixelColor? = null
     private var changeToColor: PixelColor? = null
 
@@ -60,29 +61,20 @@ class ImageEditPresenter(
     }
 
     override fun onActionChangeColorClicked() {
-        Single.fromCallable {
-            ContainerPaletteGenerator(container).generate()
-        }
-            .onApiThread()
-            .doOnSuccess {
-                palette = it
-                selectedColor = it.getColors().first()
-            }
-            .observeOnUI()
-            .doOnSubscribe { view?.isLoading = true }
-            .doFinally { view?.isLoading = false }
-            .subscribe(
-                {
-                    view?.setActionsVisible(isVisible = false, animate = false)
-                    view?.setSelectedColorVisible(true)
-                    updateSelectedColor()
-                },
-                { view?.handleError(it) }
-            )
+        view?.selectImageBounds()
     }
 
     override fun onActionChangeColorSpaceClicked() {
         view?.showSelectColorSpaceDialog()
+    }
+
+    override fun provideBoundsSelectionImage(): Bitmap {
+        return imageBitmap!!
+    }
+
+    override fun handleImageBoundsSelected(bounds: ImageBounds) {
+        selectedBounds = bounds
+        generatePaletteForBounds(bounds)
     }
 
     override fun onSelectedColorClicked() {
@@ -100,7 +92,7 @@ class ImageEditPresenter(
 
     override fun onColorToChangeSelected(color: Int) {
         changeToColor = color.toRGBColor()
-        view?.selectImageBounds()
+        processChangeColorInBounds()
     }
 
     override fun isBackPressHandled(): Boolean {
@@ -109,30 +101,6 @@ class ImageEditPresenter(
         view?.setSelectedColorVisible(isVisible = false, animate = false)
         view?.setActionsVisible(true)
         return true
-    }
-
-    override fun provideBoundsSelectionImage(): Bitmap {
-        return imageBitmap!!
-    }
-
-    override fun handleImageBoundsSelected(bounds: ImageBounds) {
-        Single.fromCallable {
-            container.changeColor(selectedColor!!, changeToColor!!, imageBitmap!!.width, bounds)
-        }
-            .onApiThread()
-            .map {
-                ColorsBitmapProviderImpl(
-                    imageBitmap!!.width,
-                    imageBitmap!!.height,
-                    container.getColors()
-                ).generateBitmap()
-            }
-            .observeOnUI()
-            .doOnSubscribe { view?.isLoading = true }
-            .doFinally { view?.isLoading = false }
-            .subscribeBy {
-                view?.setBitmap(it)
-            }
     }
 
     override fun onTransformToRgb() {
@@ -159,6 +127,53 @@ class ImageEditPresenter(
                 { container = it },
                 { view?.handleError(it) }
             )
+    }
+
+    private fun generatePaletteForBounds(bounds: ImageBounds) {
+        Single.fromCallable {
+            ContainerPaletteGenerator(container).generate(imageBitmap!!.width, bounds)
+        }
+            .onApiThread()
+            .doOnSuccess {
+                palette = it
+                selectedColor = it.getColors().first()
+            }
+            .observeOnUI()
+            .doOnSubscribe { view?.isLoading = true }
+            .doFinally { view?.isLoading = false }
+            .subscribe(
+                {
+                    view?.setActionsVisible(isVisible = false, animate = false)
+                    view?.setSelectedColorVisible(true)
+                    updateSelectedColor()
+                },
+                { view?.handleError(it) }
+            )
+    }
+
+    private fun processChangeColorInBounds() {
+        Single.fromCallable {
+            container.changeColor(
+                selectedColor!!,
+                changeToColor!!,
+                imageBitmap!!.width,
+                selectedBounds!!
+            )
+        }
+            .onApiThread()
+            .map {
+                ColorsBitmapProviderImpl(
+                    imageBitmap!!.width,
+                    imageBitmap!!.height,
+                    container.getColors()
+                ).generateBitmap()
+            }
+            .observeOnUI()
+            .doOnSubscribe { view?.isLoading = true }
+            .doFinally { view?.isLoading = false }
+            .subscribeBy {
+                view?.setBitmap(it)
+            }
     }
 
     private fun updateSelectedColor() {
