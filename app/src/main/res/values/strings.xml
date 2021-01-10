@@ -76,5 +76,10 @@
     <string name="hexagon_rotation_point_bottom_left_text">Bottom Left</string>
     <string name="hexagon_rotation_point_top_left_text">Top Left</string>
     <string name="title_handbook">Handbook</string>
-
+    
+    <!--About Us Screen-->
+    <string name="about_us_developers">Andrew Shpek and Marian Stochaskyi</string>
+    <string name="about_us_university_name">Lviv Polytechnic National University</string>
+    <string name="about_us_app_description">Computer Graphics educational app</string>
+    <string name="about_us_version_name">v.%s</string>
 </resources>

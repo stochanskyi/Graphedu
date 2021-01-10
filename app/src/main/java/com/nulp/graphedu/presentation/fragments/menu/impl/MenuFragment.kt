@@ -3,6 +3,7 @@ package com.nulp.graphedu.presentation.fragments.menu.impl
 import androidx.fragment.app.Fragment
 import com.nulp.graphedu.R
 import com.nulp.graphedu.presentation.common.mvp.BaseFragment
+import com.nulp.graphedu.presentation.fragments.aboutUs.AboutUsFragment
 import com.nulp.graphedu.presentation.fragments.handbook.container.impl.HandbookContainerFragment
 import com.nulp.graphedu.presentation.fragments.handbook.container.tab.HandbookTab
 import com.nulp.graphedu.presentation.fragments.mainNavigation.impl.MainNavigationFragment
@@ -37,7 +38,7 @@ class MenuFragment : BaseFragment<PresenterContract>(R.layout.fragment_menu), Vi
     }
 
     override fun openAboutUs() {
-        // TODO
+        openScreen(AboutUsFragment.newInstance(), null)
     }
 
     override fun openHandbook() {
