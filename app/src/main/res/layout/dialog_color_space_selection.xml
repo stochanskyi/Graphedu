@@ -10,17 +10,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="@drawable/ripple_color_selector_dark"
-        android:padding="13dp"
-        android:textAlignment="center"
-        android:text="@string/actionToRgb" />
+        android:padding="12dp"
+        android:gravity="center_horizontal"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/actionToRgb"
+        android:textColor="@color/text_color"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/buttonHsl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="@drawable/ripple_color_selector_dark"
-        android:padding="13dp"
-        android:textAlignment="center"
-        android:text="@string/actionToHsl" />
+        android:padding="12dp"
+        android:gravity="center_horizontal"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/actionToHsl"
+        android:textColor="@color/text_color"
+        android:textSize="16sp" />
 
 </LinearLayout>
