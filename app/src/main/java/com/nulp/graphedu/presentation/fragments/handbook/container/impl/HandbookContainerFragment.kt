@@ -41,6 +41,7 @@ class HandbookContainerFragment : BaseFragment<HandbookContainerContract.Present
     override fun initPresenter() {
         val defaultTab: HandbookTab? = requireArguments().getParcelable(DEFAULT_TAB_KEY)
         presenter.initDefaultTab(defaultTab ?: HandbookTabFractals)
+        presenter.view = this
     }
 
     override fun initViews() {

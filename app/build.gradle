@@ -62,6 +62,6 @@ dependencies {
     
     implementation 'com.dinuscxj:multitouchgesturedetector:1.0.0'
 
-    implementation 'io.github.kexanie.library:MathView:0.0.6'
+    implementation 'com.github.gregcockroft:AndroidMath:ALPHA'
 
 }

@@ -5,6 +5,7 @@ import com.nulp.graphedu.R
 import com.nulp.graphedu.presentation.common.mvp.BaseFragment
 import com.nulp.graphedu.presentation.fragments.handbook.content.HandbookContentContract
 import com.nulp.graphedu.presentation.fragments.handbook.content.data.HandbookContent
+import kotlinx.android.synthetic.main.fragment_handbook_content.*
 import org.koin.android.ext.android.inject
 
 class HandbookContentFragment: BaseFragment<HandbookContentContract.PresenterContract>(
@@ -28,10 +29,11 @@ class HandbookContentFragment: BaseFragment<HandbookContentContract.PresenterCon
     override fun initPresenter() {
         val content: HandbookContent = requireArguments().getParcelable(CONTENT_KEY)!!
         presenter.initContent(content)
+        presenter.view = this
     }
 
     override fun setContent(content: HandbookContent) {
-        // TODO show content items
+        val component = content.provideComponent()
+        layoutContent.addView(component.createView(requireContext()))
     }
-
 }
