@@ -5,12 +5,12 @@ import com.nulp.graphedu.presentation.fragments.fractals.fractalsStart.FractalsS
 
 class FractalsStartPresenter : BasePresenter<ViewContract>(), PresenterContract {
 
-    override fun onHandbookClicked() {
-        //TODO open handbook - fractals
+    override fun createFractal() {
+        view?.showFragmentCreationDialog()
     }
 
-    override fun onCreateClicked() {
-        view?.showFragmentCreationDialog()
+    override fun openHandbook() {
+        view?.openHandbook()
     }
 
 }

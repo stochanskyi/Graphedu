@@ -1,7 +1,6 @@
 package com.nulp.graphedu.presentation.fragments.colors.imageEdit.impl
 
 import android.graphics.Bitmap
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import androidx.core.view.isVisible
@@ -20,6 +19,9 @@ import com.nulp.graphedu.presentation.fragments.colors.imageEdit.ImageEditContra
 import com.nulp.graphedu.presentation.fragments.fractals.imageBoundsSelector.ImageBounds
 import com.nulp.graphedu.presentation.fragments.fractals.imageBoundsSelector.ImageBoundsSelectionFragment
 import com.nulp.graphedu.presentation.fragments.fractals.imageBoundsSelector.ImageBoundsSelectionListener
+import com.nulp.graphedu.presentation.fragments.handbook.container.tab.HandbookTabColors
+import com.nulp.graphedu.presentation.fragments.menu.HandbookContainer
+import com.nulp.graphedu.presentation.utils.parentAsListener
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ClickableMenuItem
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ToolbarConfigurator
 import kotlinx.android.synthetic.main.fragment_image_edit.*
@@ -56,7 +58,7 @@ class ImageEditFragment : BaseFragment<PresenterContract>(R.layout.fragment_imag
             .setNavigationClickListener { close() }
             .setTitle(getString(R.string.image_edit_screen_toolbar_title))
             .setMenuId(R.menu.menu_with_handbook)
-            .addClickableItem(ClickableMenuItem(R.id.buttonHandbook) { presenter.onHandbookClicked() })
+            .addClickableItem(ClickableMenuItem(R.id.buttonHandbook) { presenter.openHandbook() })
             .applyToToolbar(toolbar)
 
         buttonActionChangeColor.setOnClickListener { presenter.onActionChangeColorClicked() }
@@ -130,6 +132,10 @@ class ImageEditFragment : BaseFragment<PresenterContract>(R.layout.fragment_imag
 
     override fun setBitmap(bitmap: Bitmap) {
         image.setImageBitmap(bitmap)
+    }
+
+    override fun openHandbook() {
+        parentAsListener<HandbookContainer>().requestOpenHandbook(HandbookTabColors)
     }
 
     override fun onColorSelected(color: PixelColor) {

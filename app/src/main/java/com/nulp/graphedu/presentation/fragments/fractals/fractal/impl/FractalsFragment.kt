@@ -14,6 +14,10 @@ import com.nulp.graphedu.presentation.common.mvp.BaseFragment
 import com.nulp.graphedu.presentation.fragments.fractals.fractal.FractalContract.PresenterContract
 import com.nulp.graphedu.presentation.fragments.fractals.fractal.FractalContract.ViewContract
 import com.nulp.graphedu.presentation.fragments.fractals.fractal.models.FractalParams
+import com.nulp.graphedu.presentation.fragments.handbook.container.tab.HandbookTabColors
+import com.nulp.graphedu.presentation.fragments.handbook.container.tab.HandbookTabFractals
+import com.nulp.graphedu.presentation.fragments.menu.HandbookContainer
+import com.nulp.graphedu.presentation.utils.parentAsListener
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ClickableMenuItem
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ToolbarConfigurator
 import com.nulp.graphedu.presentation.waitForLayout
@@ -133,6 +137,10 @@ class FractalsFragment : BaseFragment<PresenterContract>(R.layout.fragment_fract
 
     override fun scaleCurrentFractalImage(scale: Float) {
         animateScale(1f, scale)
+    }
+
+    override fun openHandbook() {
+        parentAsListener<HandbookContainer>().requestOpenHandbook(HandbookTabFractals)
     }
 
     private fun setFractalImageAndScale(image: Bitmap) {

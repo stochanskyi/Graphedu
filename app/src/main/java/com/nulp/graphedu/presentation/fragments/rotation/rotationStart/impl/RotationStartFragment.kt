@@ -4,9 +4,12 @@ import com.nulp.graphedu.R
 import com.nulp.graphedu.presentation.common.mvp.BaseFragment
 import com.nulp.graphedu.presentation.dialogs.hexagonCreation.HexagonCreationContract
 import com.nulp.graphedu.presentation.dialogs.hexagonCreation.impl.HexagonCreationDialog
+import com.nulp.graphedu.presentation.fragments.handbook.container.tab.HandbookTabRotation
+import com.nulp.graphedu.presentation.fragments.menu.HandbookContainer
 import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.impl.HexagonRotationFragment
 import com.nulp.graphedu.presentation.fragments.rotation.rotationStart.RotationStartContract.PresentationContract
 import com.nulp.graphedu.presentation.fragments.rotation.rotationStart.RotationStartContract.ViewContract
+import com.nulp.graphedu.presentation.utils.parentAsListener
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ClickableMenuItem
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ToolbarConfigurator
 import kotlinx.android.synthetic.main.fragment_rotation_start.*
@@ -34,10 +37,10 @@ class RotationStartFragment :
             .withNavigationButton(false)
             .setTitle(getString(R.string.rotation_screen_toolbar_title))
             .setMenuId(R.menu.menu_with_handbook)
-            .addClickableItem(ClickableMenuItem(R.id.buttonHandbook) { presenter.onHandbookClicked() })
+            .addClickableItem(ClickableMenuItem(R.id.buttonHandbook) { presenter.openHandbook() })
             .applyToToolbar(toolbar)
 
-        layoutContent.setOnClickListener { presenter.onCreateClicked() }
+        layoutContent.setOnClickListener { presenter.createHexagon() }
     }
 
     override fun showHexagonCreationFragment() {
@@ -52,7 +55,11 @@ class RotationStartFragment :
             .commit()
     }
 
+    override fun openHandbook() {
+        parentAsListener<HandbookContainer>().requestOpenHandbook(HandbookTabRotation)
+    }
+
     override fun onHexagonCoordinatesSelected(x: Float, y: Float) {
-        presenter.onCoordinatesSelected(x, y)
+        presenter.setHexagonParams(x, y)
     }
 }

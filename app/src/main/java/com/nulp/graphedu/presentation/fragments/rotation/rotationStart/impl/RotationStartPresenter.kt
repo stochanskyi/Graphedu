@@ -5,15 +5,15 @@ import com.nulp.graphedu.presentation.fragments.rotation.rotationStart.RotationS
 
 class RotationStartPresenter : BasePresenter<ViewContract>(), PresentationContract {
 
-    override fun onHandbookClicked() {
-        //TODO
-    }
-
-    override fun onCreateClicked() {
+    override fun createHexagon() {
         view?.showHexagonCreationFragment()
     }
 
-    override fun onCoordinatesSelected(x: Float, y: Float) {
+    override fun setHexagonParams(x: Float, y: Float) {
         view?.openRotationScreen(x, y)
+    }
+
+    override fun openHandbook() {
+        view?.openHandbook()
     }
 }

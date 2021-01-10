@@ -93,7 +93,7 @@ class FractalsPresenter : BasePresenter<FractalContract.ViewContract>(),
     }
 
     override fun openHandbook() {
-        //TODO
+        view?.openHandbook()
     }
 
     override fun scaleFractalUp() {

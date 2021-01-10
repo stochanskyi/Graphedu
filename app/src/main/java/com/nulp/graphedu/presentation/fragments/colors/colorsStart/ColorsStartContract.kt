@@ -4,11 +4,16 @@ import com.nulp.graphedu.presentation.common.mvp.IBaseFragment
 import com.nulp.graphedu.presentation.common.mvp.IBasePresenter
 
 interface ColorsStartContract {
-    interface ViewContract : IBaseFragment {
 
+    interface ViewContract : IBaseFragment {
+        fun openImagePicker()
+
+        fun openHandbook()
     }
 
     interface PresenterContract : IBasePresenter<ViewContract> {
-        fun onHandbookClicked()
+        fun pickImage()
+
+        fun openHandbook()
     }
 }

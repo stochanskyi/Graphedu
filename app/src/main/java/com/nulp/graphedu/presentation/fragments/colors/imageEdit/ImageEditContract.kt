@@ -30,6 +30,8 @@ import com.nulp.graphedu.presentation.fragments.fractals.imageBoundsSelector.Ima
         fun showSelectColorSpaceDialog()
 
         fun setBitmap(bitmap: Bitmap)
+
+        fun openHandbook()
     }
 
     interface PresenterContract : IBasePresenter<ViewContract> {
@@ -52,6 +54,6 @@ import com.nulp.graphedu.presentation.fragments.fractals.imageBoundsSelector.Ima
         fun onTransformToRgb()
         fun onTransformToHsl()
 
-        fun onHandbookClicked()
+        fun openHandbook()
     }
 }

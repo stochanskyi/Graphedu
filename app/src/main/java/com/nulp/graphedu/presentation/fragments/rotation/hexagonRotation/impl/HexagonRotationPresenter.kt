@@ -87,8 +87,8 @@ class HexagonRotationPresenter(
         view?.setHexagon(newHexagon.toRenderingData())
     }
 
-    override fun onHandbookClicked() {
-        //TODO
+    override fun openHandbook() {
+        view?.openHandbook()
     }
 
     private fun HexagonPointType.toViewModel(): IHexagonPointViewModel {

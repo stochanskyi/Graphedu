@@ -6,18 +6,17 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.MediaStore
 import androidx.core.app.ActivityCompat
-import com.bumptech.glide.Glide
 import com.nulp.graphedu.R
 import com.nulp.graphedu.presentation.common.mvp.BaseFragment
-import com.nulp.graphedu.presentation.fragments.colors.colorsStart.ColorsStartContract.*
+import com.nulp.graphedu.presentation.fragments.colors.colorsStart.ColorsStartContract.PresenterContract
+import com.nulp.graphedu.presentation.fragments.colors.colorsStart.ColorsStartContract.ViewContract
 import com.nulp.graphedu.presentation.fragments.colors.imageEdit.impl.ImageEditFragment
+import com.nulp.graphedu.presentation.fragments.handbook.container.tab.HandbookTabColors
+import com.nulp.graphedu.presentation.fragments.menu.HandbookContainer
+import com.nulp.graphedu.presentation.utils.parentAsListener
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ClickableMenuItem
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ToolbarConfigurator
 import kotlinx.android.synthetic.main.fragment_fractal_start.*
-import kotlinx.android.synthetic.main.fragment_fractal_start.fragmentContainer
-import kotlinx.android.synthetic.main.fragment_fractal_start.layoutContent
-import kotlinx.android.synthetic.main.fragment_fractal_start.toolbar
-import kotlinx.android.synthetic.main.fragment_image_edit.*
 import org.koin.android.ext.android.inject
 
 class ColorsStartFragment : BaseFragment<PresenterContract>(R.layout.fragment_colors_start), ViewContract {
@@ -40,10 +39,10 @@ class ColorsStartFragment : BaseFragment<PresenterContract>(R.layout.fragment_co
             .withNavigationButton(false)
             .setTitle(getString(R.string.colors_screen_toolbar_title))
             .setMenuId(R.menu.menu_with_handbook)
-            .addClickableItem(ClickableMenuItem(R.id.buttonHandbook) { presenter.onHandbookClicked() })
+            .addClickableItem(ClickableMenuItem(R.id.buttonHandbook) { presenter.openHandbook() })
             .applyToToolbar(toolbar)
 
-        layoutContent.setOnClickListener { requestPickImage() }
+        layoutContent.setOnClickListener { presenter.pickImage() }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -63,6 +62,15 @@ class ColorsStartFragment : BaseFragment<PresenterContract>(R.layout.fragment_co
             .commit()
     }
 
+    override fun openImagePicker() {
+        val pickIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(pickIntent, PICK_IMAGE_REQUEST_CODE)
+    }
+
+    override fun openHandbook() {
+        parentAsListener<HandbookContainer>().requestOpenHandbook(HandbookTabColors)
+    }
+
     private fun requestPickImage() {
         val isGranted = ActivityCompat.checkSelfPermission(
             requireContext(),
@@ -73,10 +81,5 @@ class ColorsStartFragment : BaseFragment<PresenterContract>(R.layout.fragment_co
         else requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
             STORAGE_PERMISSION_REQUEST_CODE
         )
-    }
-
-    private fun openImagePicker() {
-        val pickIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(pickIntent, PICK_IMAGE_REQUEST_CODE)
     }
 }

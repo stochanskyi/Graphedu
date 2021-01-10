@@ -18,6 +18,8 @@ interface HexagonRotationContract {
 
         fun showVertexSelectionTutorial()
         fun showRotationTutorial()
+
+        fun openHandbook()
     }
 
     interface PresenterContract : IBasePresenter<ViewContract> {
@@ -30,7 +32,7 @@ interface HexagonRotationContract {
 
         fun onFigureScrolled(angle: Float)
 
-        fun onHandbookClicked()
+        fun openHandbook()
     }
 
     interface IHexagonPointViewModel {

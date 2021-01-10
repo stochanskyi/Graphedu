@@ -143,8 +143,8 @@ class ImageEditPresenter(
         changeColorSpace { toHsl() }
     }
 
-    override fun onHandbookClicked() {
-        //TODO
+    override fun openHandbook() {
+        view?.openHandbook()
     }
 
     private fun changeColorSpace(transformation: ColorTransformation) {

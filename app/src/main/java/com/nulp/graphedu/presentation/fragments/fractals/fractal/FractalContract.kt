@@ -20,6 +20,8 @@ interface FractalContract {
         fun showCachedFractalResult(result: FractalResult, scaleChange: Float)
 
         fun scaleCurrentFractalImage(scale: Float)
+
+        fun openHandbook()
     }
 
     interface PresenterContract : IBasePresenter<ViewContract> {

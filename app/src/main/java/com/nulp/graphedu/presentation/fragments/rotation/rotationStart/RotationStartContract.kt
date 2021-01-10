@@ -9,12 +9,14 @@ interface RotationStartContract {
         fun showHexagonCreationFragment()
 
         fun openRotationScreen(x: Float, y: Float)
+
+        fun openHandbook()
     }
 
     interface PresentationContract : IBasePresenter<ViewContract> {
-        fun onHandbookClicked()
+        fun createHexagon()
+        fun setHexagonParams(x: Float, y: Float)
 
-        fun onCreateClicked()
-        fun onCoordinatesSelected(x: Float, y: Float)
+        fun openHandbook()
     }
 }

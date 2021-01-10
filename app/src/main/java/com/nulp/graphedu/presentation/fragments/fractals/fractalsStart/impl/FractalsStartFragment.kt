@@ -8,6 +8,9 @@ import com.nulp.graphedu.presentation.fragments.fractals.fractal.impl.FractalsFr
 import com.nulp.graphedu.presentation.fragments.fractals.fractal.models.FractalParams
 import com.nulp.graphedu.presentation.fragments.fractals.fractalsStart.FractalsStartContract.PresenterContract
 import com.nulp.graphedu.presentation.fragments.fractals.fractalsStart.FractalsStartContract.ViewContract
+import com.nulp.graphedu.presentation.fragments.handbook.container.tab.HandbookTabFractals
+import com.nulp.graphedu.presentation.fragments.menu.HandbookContainer
+import com.nulp.graphedu.presentation.utils.parentAsListener
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ClickableMenuItem
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ToolbarConfigurator
 import kotlinx.android.synthetic.main.fragment_fractal_start.*
@@ -33,14 +36,18 @@ class FractalsStartFragment : BaseFragment<PresenterContract>(R.layout.fragment_
             .withNavigationButton(false)
             .setTitle(getString(R.string.fractals_screen_toolbar_title))
             .setMenuId(R.menu.menu_with_handbook)
-            .addClickableItem(ClickableMenuItem(R.id.buttonHandbook) { presenter.onHandbookClicked() })
+            .addClickableItem(ClickableMenuItem(R.id.buttonHandbook) { presenter.openHandbook() })
             .applyToToolbar(toolbar)
 
-        layoutContent.setOnClickListener { presenter.onCreateClicked() }
+        layoutContent.setOnClickListener { presenter.createFractal() }
     }
 
     override fun showFragmentCreationDialog() {
-        CreateFractalDialog.newInstance().show(childFragmentManager, "as")
+        CreateFractalDialog.newInstance().show(childFragmentManager, null)
+    }
+
+    override fun openHandbook() {
+        parentAsListener<HandbookContainer>().requestOpenHandbook(HandbookTabFractals)
     }
 
     override fun onCreateConfirmed(creationParams: CreateFractalContract.IFractalCreationResultParams) {

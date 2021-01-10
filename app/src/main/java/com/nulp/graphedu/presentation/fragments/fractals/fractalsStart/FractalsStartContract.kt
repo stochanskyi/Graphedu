@@ -7,11 +7,13 @@ interface FractalsStartContract {
 
     interface ViewContract: IBaseFragment {
         fun showFragmentCreationDialog()
+
+        fun openHandbook()
     }
 
     interface PresenterContract: IBasePresenter<ViewContract> {
-        fun onHandbookClicked()
+        fun createFractal()
 
-        fun onCreateClicked()
+        fun openHandbook()
     }
 }

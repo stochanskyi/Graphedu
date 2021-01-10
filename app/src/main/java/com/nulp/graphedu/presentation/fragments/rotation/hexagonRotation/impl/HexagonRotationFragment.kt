@@ -7,10 +7,14 @@ import com.nulp.graphedu.R
 import com.nulp.graphedu.presentation.common.mvp.BaseFragment
 import com.nulp.graphedu.presentation.dialogs.tutorial.TutorialContract
 import com.nulp.graphedu.presentation.dialogs.tutorial.impl.TutorialDialog
+import com.nulp.graphedu.presentation.fragments.handbook.container.tab.HandbookTabFractals
+import com.nulp.graphedu.presentation.fragments.handbook.container.tab.HandbookTabRotation
+import com.nulp.graphedu.presentation.fragments.menu.HandbookContainer
 import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.HexagonRotationContract
 import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.HexagonRotationContract.PresenterContract
 import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.HexagonRotationContract.ViewContract
 import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.adapter.HexagonPointsAdapter
+import com.nulp.graphedu.presentation.utils.parentAsListener
 import com.nulp.graphedu.presentation.views.affine.figure.FigureRenderer
 import com.nulp.graphedu.presentation.views.affine.figure.FigureRendererData
 import com.nulp.graphedu.presentation.views.scroller.setScrollerListener
@@ -65,7 +69,7 @@ class HexagonRotationFragment : BaseFragment<PresenterContract>(R.layout.fragmen
             .setNavigationClickListener { close() }
             .setTitle(getString(R.string.image_edit_screen_toolbar_title))
             .setMenuId(R.menu.menu_with_handbook)
-            .addClickableItem(ClickableMenuItem(R.id.buttonHandbook) { presenter.onHandbookClicked() })
+            .addClickableItem(ClickableMenuItem(R.id.buttonHandbook) { presenter.openHandbook() })
             .applyToToolbar(toolbar)
 
         buttonActionRotate.setOnClickListener { presenter.onRotateClicked() }
@@ -124,6 +128,10 @@ class HexagonRotationFragment : BaseFragment<PresenterContract>(R.layout.fragmen
         TutorialDialog.newInstance(message).show(
             childFragmentManager, ROTATION_TUTORIAL_DIALOG
         )
+    }
+
+    override fun openHandbook() {
+        parentAsListener<HandbookContainer>().requestOpenHandbook(HandbookTabRotation)
     }
 
     override fun onTutorialCompleted(tag: String?) {
