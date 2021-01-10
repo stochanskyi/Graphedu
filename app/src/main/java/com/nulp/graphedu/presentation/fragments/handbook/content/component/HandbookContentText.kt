@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.nulp.graphedu.R
 
-class HandbookContentText(
+open class HandbookContentText(
     private val text: CharSequence
 ) : HandbookContentComponent {
 
