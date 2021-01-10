@@ -5,7 +5,6 @@ import android.graphics.Typeface
 import android.view.Gravity
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.core.view.updatePadding
 import com.nulp.graphedu.R
 import com.nulp.graphedu.presentation.utils.dpi
 
@@ -18,14 +17,13 @@ class HandbookContentTitle(
     }
 
     override fun createView(context: Context) = TextView(context).apply {
-        updatePadding(
-            top = context.dpi(8),
-            bottom = context.dpi(4)
-        )
         gravity = Gravity.CENTER_HORIZONTAL
         typeface = Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD)
         textSize = TEXT_SIZE
         setTextColor(ContextCompat.getColor(context, R.color.text_color))
         text = title
     }
+
+    override fun marginTop(context: Context) = context.dpi(8)
+    override fun marginBottom(context: Context) = context.dpi(4)
 }

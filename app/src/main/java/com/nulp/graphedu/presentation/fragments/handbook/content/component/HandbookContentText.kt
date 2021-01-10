@@ -2,7 +2,6 @@ package com.nulp.graphedu.presentation.fragments.handbook.content.component
 
 import android.content.Context
 import android.graphics.Typeface
-import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.nulp.graphedu.R

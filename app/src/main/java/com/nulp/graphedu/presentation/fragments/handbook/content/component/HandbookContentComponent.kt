@@ -7,4 +7,7 @@ interface HandbookContentComponent {
     fun createView(context: Context): View
 
     fun shouldWrapWidth(): Boolean = false
+
+    fun marginTop(context: Context): Int = 0
+    fun marginBottom(context: Context): Int = 0
 }

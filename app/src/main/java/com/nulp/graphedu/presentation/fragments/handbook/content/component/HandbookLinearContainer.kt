@@ -23,20 +23,25 @@ class HandbookLinearContainer(
             nestedComponents.forEach {
                 val view = it.createView(context)
                 if (view.layoutParams == null) {
-                    view.layoutParams = generateLayoutParams(it.shouldWrapWidth())
+                    view.layoutParams = generateLayoutParams(context, it)
                 }
                 addView(view)
             }
         }
     }
 
-    private fun generateLayoutParams(wrapWidth: Boolean): LinearLayout.LayoutParams {
+    private fun generateLayoutParams(
+        context: Context,
+        component: HandbookContentComponent
+    ): LinearLayout.LayoutParams {
         return LinearLayout.LayoutParams(
-            if (wrapWidth) LinearLayout.LayoutParams.WRAP_CONTENT
+            if (component.shouldWrapWidth()) LinearLayout.LayoutParams.WRAP_CONTENT
             else LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         ).apply {
             gravity = Gravity.CENTER_HORIZONTAL
+            topMargin = component.marginTop(context)
+            bottomMargin = component.marginBottom(context)
         }
     }
 }
