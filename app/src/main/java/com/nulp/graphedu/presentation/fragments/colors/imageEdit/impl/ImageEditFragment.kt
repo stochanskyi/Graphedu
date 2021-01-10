@@ -90,7 +90,6 @@ class ImageEditFragment : BaseFragment<PresenterContract>(R.layout.fragment_imag
 
     override fun setSelectedColor(color: Int) {
         viewSelectedColor.background.setTint(color)
-        Color.RED
     }
 
     override fun setSelectedColorText(colorText: String) {

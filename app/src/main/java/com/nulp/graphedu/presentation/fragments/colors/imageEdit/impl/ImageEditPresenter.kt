@@ -75,6 +75,7 @@ class ImageEditPresenter(
                 {
                     view?.setActionsVisible(isVisible = false, animate = false)
                     view?.setSelectedColorVisible(true)
+                    updateSelectedColor()
                 },
                 { view?.handleError(it) }
             )
@@ -148,6 +149,7 @@ class ImageEditPresenter(
 
     private fun changeColorSpace(transformation: ColorTransformation) {
         Single.fromCallable {
+            selectedColor = selectedColor?.transformation()
             container.transform(transformation)
         }
             .observeOnUI()
