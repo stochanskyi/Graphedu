@@ -7,7 +7,6 @@ import com.nulp.graphedu.R
 import com.nulp.graphedu.presentation.common.mvp.BaseFragment
 import com.nulp.graphedu.presentation.dialogs.tutorial.TutorialContract
 import com.nulp.graphedu.presentation.dialogs.tutorial.impl.TutorialDialog
-import com.nulp.graphedu.presentation.fragments.handbook.container.tab.HandbookTabFractals
 import com.nulp.graphedu.presentation.fragments.handbook.container.tab.HandbookTabRotation
 import com.nulp.graphedu.presentation.fragments.menu.HandbookContainer
 import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.HexagonRotationContract
