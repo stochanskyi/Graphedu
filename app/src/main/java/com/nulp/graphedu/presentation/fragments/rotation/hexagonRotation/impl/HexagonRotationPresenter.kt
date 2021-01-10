@@ -12,6 +12,7 @@ import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.Hexagon
 import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.nodels.HexagonPointViewModel
 import com.nulp.graphedu.presentation.views.affine.figure.FigureRendererData
 import java.text.DecimalFormat
+import kotlin.math.absoluteValue
 
 class HexagonRotationPresenter(
     private val hexagonGenerator: HexagonGenerator
@@ -35,13 +36,13 @@ class HexagonRotationPresenter(
         super.onStart()
 
         hexagon = hexagonGenerator.generateHexagon(PointCoordinates(x, y))
-        rotatingPoint = hexagon.hexagonCenter
+        rotatingPoint = hexagon.center
 
         view?.setRotateActionVisible(true)
         view?.setHexagonPointsVisible(false)
         view?.setScrollerVisible(false)
 
-        view?.setHexagon(hexagon.toRenderingData())
+        setHexagonAndCenterView()
     }
 
     override fun onRotateClicked() {
@@ -59,25 +60,25 @@ class HexagonRotationPresenter(
     override fun onRotationTutorialCompleted() {
         view?.setScrollerVisible(true)
         view?.setAngle(0f.formatAsAngle())
-        view?.setHexagon(hexagon.toRenderingData())
+        setHexagonAndCenterView()
     }
 
     override fun onFigureScrolled(angle: Float) {
         view?.setAngle(angle.formatAsAngle())
 
-        val scale = angle / 180f + 1
+        val scale = angle.absoluteValue / 180f + 1
         val transformationBuilder = TransformationBuilder()
             .moveCoordinates(rotatingPoint.x, rotatingPoint.y)
             .rotateObject((Math.toRadians(angle.toDouble())).toFloat())
             .scaleObject(scale, scale)
 
         val vertexesCoordinates = transformationBuilder
-            .take(AffineMatrix.ofCoordinates(hexagon.hexagonPoints.toList()))
+            .take(AffineMatrix.ofCoordinates(hexagon.points.toList()))
             .transform()
             .toCoordinates()
 
         val centerCoordinates = transformationBuilder
-            .take(AffineMatrix.ofCoordinates(hexagon.hexagonCenter))
+            .take(AffineMatrix.ofCoordinates(hexagon.center))
             .transform()
             .toCoordinates()
             .first()
@@ -85,6 +86,7 @@ class HexagonRotationPresenter(
         val newHexagon = Hexagon(centerCoordinates, vertexesCoordinates)
 
         view?.setHexagon(newHexagon.toRenderingData())
+        view?.centerViewToHexagon(newHexagon)
     }
 
     override fun openHandbook() {
@@ -104,8 +106,8 @@ class HexagonRotationPresenter(
 
     private fun Hexagon.toRenderingData(): FigureRendererData {
         return FigureRendererData(
-            hexagonPoints.map { it.toPointF() },
-            hexagonCenter.toPointF(),
+            points.map { it.toPointF() },
+            center.toPointF(),
             rotatingPoint.toPointF()
         )
     }
@@ -116,6 +118,11 @@ class HexagonRotationPresenter(
 
     private fun Float.formatAsAngle(): String {
         return angleFormatter.format(this)
+    }
+
+    private fun setHexagonAndCenterView() {
+        view?.setHexagon(hexagon.toRenderingData())
+        view?.centerViewToHexagon(hexagon)
     }
 
 }

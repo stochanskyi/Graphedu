@@ -38,6 +38,24 @@ class AffineView @JvmOverloads constructor(
         setWillNotDraw(false)
     }
 
+    fun setLocalScale(scale: Float) {
+        localScale = scale
+        renderers.forEach { it.setScale(scale) }
+        invalidate()
+    }
+
+    fun setLocalTranslateX(translateX: Float) {
+        localTranslateX = translateX
+        renderers.forEach { it.setTranslateX(translateX) }
+        invalidate()
+    }
+
+    fun setLocalTranslateY(translateY: Float) {
+        localTranslateY = translateY
+        renderers.forEach { it.setTranslateY(translateY) }
+        invalidate()
+    }
+
     override fun addRenderer(renderer: AffineRenderer) {
         with(renderer) {
             setSize(width, height)

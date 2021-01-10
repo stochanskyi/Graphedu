@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nulp.graphedu.R
+import com.nulp.graphedu.hexagonRotation.hexagon.models.Hexagon
 import com.nulp.graphedu.presentation.common.mvp.BaseFragment
 import com.nulp.graphedu.presentation.dialogs.tutorial.TutorialContract
 import com.nulp.graphedu.presentation.dialogs.tutorial.impl.TutorialDialog
@@ -16,6 +17,7 @@ import com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation.adapter
 import com.nulp.graphedu.presentation.utils.parentAsListener
 import com.nulp.graphedu.presentation.views.affine.figure.FigureRenderer
 import com.nulp.graphedu.presentation.views.affine.figure.FigureRendererData
+import com.nulp.graphedu.presentation.views.affine.grid.GridPositioner
 import com.nulp.graphedu.presentation.views.scroller.setScrollerListener
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ClickableMenuItem
 import com.nulp.graphedu.presentation.views.toolbarConfigurator.ToolbarConfigurator
@@ -113,6 +115,13 @@ class HexagonRotationFragment : BaseFragment<PresenterContract>(R.layout.fragmen
     override fun setHexagon(data: FigureRendererData) {
         shapeRenderer.setFigure(data)
         affineView.invalidate()
+    }
+
+    override fun centerViewToHexagon(hexagon: Hexagon) {
+        affineView.post {
+            GridPositioner(hexagon.center.x, hexagon.center.y, hexagon.radius)
+                .position(affineView)
+        }
     }
 
     override fun showVertexSelectionTutorial() {

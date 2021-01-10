@@ -9,7 +9,7 @@ import kotlin.math.sin
 class HexagonGeneratorImpl : HexagonGenerator {
 
     companion object {
-        private const val DEFAULT_HEXAGON_RADIUS = 50
+        private const val DEFAULT_HEXAGON_RADIUS = 10f
     }
 
     override fun generateHexagon(centerCoordinates: PointCoordinates): Hexagon {

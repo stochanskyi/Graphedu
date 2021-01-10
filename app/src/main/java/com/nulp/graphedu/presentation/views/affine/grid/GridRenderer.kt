@@ -20,10 +20,12 @@ class GridRenderer(
         AffineGridAxesRenderer(context),
     )
 
-    private val defaultSegmentSize = context.dp(DEFAULT_SEGMENT_SIZE)
+    val defaultSegmentSize = context.dp(DEFAULT_SEGMENT_SIZE)
 
-    private var currentSegmentSize = defaultSegmentSize
-    private var currentSegmentValue = 1f
+    var currentSegmentSize = defaultSegmentSize
+        private set
+    var currentSegmentValue = 1f
+        private set
 
     init {
         renderers.forEach { it.initDefaultSegmentSize(defaultSegmentSize) }

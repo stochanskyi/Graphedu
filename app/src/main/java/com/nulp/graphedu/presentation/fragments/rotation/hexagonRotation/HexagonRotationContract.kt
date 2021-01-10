@@ -1,5 +1,6 @@
 package com.nulp.graphedu.presentation.fragments.rotation.hexagonRotation
 
+import com.nulp.graphedu.hexagonRotation.hexagon.models.Hexagon
 import com.nulp.graphedu.presentation.common.mvp.IBaseFragment
 import com.nulp.graphedu.presentation.common.mvp.IBasePresenter
 import com.nulp.graphedu.presentation.views.affine.figure.FigureRendererData
@@ -15,6 +16,7 @@ interface HexagonRotationContract {
 
         fun setAngle(angle: String)
         fun setHexagon(data: FigureRendererData)
+        fun centerViewToHexagon(hexagon: Hexagon)
 
         fun showVertexSelectionTutorial()
         fun showRotationTutorial()

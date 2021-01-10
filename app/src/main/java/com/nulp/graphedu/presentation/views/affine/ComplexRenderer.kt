@@ -16,18 +16,22 @@ abstract class ComplexRenderer<T: AffineRenderer>: BaseRenderer(), RenderersCont
     }
 
     override fun setSize(width: Int, height: Int) {
+        super.setSize(width, height)
         renderers.forEach { it.setSize(width, height) }
     }
 
     override fun setScale(scale: Float) {
+        super.setScale(scale)
         renderers.forEach { it.setScale(scale) }
     }
 
     override fun setTranslateX(translateX: Float) {
+        super.setTranslateX(translateX)
         renderers.forEach { it.setTranslateX(translateX) }
     }
 
     override fun setTranslateY(translateY: Float) {
+        super.setTranslateY(translateY)
         renderers.forEach { it.setTranslateY(translateY) }
     }
 
