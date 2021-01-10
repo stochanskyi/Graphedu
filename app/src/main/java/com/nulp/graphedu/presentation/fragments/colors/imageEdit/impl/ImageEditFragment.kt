@@ -12,6 +12,8 @@ import com.nulp.graphedu.presentation.dialogs.colorsSpaceSelection.ColorsSpaceSe
 import com.nulp.graphedu.presentation.dialogs.colorsSpaceSelection.impl.ColorsSpaceSelectionDialog
 import com.nulp.graphedu.presentation.dialogs.lighnessPicker.HSLColorPickerDialog
 import com.nulp.graphedu.presentation.dialogs.lighnessPicker.HSLColorPickerListener
+import com.nulp.graphedu.presentation.dialogs.tutorial.TutorialContract
+import com.nulp.graphedu.presentation.dialogs.tutorial.impl.TutorialDialog
 import com.nulp.graphedu.presentation.fragments.colors.colorsSelection.ColorsSelectionContract
 import com.nulp.graphedu.presentation.fragments.colors.colorsSelection.impl.ColorsSelectionFragment
 import com.nulp.graphedu.presentation.fragments.colors.imageEdit.ImageEditContract.PresenterContract
@@ -32,9 +34,11 @@ class ImageEditFragment : BaseFragment<PresenterContract>(R.layout.fragment_imag
     ColorsSelectionContract.ColorsSelectionParent,
     ColorsSpaceSelectionContract.ColorsSpaceSelectionParent,
     HSLColorPickerListener,
-    ImageBoundsSelectionListener {
+    ImageBoundsSelectionListener, TutorialContract.TutorialParent {
 
     companion object {
+        private const val TUTORIAL_DIALOG = "dialog_tutorial"
+
         private const val IMAGE_KEY = "key_image"
 
         fun newInstance(image: Uri): ImageEditFragment = ImageEditFragment().apply {
@@ -138,6 +142,11 @@ class ImageEditFragment : BaseFragment<PresenterContract>(R.layout.fragment_imag
         parentAsListener<HandbookContainer>().requestOpenHandbook(HandbookTabColors)
     }
 
+    override fun showTutorial() {
+        TutorialDialog.newInstance(getString(R.string.tutorial_select_color))
+            .show(childFragmentManager, TUTORIAL_DIALOG)
+    }
+
     override fun onColorSelected(color: PixelColor) {
         presenter.onColorSelected(color)
     }
@@ -160,5 +169,9 @@ class ImageEditFragment : BaseFragment<PresenterContract>(R.layout.fragment_imag
 
     override fun handleImageBoundsSelected(bounds: ImageBounds) {
         presenter.handleImageBoundsSelected(bounds)
+    }
+
+    override fun onTutorialCompleted(tag: String?) {
+        if (tag == TUTORIAL_DIALOG) presenter.onTutorialCompleted()
     }
 }

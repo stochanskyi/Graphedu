@@ -61,7 +61,7 @@ class ImageEditPresenter(
     }
 
     override fun onActionChangeColorClicked() {
-        view?.selectImageBounds()
+        view?.showTutorial()
     }
 
     override fun onActionChangeColorSpaceClicked() {
@@ -109,6 +109,10 @@ class ImageEditPresenter(
 
     override fun onTransformToHsl() {
         changeColorSpace { toHsl() }
+    }
+
+    override fun onTutorialCompleted() {
+        view?.selectImageBounds()
     }
 
     override fun openHandbook() {

@@ -32,6 +32,8 @@ import com.nulp.graphedu.presentation.fragments.fractals.imageBoundsSelector.Ima
         fun setBitmap(bitmap: Bitmap)
 
         fun openHandbook()
+
+        fun showTutorial()
     }
 
     interface PresenterContract : IBasePresenter<ViewContract> {
@@ -53,6 +55,8 @@ import com.nulp.graphedu.presentation.fragments.fractals.imageBoundsSelector.Ima
 
         fun onTransformToRgb()
         fun onTransformToHsl()
+
+        fun onTutorialCompleted()
 
         fun openHandbook()
     }

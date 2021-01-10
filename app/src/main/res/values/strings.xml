@@ -40,6 +40,7 @@
     <string name="image_edit_screen_toolbar_title">Image</string>
     <string name="action_title_change_image_color">Change image color</string>
     <string name="action_title_change_image_color_space">Change image color space</string>
+    <string name="tutorial_select_color">To begin with, you need to select a color from image palette</string>
 
     <!--Space Selection Screen-->
     <string name="actionToRgb">to RGB</string>
