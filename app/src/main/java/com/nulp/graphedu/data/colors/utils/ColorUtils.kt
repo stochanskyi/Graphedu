@@ -13,7 +13,7 @@ fun PixelColor.toAndroidColor(): Int {
 fun Int.toRGBColor(): RgbPixelColor {
     return RgbPixelColor(
         Color.red(this),
-        Color.blue(this),
-        Color.green(this)
+        Color.green(this),
+        Color.blue(this)
     )
 }
