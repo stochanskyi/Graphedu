@@ -9,6 +9,7 @@ class HexagonCreationPresenter : BasePresenter<ViewContract>(), PresenterContrac
 
     private var x: Float = 0f
     private var y: Float = 0f
+    private var radius: Float = 10f
 
     override fun init(listener: HexagonCreationParent) {
         this.listener = listener
@@ -19,6 +20,7 @@ class HexagonCreationPresenter : BasePresenter<ViewContract>(), PresenterContrac
 
         view?.setXHint(x.toString())
         view?.setYHint(y.toString())
+        view?.setRadiusHint(radius.toString())
     }
 
     override fun onXChanged(x: String) {
@@ -29,8 +31,12 @@ class HexagonCreationPresenter : BasePresenter<ViewContract>(), PresenterContrac
         this.y = y.toFloat()
     }
 
+    override fun onRadiusChanged(radius: String) {
+        this.radius = radius.toFloat()
+    }
+
     override fun onConfirmClicked() {
-        listener.onHexagonCoordinatesSelected(x, y)
+        listener.onHexagonCoordinatesSelected(x, y, radius)
         view?.close()
     }
 

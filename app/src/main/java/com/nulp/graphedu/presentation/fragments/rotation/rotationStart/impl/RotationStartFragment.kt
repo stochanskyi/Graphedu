@@ -48,10 +48,10 @@ class RotationStartFragment :
             .show(childFragmentManager, CREATE_HEXAGON_DIALOG)
     }
 
-    override fun openRotationScreen(x: Float, y: Float) {
+    override fun openRotationScreen(x: Float, y: Float, radius: Float) {
         childFragmentManager.beginTransaction()
             .addToBackStack(null)
-            .add(fragmentContainer.id, HexagonRotationFragment.newInstance(x, y))
+            .add(fragmentContainer.id, HexagonRotationFragment.newInstance(x, y, radius))
             .commit()
     }
 
@@ -59,7 +59,7 @@ class RotationStartFragment :
         parentAsListener<HandbookContainer>().requestOpenHandbook(HandbookTabRotation)
     }
 
-    override fun onHexagonCoordinatesSelected(x: Float, y: Float) {
-        presenter.setHexagonParams(x, y)
+    override fun onHexagonCoordinatesSelected(x: Float, y: Float, radius: Float) {
+        presenter.setHexagonParams(x, y, radius)
     }
 }

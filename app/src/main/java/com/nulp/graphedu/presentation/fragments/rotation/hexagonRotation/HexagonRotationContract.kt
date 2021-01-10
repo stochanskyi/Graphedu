@@ -25,7 +25,7 @@ interface HexagonRotationContract {
     }
 
     interface PresenterContract : IBasePresenter<ViewContract> {
-        fun init(x: Float, y: Float)
+        fun init(x: Float, y: Float, radius: Float)
 
         fun onRotateClicked()
 

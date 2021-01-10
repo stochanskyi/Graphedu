@@ -9,8 +9,8 @@ class RotationStartPresenter : BasePresenter<ViewContract>(), PresentationContra
         view?.showHexagonCreationFragment()
     }
 
-    override fun setHexagonParams(x: Float, y: Float) {
-        view?.openRotationScreen(x, y)
+    override fun setHexagonParams(x: Float, y: Float, radius: Float) {
+        view?.openRotationScreen(x, y, radius)
     }
 
     override fun openHandbook() {

@@ -8,22 +8,18 @@ import kotlin.math.sin
 
 class HexagonGeneratorImpl : HexagonGenerator {
 
-    companion object {
-        private const val DEFAULT_HEXAGON_RADIUS = 10f
-    }
-
-    override fun generateHexagon(centerCoordinates: PointCoordinates): Hexagon {
+    override fun generateHexagon(centerCoordinates: PointCoordinates, radius: Float): Hexagon {
         val vertexes: MutableList<PointCoordinates> = mutableListOf()
         for (i in 0 until 6) {
-            vertexes += calculateVertexCoordinates(centerCoordinates, i)
+            vertexes += calculateVertexCoordinates(centerCoordinates, radius, i)
         }
 
         return Hexagon(centerCoordinates, vertexes)
     }
 
-    private fun calculateVertexCoordinates(center: PointCoordinates, vertexIndex: Int): PointCoordinates {
-        val x = center.x + DEFAULT_HEXAGON_RADIUS * sin((2 * PI * vertexIndex) / 6).toFloat()
-        val y = center.y + DEFAULT_HEXAGON_RADIUS * cos((2 * PI * vertexIndex) / 6).toFloat()
+    private fun calculateVertexCoordinates(center: PointCoordinates, radius: Float, vertexIndex: Int): PointCoordinates {
+        val x = center.x + radius * sin((2 * PI * vertexIndex) / 6).toFloat()
+        val y = center.y + radius * cos((2 * PI * vertexIndex) / 6).toFloat()
 
         return PointCoordinates(x, y)
     }

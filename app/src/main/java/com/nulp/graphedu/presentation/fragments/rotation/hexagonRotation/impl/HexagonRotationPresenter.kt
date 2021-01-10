@@ -22,20 +22,22 @@ class HexagonRotationPresenter(
 
     private var x: Float = 0f
     private var y: Float = 0f
+    private var radius: Float = 0f
 
     private lateinit var rotatingPoint: PointCoordinates
 
     private lateinit var hexagon: Hexagon
 
-    override fun init(x: Float, y: Float) {
+    override fun init(x: Float, y: Float, radius: Float) {
         this.x = x
         this.y = y
+        this.radius = radius
     }
 
     override fun onStart() {
         super.onStart()
 
-        hexagon = hexagonGenerator.generateHexagon(PointCoordinates(x, y))
+        hexagon = hexagonGenerator.generateHexagon(PointCoordinates(x, y), radius)
         rotatingPoint = hexagon.center
 
         view?.setRotateActionVisible(true)

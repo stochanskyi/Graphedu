@@ -37,12 +37,14 @@ class HexagonRotationFragment : BaseFragment<PresenterContract>(R.layout.fragmen
 
         private const val COORDINATE_X_KEY = "key_coordinate_x"
         private const val COORDINATE_Y_KEY = "key_coordinate_y"
+        private const val RADIUS_KEY = "key_radius"
 
-        fun newInstance(x: Float, y: Float): HexagonRotationFragment {
+        fun newInstance(x: Float, y: Float, radius: Float): HexagonRotationFragment {
             return HexagonRotationFragment().apply {
                 arguments = Bundle().apply {
                     putFloat(COORDINATE_X_KEY, x)
                     putFloat(COORDINATE_Y_KEY, y)
+                    putFloat(RADIUS_KEY, radius)
                 }
             }
         }
@@ -54,7 +56,10 @@ class HexagonRotationFragment : BaseFragment<PresenterContract>(R.layout.fragmen
         presenter.view = this
 
         arguments?.let {
-            presenter.init(it.getFloat(COORDINATE_X_KEY), it.getFloat(COORDINATE_Y_KEY))
+            presenter.init(
+                it.getFloat(COORDINATE_X_KEY),
+                it.getFloat(COORDINATE_Y_KEY),
+                it.getFloat(RADIUS_KEY))
         }
     }
 

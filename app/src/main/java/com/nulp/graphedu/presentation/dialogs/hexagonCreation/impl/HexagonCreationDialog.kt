@@ -42,9 +42,11 @@ class HexagonCreationDialog : BaseDialog<PresenterContract>(), ViewContract {
 
         inputCoordinateX.filters += DecimalDigitsInputFilter(2, 2)
         inputCoordinateY.filters += DecimalDigitsInputFilter(2, 2)
+        inputRadius.filters += DecimalDigitsInputFilter(2, 2)
 
         inputCoordinateX.doAfterTextChanged { presenter.onXChanged(it.toString()) }
         inputCoordinateY.doAfterTextChanged { presenter.onYChanged(it.toString()) }
+        inputRadius.doAfterTextChanged { presenter.onRadiusChanged(it.toString()) }
     }
 
     override fun setXHint(hint: String) {
@@ -53,5 +55,9 @@ class HexagonCreationDialog : BaseDialog<PresenterContract>(), ViewContract {
 
     override fun setYHint(hint: String) {
         inputCoordinateY.hint = hint
+    }
+
+    override fun setRadiusHint(hint: String) {
+        inputRadius.hint = hint
     }
 }

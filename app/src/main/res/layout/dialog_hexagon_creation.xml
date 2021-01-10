@@ -118,6 +118,45 @@
         app:barrierDirection="bottom"
         app:constraint_referenced_ids="textTitleCoordinateX, textTitleCoordinateY, inputCoordinateX, inputCoordinateY" />
 
+    <TextView
+        android:id="@+id/textTitleRadius"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@color/text_color"
+        android:text="@string/hexagon_creation_radius"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/inputRadius"
+        app:layout_constraintTop_toTopOf="@id/inputRadius"
+        app:layout_constraintBottom_toBottomOf="@id/inputRadius"/>
+
+    <EditText
+        android:id="@+id/inputRadius"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:padding="5dp"
+        android:background="@drawable/bg_stroke_rounded"
+        android:backgroundTint="@color/text_hint_color"
+        android:inputType="numberSigned|numberDecimal"
+        android:textColor="@color/text_color"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:hint="10.5"
+        app:layout_constraintTop_toBottomOf="@id/barrierCoordinatesInputBottom"
+        app:layout_constraintStart_toEndOf="@id/textTitleRadius"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrierRadiusInputBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="textTitleRadius, inputRadius" />
+
     <Button
         style="@style/ActionButton.ActionButtonNegative"
         android:id="@+id/buttonNegative"
@@ -126,7 +165,7 @@
         android:layout_marginTop="29dp"
         android:text="@string/hexagon_creation_action_negative"
         app:layout_constraintWidth_percent="0.45"
-        app:layout_constraintTop_toBottomOf="@id/barrierCoordinatesInputBottom"
+        app:layout_constraintTop_toBottomOf="@id/barrierRadiusInputBottom"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -137,7 +176,7 @@
         android:layout_marginTop="29dp"
         android:text="@string/hexagon_creation_action_positive"
         app:layout_constraintWidth_percent="0.45"
-        app:layout_constraintTop_toBottomOf="@id/barrierCoordinatesInputBottom"
+        app:layout_constraintTop_toBottomOf="@id/barrierRadiusInputBottom"
         app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

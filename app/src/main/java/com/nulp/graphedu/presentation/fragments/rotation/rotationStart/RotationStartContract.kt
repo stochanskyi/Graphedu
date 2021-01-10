@@ -8,14 +8,14 @@ interface RotationStartContract {
     interface ViewContract : IBaseFragment {
         fun showHexagonCreationFragment()
 
-        fun openRotationScreen(x: Float, y: Float)
+        fun openRotationScreen(x: Float, y: Float, radius: Float)
 
         fun openHandbook()
     }
 
     interface PresentationContract : IBasePresenter<ViewContract> {
         fun createHexagon()
-        fun setHexagonParams(x: Float, y: Float)
+        fun setHexagonParams(x: Float, y: Float, radius: Float)
 
         fun openHandbook()
     }

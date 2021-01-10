@@ -7,6 +7,7 @@ class HexagonCreationContract {
     interface ViewContract: IBaseDialog {
         fun setXHint(hint: String)
         fun setYHint(hint: String)
+        fun setRadiusHint(hint: String)
     }
 
     interface PresenterContract : IBasePresenter<ViewContract> {
@@ -15,11 +16,12 @@ class HexagonCreationContract {
 
         fun onXChanged(x: String)
         fun onYChanged(y: String)
+        fun onRadiusChanged(radius: String)
 
         fun onConfirmClicked()
     }
 
     interface HexagonCreationParent {
-        fun onHexagonCoordinatesSelected(x: Float, y: Float)
+        fun onHexagonCoordinatesSelected(x: Float, y: Float, radius: Float)
     }
 }

@@ -58,6 +58,7 @@
     <string name="message_hexagon_creation">Select the hexagon center</string>
     <string name="hexagon_creation_coordinate_x" translatable="false">x</string>
     <string name="hexagon_creation_coordinate_y" translatable="false">y</string>
+    <string name="hexagon_creation_radius">Radius</string>
     <string name="hexagon_creation_action_positive">Confirm</string>
     <string name="hexagon_creation_action_negative">Cancel</string>
 
