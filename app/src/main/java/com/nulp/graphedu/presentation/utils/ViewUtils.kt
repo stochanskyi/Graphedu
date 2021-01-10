@@ -17,12 +17,12 @@ fun View.setTint(@ColorInt tintColor: Int) {
 
 @Suppress("UNCHECKED_CAST")
 inline fun <reified T> Fragment.parentAsListener(): T {
-    if (activity is T) return activity as T
     var parentFragmentListener = parentFragment
     while (parentFragmentListener != null) {
         if (parentFragmentListener is T) return parentFragmentListener
         parentFragmentListener = parentFragmentListener.parentFragment
     }
+    if (activity is T) return activity as T
     throw IllegalStateException("${this::class.simpleName} does not have parent, who implements T")
 }
 
