@@ -61,6 +61,8 @@ class HandbookContainerFragment : BaseFragment<HandbookContainerContract.Present
     }
 
     override fun setTab(tab: HandbookTab) {
-        viewPager.currentItem = tabs.indexOf(tab)
+        viewPager.post {
+            viewPager?.currentItem = tabs.indexOf(tab)
+        }
     }
 }
