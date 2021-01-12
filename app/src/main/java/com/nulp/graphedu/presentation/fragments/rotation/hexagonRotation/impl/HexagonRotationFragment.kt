@@ -73,7 +73,7 @@ class HexagonRotationFragment : BaseFragment<PresenterContract>(R.layout.fragmen
     override fun initViews() {
         ToolbarConfigurator()
             .setNavigationClickListener { close() }
-            .setTitle(getString(R.string.image_edit_screen_toolbar_title))
+            .setTitle(getString(R.string.rotation_screen_toolbar_title))
             .setMenuId(R.menu.menu_with_handbook)
             .addClickableItem(ClickableMenuItem(R.id.buttonHandbook) { presenter.openHandbook() })
             .applyToToolbar(toolbar)
