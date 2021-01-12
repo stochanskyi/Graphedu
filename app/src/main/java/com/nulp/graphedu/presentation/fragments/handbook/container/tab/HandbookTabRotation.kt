@@ -2,6 +2,7 @@ package com.nulp.graphedu.presentation.fragments.handbook.container.tab
 
 import com.nulp.graphedu.R
 import com.nulp.graphedu.presentation.fragments.handbook.content.data.HandbookContent
+import com.nulp.graphedu.presentation.fragments.handbook.content.data.HandbookContentRotation
 import com.nulp.graphedu.presentation.fragments.handbook.content.data.HandbookContentTest
 import kotlinx.android.parcel.Parcelize
 
@@ -12,5 +13,5 @@ object HandbookTabRotation : HandbookTab {
 
     override fun provideTitleRes(): Int = R.string.navigation_item_rotation
 
-    override fun provideContent(): HandbookContent = HandbookContentTest()
+    override fun provideContent(): HandbookContent = HandbookContentRotation()
 }
